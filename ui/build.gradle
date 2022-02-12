@@ -51,6 +51,7 @@ dependencies {
     implementation libs.androidx.navigation.compose
     implementation libs.androidx.lifecycle.runtime
     implementation libs.androidx.lifecycle.viewmodel
+    implementation libs.androidx.hilt.navigationCompose
 
     implementation libs.androidx.compose.ui
     implementation libs.androidx.compose.foundation

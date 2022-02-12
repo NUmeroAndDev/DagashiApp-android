@@ -37,8 +37,7 @@ buildscript {
                         ],
 
                         hilt      : [
-                                compiler             : "androidx.hilt:hilt-compiler:1.0.0",
-                                hiltNavigationCompose: "androidx.hilt:hilt-navigation-compose:1.0.0"
+                                navigationCompose: "androidx.hilt:hilt-navigation-compose:1.0.0"
                         ],
 
                         compose   : [

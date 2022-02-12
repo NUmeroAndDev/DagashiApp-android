@@ -6,6 +6,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -13,31 +15,23 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import jp.numero.dagashiapp.model.Milestone
 import jp.numero.dagashiapp.model.MilestoneList
 
 @Composable
 fun MilestoneListScreen() {
-    // TODO: Impl viewModel
+    val viewModel: MilestoneListViewModel = hiltViewModel()
+    val uiState by viewModel.uiState.collectAsState()
     MilestoneListScreen(
-        milestoneList = MilestoneList(
-            (0..21).map {
-                Milestone(
-                    id = it.toString(),
-                    number = 100 + it,
-                    description = "Description",
-                    path = "",
-                    closedAd = "2020-09-13"
-                )
-            }
-        )
+        uiState = uiState
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MilestoneListScreen(
-    milestoneList: MilestoneList
+    uiState: UiState<MilestoneList>
 ) {
     val scrollBehavior = remember { TopAppBarDefaults.pinnedScrollBehavior() }
     Scaffold(
@@ -50,12 +44,22 @@ fun MilestoneListScreen(
                 scrollBehavior = scrollBehavior
             )
         },
-        content = {
-            MilestoneListContent(
-                milestoneList = milestoneList,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(it)
+        content = { innerPadding ->
+            uiState.onState(
+                loading = {
+                    // TODO: impl show loading screen
+                },
+                loadSucceed = {
+                    MilestoneListContent(
+                        milestoneList = it,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(innerPadding)
+                    )
+                },
+                loadFailed = {
+                    // TODO: impl show error message
+                }
             )
         },
     )
