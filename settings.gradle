@@ -5,6 +5,7 @@ pluginManagement {
         mavenCentral()
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -12,5 +13,13 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
 rootProject.name = "DagashiApp"
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 include ':app'
+include ':ui'
+include ':repository'
+include ':model'
+include ':data'
