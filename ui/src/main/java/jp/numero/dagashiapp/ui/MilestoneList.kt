@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import jp.numero.dagashiapp.model.Milestone
 import jp.numero.dagashiapp.model.MilestoneList
+import jp.numero.dagashiapp.ui.component.FullScreenLoadingIndicator
 
 @Composable
 fun MilestoneListScreen() {
@@ -47,7 +48,9 @@ fun MilestoneListScreen(
         content = { innerPadding ->
             uiState.onState(
                 loading = {
-                    // TODO: impl show loading screen
+                    FullScreenLoadingIndicator(
+                        modifier = Modifier.padding(innerPadding)
+                    )
                 },
                 loadSucceed = {
                     MilestoneListContent(
