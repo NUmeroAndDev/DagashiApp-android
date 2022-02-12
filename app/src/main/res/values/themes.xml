@@ -2,4 +2,8 @@
 <resources>
 
     <style name="Theme.DagashiApp" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.DagashiApp.Starting" parent="Theme.SplashScreen">
+        <item name="postSplashScreenTheme">@style/Theme.DagashiApp</item>
+    </style>
 </resources>
