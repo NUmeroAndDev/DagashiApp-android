@@ -16,6 +16,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import jp.numero.dagashiapp.model.Milestone
 import jp.numero.dagashiapp.model.MilestoneList
 import jp.numero.dagashiapp.ui.component.FullScreenLoadingIndicator
@@ -25,14 +27,18 @@ fun MilestoneListScreen() {
     val viewModel: MilestoneListViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
     MilestoneListScreen(
-        uiState = uiState
+        uiState = uiState,
+        onRefresh = {
+            viewModel.refresh()
+        }
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MilestoneListScreen(
-    uiState: UiState<MilestoneList>
+    uiState: UiState<MilestoneList>,
+    onRefresh: () -> Unit,
 ) {
     val scrollBehavior = remember { TopAppBarDefaults.pinnedScrollBehavior() }
     Scaffold(
@@ -46,24 +52,31 @@ fun MilestoneListScreen(
             )
         },
         content = { innerPadding ->
-            uiState.onState(
-                loading = {
-                    FullScreenLoadingIndicator(
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                },
-                loadSucceed = {
-                    MilestoneListContent(
-                        milestoneList = it,
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(innerPadding)
-                    )
-                },
-                loadFailed = {
-                    // TODO: impl show error message
-                }
-            )
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+            ) {
+                uiState.onState(
+                    loading = {
+                        FullScreenLoadingIndicator()
+                    },
+                    loadSucceed = {
+                        SwipeRefresh(
+                            state = rememberSwipeRefreshState(isRefreshing = uiState.isRefreshing),
+                            onRefresh = onRefresh,
+                        ) {
+                            MilestoneListContent(
+                                milestoneList = it,
+                                modifier = Modifier.fillMaxSize()
+                            )
+                        }
+                    },
+                    loadFailed = {
+                        // TODO: impl show error message
+                    }
+                )
+            }
         },
     )
 }

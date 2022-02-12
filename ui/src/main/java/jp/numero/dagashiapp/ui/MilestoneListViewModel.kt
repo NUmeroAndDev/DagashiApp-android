@@ -23,7 +23,7 @@ class MilestoneListViewModel @Inject constructor(
     }
 
     fun refresh() {
-        // TODO: impl refresh
+        load(isRefresh = true)
     }
 
     fun loadMore() {
