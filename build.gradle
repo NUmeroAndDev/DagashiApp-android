@@ -71,7 +71,7 @@ buildscript {
                         insets            : "com.google.accompanist:accompanist-insets:$versions.accompanist",
                         insetsUi          : "com.google.accompanist:accompanist-insets-ui:$versions.accompanist",
                         placeholder       : "com.google.accompanist:accompanist-placeholder:$versions.accompanist",
-                        systemUIController: "com.google.accompanist:accompanist-systemuicontroller:$versions.accompanist",
+                        systemUiController: "com.google.accompanist:accompanist-systemuicontroller:$versions.accompanist",
                         swipeRefresh      : "com.google.accompanist:accompanist-swiperefresh:$versions.accompanist",
                 ],
         ]

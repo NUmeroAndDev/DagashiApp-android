@@ -16,11 +16,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.accompanist.insets.LocalWindowInsets
+import com.google.accompanist.insets.rememberInsetsPaddingValues
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import jp.numero.dagashiapp.model.Milestone
 import jp.numero.dagashiapp.model.MilestoneList
 import jp.numero.dagashiapp.ui.component.FullScreenLoadingIndicator
+import jp.numero.dagashiapp.ui.component.TopAppBar
 
 @Composable
 fun MilestoneListScreen() {
@@ -44,10 +47,15 @@ fun MilestoneListScreen(
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            CenterAlignedTopAppBar(
+            TopAppBar(
                 title = {
                     Text(text = stringResource(id = R.string.app_name))
                 },
+                isCenterAlignedTitle = true,
+                contentPadding = rememberInsetsPaddingValues(
+                    LocalWindowInsets.current.statusBars,
+                    applyBottom = false,
+                ),
                 scrollBehavior = scrollBehavior
             )
         },
@@ -87,7 +95,11 @@ fun MilestoneListContent(
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
-        modifier = modifier
+        modifier = modifier,
+        contentPadding = rememberInsetsPaddingValues(
+            insets = LocalWindowInsets.current.systemBars,
+            applyTop = false
+        )
     ) {
         items(
             items = milestoneList.value,

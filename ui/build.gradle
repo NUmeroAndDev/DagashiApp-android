@@ -64,6 +64,7 @@ dependencies {
     implementation libs.hilt.android
     kapt libs.hilt.compiler
 
+    implementation libs.accompanist.insets
     implementation libs.accompanist.swipeRefresh
 
     testImplementation 'junit:junit:4.13.2'
