@@ -1,15 +1,15 @@
 package jp.numero.dagashiapp.ui
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
@@ -98,57 +98,67 @@ fun MilestoneListContent(
         modifier = modifier,
         contentPadding = rememberInsetsPaddingValues(
             insets = LocalWindowInsets.current.systemBars,
-            applyTop = false
+            applyTop = false,
+            additionalStart = 16.dp,
+            additionalEnd = 16.dp,
+            additionalTop = 16.dp,
+            additionalBottom = 16.dp
         )
     ) {
-        items(
+        itemsIndexed(
             items = milestoneList.value,
-            key = {
-                it.id
+            key = { _, item ->
+                item.id
             }
-        ) {
+        ) { index, item ->
             MilestoneItem(
-                milestone = it,
+                milestone = item,
                 onClick = { /*TODO*/ },
                 modifier = Modifier.fillMaxWidth()
             )
+            if (index != milestoneList.value.lastIndex) {
+                Spacer(modifier = Modifier.height(12.dp))
+            }
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MilestoneItem(
     milestone: Milestone,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(
+    val interactionSource = remember { MutableInteractionSource() }
+    OutlinedCard(
+        interactionSource = interactionSource,
         modifier = modifier
-            .clickable(onClick = { onClick() })
-            .padding(
-                horizontal = 16.dp,
-                vertical = 12.dp
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null,
+                onClick = { onClick() }
             )
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically
+        Column(
+            modifier = Modifier.padding(16.dp)
         ) {
             Text(
                 text = "#${milestone.number}",
-                style = MaterialTheme.typography.titleMedium,
+                style = MaterialTheme.typography.titleLarge,
             )
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = milestone.description,
+                style = MaterialTheme.typography.bodyMedium,
+            )
+            Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = milestone.closedAd,
                 style = MaterialTheme.typography.labelSmall,
                 color = LocalContentColor.current.copy(alpha = 0.54f)
             )
         }
-        Spacer(modifier = Modifier.height(4.dp))
-        Text(
-            text = milestone.description,
-            style = MaterialTheme.typography.bodyMedium,
-        )
     }
 }
 
