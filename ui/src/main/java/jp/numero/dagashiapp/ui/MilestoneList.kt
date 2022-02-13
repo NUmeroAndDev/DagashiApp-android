@@ -23,13 +23,18 @@ import jp.numero.dagashiapp.model.MilestoneList
 import jp.numero.dagashiapp.ui.component.FullScreenLoadingIndicator
 import jp.numero.dagashiapp.ui.component.LoadingIndicatorItem
 import jp.numero.dagashiapp.ui.component.TopAppBar
+import jp.takuji31.compose.navigation.screen.ScreenNavController
+import jp.takuji31.compose.navigation.screen.rememberScreenNavController
 
 @Composable
-fun MilestoneListScreen() {
+fun MilestoneListScreen(navController: ScreenNavController) {
     val viewModel: MilestoneListViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
     MilestoneListScreen(
         uiState = uiState,
+        onClickMilestone = {
+            navController.navigate(Screen.MilestoneDetail(it.path))
+        },
         onRefresh = {
             viewModel.refresh()
         },
@@ -43,6 +48,7 @@ fun MilestoneListScreen() {
 @Composable
 fun MilestoneListScreen(
     uiState: UiState<MilestoneList>,
+    onClickMilestone: (Milestone) -> Unit,
     onRefresh: () -> Unit,
     onReachedBottom: () -> Unit,
 ) {
@@ -79,6 +85,7 @@ fun MilestoneListScreen(
                         ) {
                             MilestoneListContent(
                                 milestoneList = it,
+                                onClickMilestone = onClickMilestone,
                                 onReachedBottom = onReachedBottom,
                                 modifier = Modifier.fillMaxSize()
                             )
@@ -96,6 +103,7 @@ fun MilestoneListScreen(
 @Composable
 fun MilestoneListContent(
     milestoneList: MilestoneList,
+    onClickMilestone: (Milestone) -> Unit,
     onReachedBottom: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -134,7 +142,9 @@ fun MilestoneListContent(
         ) { index, item ->
             MilestoneItem(
                 milestone = item,
-                onClick = { /*TODO*/ },
+                onClick = {
+                    onClickMilestone(item)
+                },
                 modifier = Modifier.fillMaxWidth()
             )
             if (index != milestoneList.value.lastIndex) {

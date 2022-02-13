@@ -29,10 +29,10 @@ fun DagashiApp() {
             ) {
                 screenComposable {
                     milestoneList {
-                        MilestoneListScreen()
+                        MilestoneListScreen(navController)
                     }
                     milestoneDetail {
-                        // TODO: Impl milestone detail screen
+                        MilestoneDetailScreen(navController)
                     }
                 }
             }
