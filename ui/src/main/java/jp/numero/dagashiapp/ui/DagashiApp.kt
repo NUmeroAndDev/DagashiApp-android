@@ -1,6 +1,8 @@
 package jp.numero.dagashiapp.ui
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
@@ -23,16 +25,20 @@ fun DagashiApp() {
             )
         }
         ProvideWindowInsets {
-            ScreenNavHost(
-                navController = navController,
-                startScreen = Screen.MilestoneList,
+            Surface(
+                color = MaterialTheme.colorScheme.background
             ) {
-                screenComposable {
-                    milestoneList {
-                        MilestoneListScreen(navController)
-                    }
-                    milestoneDetail {
-                        MilestoneDetailScreen(navController)
+                ScreenNavHost(
+                    navController = navController,
+                    startScreen = Screen.MilestoneList,
+                ) {
+                    screenComposable {
+                        milestoneList {
+                            MilestoneListScreen(navController)
+                        }
+                        milestoneDetail {
+                            MilestoneDetailScreen(navController)
+                        }
                     }
                 }
             }
