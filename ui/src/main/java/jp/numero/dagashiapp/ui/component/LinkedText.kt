@@ -1,6 +1,7 @@
 package jp.numero.dagashiapp.ui.component
 
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,7 +25,7 @@ fun LinkedText(
     style: TextStyle = TextStyle.Default,
 ) {
     val uriHandler = LocalUriHandler.current
-    val styledMessage = textLinkFormatter(
+    val styledMessage = linkedTextFormatter(
         text = text,
         linkColor = MaterialTheme.colorScheme.tertiary
     )
@@ -44,13 +45,14 @@ fun LinkedText(
 }
 
 @Composable
-private fun textLinkFormatter(
+private fun linkedTextFormatter(
     text: String,
     linkColor: Color
 ): AnnotatedString {
     val tokens = symbolPattern.findAll(text)
 
     return buildAnnotatedString {
+        pushStyle(SpanStyle(color = LocalContentColor.current))
         var cursorPosition = 0
 
         for (token in tokens) {
