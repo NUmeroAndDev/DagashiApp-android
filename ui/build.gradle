@@ -39,6 +39,7 @@ android {
 }
 
 dependencies {
+    implementation projects.model
     implementation projects.repository
 
     implementation libs.androidx.appcompat

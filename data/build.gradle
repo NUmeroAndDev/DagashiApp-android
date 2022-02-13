@@ -35,6 +35,8 @@ android {
 }
 
 dependencies {
+    implementation projects.model
+
     implementation libs.kotlinx.coroutines
     implementation libs.kotlinx.serialization
 

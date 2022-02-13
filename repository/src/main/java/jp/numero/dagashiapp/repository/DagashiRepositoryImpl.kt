@@ -4,6 +4,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import jp.numero.dagashiapp.data.DagashiLocalDataSource
 import jp.numero.dagashiapp.data.DagashiRemoteDataSource
 import jp.numero.dagashiapp.data.response.MilestoneDetailResponse
 import jp.numero.dagashiapp.data.response.MilestoneListResponse
@@ -12,14 +13,28 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 internal class DagashiRepositoryImpl @Inject constructor(
-    private val dagashiRemoteDataSource: DagashiRemoteDataSource
+    private val remoteDataSource: DagashiRemoteDataSource,
+    private val localDataSource: DagashiLocalDataSource,
 ) : DagashiRepository {
-    override suspend fun fetchMilestoneList(nextCursor: String?): MilestoneList {
-        return dagashiRemoteDataSource.fetchMilestoneList(nextCursor).toModel()
+
+    override suspend fun fetchMilestoneList(): MilestoneList {
+        val milestoneList = remoteDataSource.fetchMilestoneList().toModel()
+        localDataSource.updateLocalMilestoneListCache(milestoneList)
+        return milestoneList
+    }
+
+    override suspend fun fetchMoreMilestoneList(nextCursor: String): MilestoneList {
+        val milestoneList = remoteDataSource.fetchMilestoneList(nextCursor).toModel()
+        val currentMilestoneList = checkNotNull(localDataSource.localMilestoneListCache)
+        val newerMilestoneList = milestoneList.copy(
+            value = currentMilestoneList.value + milestoneList.value
+        )
+        localDataSource.updateLocalMilestoneListCache(newerMilestoneList)
+        return newerMilestoneList
     }
 
     override suspend fun fetchMilestoneDetail(path: String): MilestoneDetail {
-        return dagashiRemoteDataSource.fetchMilestoneDetail(path).toModel()
+        return remoteDataSource.fetchMilestoneDetail(path).toModel()
     }
 
     private fun MilestoneListResponse.toModel(): MilestoneList {
@@ -33,7 +48,8 @@ internal class DagashiRepositoryImpl @Inject constructor(
                     closedAd = milestoneResponse.closedAt
                 )
             },
-            // TODO: pass page info
+            hasMore = milestones.pageInfo.hasNextPage,
+            nextCursor = milestones.pageInfo.endCursor
         )
     }
 

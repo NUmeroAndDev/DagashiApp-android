@@ -5,11 +5,9 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
@@ -23,6 +21,7 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import jp.numero.dagashiapp.model.Milestone
 import jp.numero.dagashiapp.model.MilestoneList
 import jp.numero.dagashiapp.ui.component.FullScreenLoadingIndicator
+import jp.numero.dagashiapp.ui.component.LoadingIndicatorItem
 import jp.numero.dagashiapp.ui.component.TopAppBar
 
 @Composable
@@ -33,6 +32,9 @@ fun MilestoneListScreen() {
         uiState = uiState,
         onRefresh = {
             viewModel.refresh()
+        },
+        onReachedBottom = {
+            viewModel.loadMore()
         }
     )
 }
@@ -42,6 +44,7 @@ fun MilestoneListScreen() {
 fun MilestoneListScreen(
     uiState: UiState<MilestoneList>,
     onRefresh: () -> Unit,
+    onReachedBottom: () -> Unit,
 ) {
     val scrollBehavior = remember { TopAppBarDefaults.pinnedScrollBehavior() }
     Scaffold(
@@ -66,7 +69,7 @@ fun MilestoneListScreen(
                     .padding(innerPadding)
             ) {
                 uiState.onState(
-                    loading = {
+                    initialLoading = {
                         FullScreenLoadingIndicator()
                     },
                     loadSucceed = {
@@ -76,6 +79,7 @@ fun MilestoneListScreen(
                         ) {
                             MilestoneListContent(
                                 milestoneList = it,
+                                onReachedBottom = onReachedBottom,
                                 modifier = Modifier.fillMaxSize()
                             )
                         }
@@ -92,9 +96,26 @@ fun MilestoneListScreen(
 @Composable
 fun MilestoneListContent(
     milestoneList: MilestoneList,
+    onReachedBottom: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val listState = rememberLazyListState()
+    val currentOnReachedBottom by rememberUpdatedState(onReachedBottom)
+    val isReachedBottom by remember {
+        derivedStateOf {
+            listState.firstVisibleItemIndex + listState.layoutInfo.visibleItemsInfo.size == listState.layoutInfo.totalItemsCount
+        }
+    }
+    LaunchedEffect(isReachedBottom) {
+        snapshotFlow { isReachedBottom }
+            .collect { isReached ->
+                if (isReached) {
+                    currentOnReachedBottom()
+                }
+            }
+    }
     LazyColumn(
+        state = listState,
         modifier = modifier,
         contentPadding = rememberInsetsPaddingValues(
             insets = LocalWindowInsets.current.systemBars,
@@ -118,6 +139,11 @@ fun MilestoneListContent(
             )
             if (index != milestoneList.value.lastIndex) {
                 Spacer(modifier = Modifier.height(12.dp))
+            }
+        }
+        if (milestoneList.hasMore) {
+            item {
+                LoadingIndicatorItem()
             }
         }
     }

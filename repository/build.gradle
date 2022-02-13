@@ -34,7 +34,7 @@ android {
 }
 
 dependencies {
-    api projects.model
+    implementation projects.model
     implementation projects.data
 
     implementation libs.hilt.android

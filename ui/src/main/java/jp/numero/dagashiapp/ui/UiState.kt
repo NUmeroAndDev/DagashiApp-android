@@ -1,18 +1,25 @@
 package jp.numero.dagashiapp.ui
 
 data class UiState<T>(
-    val isLoading: Boolean = false,
+    val isInitialLoading: Boolean = false,
     val isRefreshing: Boolean = false,
+    val isMoreLoading: Boolean = false,
     val data: T? = null,
     val error: Throwable? = null,
 ) {
+    val isLoading: Boolean
+        get() = isInitialLoading || isRefreshing || isMoreLoading
+
+    val isEmpty: Boolean
+        get() = data == null && error == null
+
     inline fun onState(
-        loading: () -> Unit = {},
+        initialLoading: () -> Unit = {},
         loadSucceed: (data: T) -> Unit = {},
         loadFailed: (error: Throwable) -> Unit = {},
     ) {
-        if (isLoading && !isRefreshing) {
-            loading()
+        if (isInitialLoading) {
+            initialLoading()
         } else if (data != null && error == null) {
             loadSucceed(data)
         } else if (error != null) {

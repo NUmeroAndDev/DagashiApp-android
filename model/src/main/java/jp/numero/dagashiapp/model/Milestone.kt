@@ -1,7 +1,9 @@
 package jp.numero.dagashiapp.model
 
 data class MilestoneList(
-    val value: List<Milestone>
+    val value: List<Milestone>,
+    val hasMore: Boolean,
+    val nextCursor: String? = null
 )
 
 data class Milestone(
