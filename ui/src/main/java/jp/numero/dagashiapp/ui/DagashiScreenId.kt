@@ -18,4 +18,9 @@ enum class DagashiScreenId {
         ],
     )
     MilestoneDetail,
+
+    @Route(
+        route = "/settings"
+    )
+    Settings,
 }
