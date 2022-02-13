@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-parcelize'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
 }
@@ -42,7 +43,6 @@ dependencies {
     implementation projects.model
     implementation projects.repository
 
-    implementation libs.androidx.appcompat
     implementation libs.androidx.core
     implementation libs.androidx.navigation.compose
     implementation libs.androidx.lifecycle.runtime
@@ -61,7 +61,11 @@ dependencies {
     kapt libs.hilt.compiler
 
     implementation libs.accompanist.insets
+    implementation libs.accompanist.systemUiController
     implementation libs.accompanist.swipeRefresh
+
+    implementation libs.navigationComposeScreen.core
+    kapt libs.navigationComposeScreen.compiler
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

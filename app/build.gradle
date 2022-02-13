@@ -52,27 +52,12 @@ android {
 dependencies {
     implementation projects.ui
 
-    implementation libs.androidx.appcompat
     implementation libs.androidx.activity
     implementation libs.androidx.core
     implementation libs.androidx.coreSplash
-    implementation libs.androidx.navigation.compose
-    implementation libs.androidx.lifecycle.runtime
-    implementation libs.androidx.lifecycle.viewmodel
-
-    implementation libs.androidx.compose.ui
-    implementation libs.androidx.compose.foundation
-    implementation libs.androidx.compose.material3
-    implementation libs.androidx.compose.materialIconsExtended
-    implementation libs.androidx.compose.uiToolingPreview
-
-    debugImplementation libs.androidx.compose.uiTooling
 
     implementation libs.hilt.android
     kapt libs.hilt.compiler
-
-    implementation libs.accompanist.insets
-    implementation libs.accompanist.systemUiController
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

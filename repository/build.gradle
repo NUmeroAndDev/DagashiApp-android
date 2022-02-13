@@ -41,11 +41,6 @@ dependencies {
     kapt libs.hilt.compiler
 
     implementation libs.kotlinx.coroutines
-    implementation libs.kotlinx.serialization
-
-    implementation libs.retrofit.core
-    implementation libs.retrofit.converter
-    implementation libs.okhttp3
 
     testImplementation 'junit:junit:4.13.2'
 }
