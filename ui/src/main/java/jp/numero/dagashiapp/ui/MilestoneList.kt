@@ -24,7 +24,7 @@ import jp.numero.dagashiapp.ui.component.FullScreenLoadingIndicator
 import jp.numero.dagashiapp.ui.component.LoadingIndicatorItem
 import jp.numero.dagashiapp.ui.component.TopAppBar
 import jp.takuji31.compose.navigation.screen.ScreenNavController
-import jp.takuji31.compose.navigation.screen.rememberScreenNavController
+import java.time.Instant
 
 @Composable
 fun MilestoneListScreen(navController: ScreenNavController) {
@@ -190,7 +190,7 @@ fun MilestoneItem(
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = milestone.closedAd,
+                text = dateTimeString(instant = milestone.closedAd, format = stringResource(id = R.string.date_format)),
                 style = MaterialTheme.typography.labelSmall,
                 color = LocalContentColor.current.copy(alpha = 0.54f)
             )
@@ -207,7 +207,7 @@ fun PreviewMilestoneItem() {
             number = 100,
             description = "Description",
             path = "",
-            closedAd = "2020-09-13"
+            closedAd = Instant.now()
         ),
         onClick = {}
     )

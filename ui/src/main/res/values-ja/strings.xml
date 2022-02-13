@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="navigate_up">戻る</string>
+
+    <string name="date_format">yyyy/MM/dd</string>
+</resources>

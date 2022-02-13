@@ -1,5 +1,7 @@
 package jp.numero.dagashiapp.model
 
+import java.time.Instant
+
 data class MilestoneList(
     val value: List<Milestone>,
     val hasMore: Boolean,
@@ -11,7 +13,7 @@ data class Milestone(
     val number: Int,
     val description: String,
     val path: String,
-    val closedAd: String
+    val closedAd: Instant
 )
 
 data class MilestoneDetail(

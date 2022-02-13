@@ -1,6 +1,8 @@
 package jp.numero.dagashiapp.data.response
 
+import jp.numero.dagashiapp.data.InstantSerializer
 import kotlinx.serialization.Serializable
+import java.time.Instant
 
 @Serializable
 data class MilestoneListResponse(
@@ -19,7 +21,8 @@ data class MilestoneResponse(
     val number: Int,
     val description: String,
     val path: String,
-    val closedAt: String
+    @Serializable(with = InstantSerializer::class)
+    val closedAt: Instant
 )
 
 @Serializable

@@ -25,6 +25,7 @@ android {
     }
 
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -47,6 +48,8 @@ dependencies {
 
     implementation libs.retrofit.core
     implementation libs.retrofit.converter
+
+    coreLibraryDesugaring libs.desugarJdkLibs
 
     testImplementation 'junit:junit:4.13.2'
 }

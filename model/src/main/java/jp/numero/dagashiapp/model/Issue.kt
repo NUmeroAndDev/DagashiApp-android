@@ -1,5 +1,7 @@
 package jp.numero.dagashiapp.model
 
+import java.time.Instant
+
 data class Issue(
     val url: String,
     val title: String,
@@ -16,7 +18,7 @@ data class Label(
 
 data class Comment(
     val body: String,
-    val publishedAt: String,
+    val publishedAt: Instant,
     val author: Author
 )
 

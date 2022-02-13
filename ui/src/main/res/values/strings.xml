@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">DagashiApp</string>
+    <string name="app_name" translatable="false">DagashiApp</string>
 
     <string name="navigate_up">Back</string>
+
+    <string name="date_format">MM/dd/yyyy</string>
 </resources>

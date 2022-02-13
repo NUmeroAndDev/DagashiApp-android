@@ -77,7 +77,9 @@ buildscript {
                 navigationComposeScreen: [
                         core    : "com.github.takuji31.navigation-compose-screen:navigation-compose-screen:1.1",
                         compiler: "com.github.takuji31.navigation-compose-screen:compiler:1.1"
-                ]
+                ],
+
+                desugarJdkLibs         : "com.android.tools:desugar_jdk_libs:1.1.5"
         ]
     }
 

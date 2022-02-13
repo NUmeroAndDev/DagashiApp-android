@@ -1,6 +1,8 @@
 package jp.numero.dagashiapp.data.response
 
+import jp.numero.dagashiapp.data.InstantSerializer
 import kotlinx.serialization.Serializable
+import java.time.Instant
 
 @Serializable
 data class MilestoneDetailResponse(
@@ -44,7 +46,8 @@ data class CommentsResponse(
 @Serializable
 data class CommentResponse(
     val body: String,
-    val publishedAt: String,
+    @Serializable(with = InstantSerializer::class)
+    val publishedAt: Instant,
     val author: AuthorResponse
 )
 
