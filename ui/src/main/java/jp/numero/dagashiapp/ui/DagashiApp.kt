@@ -8,6 +8,7 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import jp.numero.dagashiapp.ui.settings.SettingsScreen
 import jp.numero.dagashiapp.ui.theme.DagashiAppTheme
 import jp.takuji31.compose.navigation.screen.ScreenNavHost
 import jp.takuji31.compose.navigation.screen.rememberScreenNavController
@@ -38,6 +39,9 @@ fun DagashiApp() {
                         }
                         milestoneDetail {
                             MilestoneDetailScreen(navController)
+                        }
+                        settings {
+                            SettingsScreen(navController)
                         }
                     }
                 }

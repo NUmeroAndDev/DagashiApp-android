@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -40,6 +42,9 @@ fun MilestoneListScreen(navController: ScreenNavController) {
         },
         onReachedBottom = {
             viewModel.loadMore()
+        },
+        onClickSettings = {
+            navController.navigate(Screen.Settings)
         }
     )
 }
@@ -51,6 +56,7 @@ fun MilestoneListScreen(
     onClickMilestone: (Milestone) -> Unit,
     onRefresh: () -> Unit,
     onReachedBottom: () -> Unit,
+    onClickSettings: () -> Unit
 ) {
     val scrollBehavior = remember { TopAppBarDefaults.pinnedScrollBehavior() }
     Scaffold(
@@ -65,7 +71,15 @@ fun MilestoneListScreen(
                     LocalWindowInsets.current.statusBars,
                     applyBottom = false,
                 ),
-                scrollBehavior = scrollBehavior
+                scrollBehavior = scrollBehavior,
+                actions = {
+                    IconButton(onClick = onClickSettings) {
+                        Icon(
+                            imageVector = Icons.Outlined.Settings,
+                            contentDescription = stringResource(id = R.string.settings),
+                        )
+                    }
+                }
             )
         },
         content = { innerPadding ->
@@ -190,7 +204,10 @@ fun MilestoneItem(
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = dateTimeString(instant = milestone.closedAd, format = stringResource(id = R.string.date_format)),
+                text = dateTimeString(
+                    instant = milestone.closedAd,
+                    format = stringResource(id = R.string.date_format)
+                ),
                 style = MaterialTheme.typography.labelSmall,
                 color = LocalContentColor.current.copy(alpha = 0.54f)
             )
