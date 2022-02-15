@@ -34,6 +34,7 @@ android {
     }
 
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -62,6 +63,8 @@ dependencies {
 
     implementation libs.hilt.android
     kapt libs.hilt.compiler
+
+    coreLibraryDesugaring libs.desugarJdkLibs
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
