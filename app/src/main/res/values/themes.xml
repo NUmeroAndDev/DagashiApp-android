@@ -3,7 +3,12 @@
 
     <style name="Theme.DagashiApp" parent="android:Theme.Material.Light.NoActionBar" />
 
-    <style name="Theme.DagashiApp.Starting" parent="Theme.SplashScreen">
+    <style name="Base.Theme.DagashiApp.Starting" parent="Theme.SplashScreen">
         <item name="postSplashScreenTheme">@style/Theme.DagashiApp</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+    </style>
+
+    <style name="Theme.DagashiApp.Starting" parent="Base.Theme.DagashiApp.Starting">
+        <item name="windowSplashScreenBackground">@color/ic_launcher_background</item>
     </style>
 </resources>
