@@ -62,7 +62,10 @@ buildscript {
                         converter: "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
                 ],
 
-                okhttp3                : "com.squareup.okhttp3:okhttp:4.9.3",
+                okhttp3                : [
+                        core              : "com.squareup.okhttp3:okhttp:4.9.3",
+                        loggingInterceptor: "com.squareup.okhttp3:logging-interceptor:4.9.3"
+                ],
 
                 coil                   : "io.coil-kt:coil-compose:1.4.0",
 
