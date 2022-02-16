@@ -8,6 +8,7 @@ import java.time.Instant
 data class MilestoneDetailResponse(
     val id: String,
     val number: Int,
+    val url: String,
     val description: String,
     val issues: IssuesResponse
 )

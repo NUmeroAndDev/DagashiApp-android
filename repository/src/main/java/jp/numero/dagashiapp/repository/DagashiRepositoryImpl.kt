@@ -57,6 +57,7 @@ internal class DagashiRepositoryImpl @Inject constructor(
         return MilestoneDetail(
             id = id,
             number = number,
+            url = url,
             description = description,
             issues = issues.nodes.map { issueResponse ->
                 Issue(

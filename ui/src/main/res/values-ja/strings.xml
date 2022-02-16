@@ -3,6 +3,7 @@
     <string name="navigate_up">戻る</string>
 
     <string name="settings">設定</string>
+    <string name="share">共有</string>
 
     <string name="date_format">yyyy/MM/dd</string>
 </resources>

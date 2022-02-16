@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -12,6 +14,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.LocalWindowInsets
@@ -28,10 +32,14 @@ import jp.takuji31.compose.navigation.screen.ScreenNavController
 fun MilestoneDetailScreen(navController: ScreenNavController) {
     val viewModel: MilestoneDetailViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
+    val uriHandler = LocalUriHandler.current
     MilestoneDetailScreen(
         uiState = uiState,
         onBack = {
             navController.popBackStack()
+        },
+        onClickShare = {
+            uriHandler.openUri(it)
         }
     )
 }
@@ -40,7 +48,8 @@ fun MilestoneDetailScreen(navController: ScreenNavController) {
 @Composable
 fun MilestoneDetailScreen(
     uiState: UiState<MilestoneDetail>,
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    onClickShare: (String) -> Unit,
 ) {
     val scrollBehavior = remember { TopAppBarDefaults.pinnedScrollBehavior() }
     Scaffold(
@@ -58,7 +67,21 @@ fun MilestoneDetailScreen(
                     applyBottom = false,
                 ),
                 scrollBehavior = scrollBehavior,
-                onBack = onBack
+                onBack = onBack,
+                actions = {
+                    uiState.data?.url?.let {
+                        IconButton(
+                            onClick = {
+                                onClickShare(it)
+                            }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.Share,
+                                contentDescription = stringResource(id = R.string.share)
+                            )
+                        }
+                    }
+                }
             )
         },
         content = { innerPadding ->
