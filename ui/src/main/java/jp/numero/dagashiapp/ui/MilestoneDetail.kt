@@ -24,7 +24,7 @@ import jp.numero.dagashiapp.model.Issue
 import jp.numero.dagashiapp.model.Label
 import jp.numero.dagashiapp.model.MilestoneDetail
 import jp.numero.dagashiapp.ui.component.FullScreenLoadingIndicator
-import jp.numero.dagashiapp.ui.component.LinkedText
+import jp.numero.dagashiapp.ui.component.IssueDescriptionText
 import jp.numero.dagashiapp.ui.component.TopAppBar
 import jp.takuji31.compose.navigation.screen.ScreenNavController
 
@@ -162,10 +162,7 @@ fun IssueItem(
         }
         Spacer(modifier = Modifier.height(8.dp))
 
-        LinkedText(
-            text = issue.body,
-            style = MaterialTheme.typography.bodyMedium
-        )
+        IssueDescriptionText(text = issue.body)
     }
 }
 

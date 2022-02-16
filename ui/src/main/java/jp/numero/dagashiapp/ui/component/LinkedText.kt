@@ -12,7 +12,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 
-val symbolPattern by lazy {
+private val symbolPattern by lazy {
     Regex("""(https?://[^\s\t\n]+)""")
 }
 
