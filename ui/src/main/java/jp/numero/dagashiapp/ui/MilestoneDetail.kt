@@ -1,9 +1,9 @@
 package jp.numero.dagashiapp.ui
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -83,27 +83,32 @@ fun MilestoneDetailScreen(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MilestoneDetailContent(
     milestoneDetail: MilestoneDetail,
     modifier: Modifier = Modifier
 ) {
-    LazyColumn(
-        modifier = modifier,
-        contentPadding = rememberInsetsPaddingValues(
-            insets = LocalWindowInsets.current.systemBars,
-            applyTop = false,
-        )
+    Column(
+        modifier = modifier.verticalScroll(rememberScrollState())
     ) {
-        itemsIndexed(
-            items = milestoneDetail.issues,
-            key = { _, item ->
-                item.title
-            }
-        ) { index, item ->
-            IssueItem(issue = item)
-            if (index != milestoneDetail.issues.lastIndex) {
-                Divider()
+        OutlinedCard(
+            modifier = Modifier.padding(
+                rememberInsetsPaddingValues(
+                    insets = LocalWindowInsets.current.systemBars,
+                    applyTop = false,
+                    additionalStart = 16.dp,
+                    additionalEnd = 16.dp,
+                    additionalBottom = 16.dp,
+                    additionalTop = 16.dp
+                )
+            )
+        ) {
+            milestoneDetail.issues.forEachIndexed { index, issue ->
+                IssueItem(issue = issue)
+                if (index != milestoneDetail.issues.lastIndex) {
+                    Divider(startIndent = 16.dp)
+                }
             }
         }
     }
@@ -124,7 +129,7 @@ fun IssueItem(
         if (issue.labels.isNotEmpty()) {
             Spacer(modifier = Modifier.height(8.dp))
             Row {
-                issue.labels.forEachIndexed { index, label -> 
+                issue.labels.forEachIndexed { index, label ->
                     IssueLabel(label)
                     if (index < issue.labels.lastIndex) {
                         Spacer(modifier = Modifier.width(4.dp))
