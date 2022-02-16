@@ -18,12 +18,12 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.rememberInsetsPaddingValues
-import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import jp.numero.dagashiapp.model.Milestone
 import jp.numero.dagashiapp.model.MilestoneList
 import jp.numero.dagashiapp.ui.component.FullScreenLoadingIndicator
 import jp.numero.dagashiapp.ui.component.LoadingIndicatorItem
+import jp.numero.dagashiapp.ui.component.SwipeRefresh
 import jp.numero.dagashiapp.ui.component.TopAppBar
 import jp.takuji31.compose.navigation.screen.ScreenNavController
 import java.time.Instant
