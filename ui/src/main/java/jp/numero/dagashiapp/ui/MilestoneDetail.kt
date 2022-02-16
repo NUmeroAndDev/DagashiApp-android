@@ -3,18 +3,21 @@ package jp.numero.dagashiapp.ui
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.rememberInsetsPaddingValues
 import jp.numero.dagashiapp.model.Issue
+import jp.numero.dagashiapp.model.Label
 import jp.numero.dagashiapp.model.MilestoneDetail
 import jp.numero.dagashiapp.ui.component.FullScreenLoadingIndicator
 import jp.numero.dagashiapp.ui.component.LinkedText
@@ -118,12 +121,57 @@ fun IssueItem(
             text = issue.title,
             style = MaterialTheme.typography.titleMedium
         )
-        // TODO: impl tag
+        if (issue.labels.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(8.dp))
+            Row {
+                issue.labels.forEachIndexed { index, label -> 
+                    IssueLabel(label)
+                    if (index < issue.labels.lastIndex) {
+                        Spacer(modifier = Modifier.width(4.dp))
+                    }
+                }
+            }
+        }
         Spacer(modifier = Modifier.height(8.dp))
 
         LinkedText(
             text = issue.body,
             style = MaterialTheme.typography.bodyMedium
         )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun IssueLabel(
+    label: Label,
+    modifier: Modifier = Modifier
+) {
+    val color = android.graphics.Color.parseColor("#${label.color}")
+    Surface(
+        modifier = modifier,
+        color = Color(color),
+        contentColor = color.contentColor(),
+        shape = RoundedCornerShape(percent = 50)
+    ) {
+        Text(
+            text = label.name,
+            style = MaterialTheme.typography.labelSmall,
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+        )
+    }
+}
+
+/**
+ * @return Color.Black or Color.White
+ */
+private fun Int.contentColor(): Color {
+    val red = android.graphics.Color.red(this)
+    val green = android.graphics.Color.green(this)
+    val blue = android.graphics.Color.blue(this)
+    return if (red * 0.299 + green * 0.587 + blue * 0.114 > 186) {
+        Color.Black
+    } else {
+        Color.White
     }
 }
