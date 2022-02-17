@@ -21,10 +21,7 @@ import com.google.accompanist.insets.rememberInsetsPaddingValues
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import jp.numero.dagashiapp.model.Milestone
 import jp.numero.dagashiapp.model.MilestoneList
-import jp.numero.dagashiapp.ui.component.FullScreenLoadingIndicator
-import jp.numero.dagashiapp.ui.component.LoadingIndicatorItem
-import jp.numero.dagashiapp.ui.component.SwipeRefresh
-import jp.numero.dagashiapp.ui.component.TopAppBar
+import jp.numero.dagashiapp.ui.component.*
 import jp.takuji31.compose.navigation.screen.ScreenNavController
 import java.time.Instant
 
@@ -36,6 +33,9 @@ fun MilestoneListScreen(navController: ScreenNavController) {
         uiState = uiState,
         onClickMilestone = {
             navController.navigate(Screen.MilestoneDetail(it.path))
+        },
+        onRetry = {
+            // TODO: retry
         },
         onRefresh = {
             viewModel.refresh()
@@ -54,6 +54,7 @@ fun MilestoneListScreen(navController: ScreenNavController) {
 fun MilestoneListScreen(
     uiState: UiState<MilestoneList>,
     onClickMilestone: (Milestone) -> Unit,
+    onRetry: () -> Unit,
     onRefresh: () -> Unit,
     onReachedBottom: () -> Unit,
     onClickSettings: () -> Unit
@@ -91,6 +92,19 @@ fun MilestoneListScreen(
                 uiState.onState(
                     initialLoading = {
                         FullScreenLoadingIndicator()
+                    },
+                    initialFailed = {
+                        ErrorMessage(
+                            error = it,
+                            modifier = Modifier.fillMaxSize(),
+                            action = {
+                                Button(
+                                    onClick = { onRetry() }
+                                ) {
+                                    Text(text = stringResource(id = R.string.retry))
+                                }
+                            }
+                        )
                     },
                     loadSucceed = {
                         SwipeRefresh(

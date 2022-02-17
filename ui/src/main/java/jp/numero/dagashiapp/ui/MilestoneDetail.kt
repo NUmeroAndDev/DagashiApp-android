@@ -23,6 +23,7 @@ import com.google.accompanist.insets.rememberInsetsPaddingValues
 import jp.numero.dagashiapp.model.Issue
 import jp.numero.dagashiapp.model.Label
 import jp.numero.dagashiapp.model.MilestoneDetail
+import jp.numero.dagashiapp.ui.component.ErrorMessage
 import jp.numero.dagashiapp.ui.component.FullScreenLoadingIndicator
 import jp.numero.dagashiapp.ui.component.IssueDescriptionText
 import jp.numero.dagashiapp.ui.component.TopAppBar
@@ -40,6 +41,9 @@ fun MilestoneDetailScreen(navController: ScreenNavController) {
         },
         onClickShare = {
             uriHandler.openUri(it)
+        },
+        onRetry = {
+            // TODO: retry
         }
     )
 }
@@ -50,6 +54,7 @@ fun MilestoneDetailScreen(
     uiState: UiState<MilestoneDetail>,
     onBack: () -> Unit,
     onClickShare: (String) -> Unit,
+    onRetry: () -> Unit,
 ) {
     val scrollBehavior = remember { TopAppBarDefaults.pinnedScrollBehavior() }
     Scaffold(
@@ -93,6 +98,19 @@ fun MilestoneDetailScreen(
                 uiState.onState(
                     initialLoading = {
                         FullScreenLoadingIndicator()
+                    },
+                    initialFailed = {
+                        ErrorMessage(
+                            error = it,
+                            modifier = Modifier.fillMaxSize(),
+                            action = {
+                                Button(
+                                    onClick = { onRetry() }
+                                ) {
+                                    Text(text = stringResource(id = R.string.retry))
+                                }
+                            }
+                        )
                     },
                     loadSucceed = {
                         MilestoneDetailContent(milestoneDetail = it)

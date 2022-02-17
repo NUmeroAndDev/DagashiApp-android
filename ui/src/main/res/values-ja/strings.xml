@@ -4,6 +4,8 @@
 
     <string name="settings">設定</string>
     <string name="share">共有</string>
+    <string name="retry">再読み込み</string>
+    <string name="load_error_message">読み込みに失敗しました</string>
 
     <string name="date_format">yyyy/MM/dd</string>
 </resources>
