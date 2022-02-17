@@ -112,12 +112,9 @@ fun MilestoneDetailScreen(
                             }
                         )
                     },
-                    loadSucceed = {
-                        MilestoneDetailContent(milestoneDetail = it)
+                    loaded = { data, _ ->
+                        MilestoneDetailContent(milestoneDetail = data)
                     },
-                    loadFailed = {
-                        // TODO: impl show error message
-                    }
                 )
             }
         },

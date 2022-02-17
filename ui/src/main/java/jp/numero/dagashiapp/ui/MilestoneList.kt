@@ -12,6 +12,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -60,8 +61,11 @@ fun MilestoneListScreen(
     onClickSettings: () -> Unit
 ) {
     val scrollBehavior = remember { TopAppBarDefaults.pinnedScrollBehavior() }
+    val snackbarHostState = remember { SnackbarHostState() }
+    val context = LocalContext.current
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = {
             TopAppBar(
                 title = {
@@ -106,22 +110,30 @@ fun MilestoneListScreen(
                             }
                         )
                     },
-                    loadSucceed = {
+                    loaded = { data, error ->
                         SwipeRefresh(
                             state = rememberSwipeRefreshState(isRefreshing = uiState.isRefreshing),
                             onRefresh = onRefresh,
                         ) {
                             MilestoneListContent(
-                                milestoneList = it,
+                                milestoneList = data,
                                 onClickMilestone = onClickMilestone,
                                 onReachedBottom = onReachedBottom,
                                 modifier = Modifier.fillMaxSize()
                             )
                         }
+                        if (error != null) {
+                            LaunchedEffect(error) {
+                                val result = snackbarHostState.showSnackbar(
+                                    message = context.getString(R.string.load_error_message),
+                                    actionLabel = context.getString(R.string.retry)
+                                )
+                                if (result == SnackbarResult.ActionPerformed) {
+                                    onRetry()
+                                }
+                            }
+                        }
                     },
-                    loadFailed = {
-                        // TODO: impl show error message
-                    }
                 )
             }
         },

@@ -15,18 +15,15 @@ data class UiState<T>(
 
     inline fun onState(
         initialLoading: () -> Unit = {},
-        loadSucceed: (data: T) -> Unit = {},
         initialFailed: (error: Throwable) -> Unit = {},
-        loadFailed: (error: Throwable) -> Unit = {},
+        loaded: (data: T, error: Throwable?) -> Unit = { _, _ -> },
     ) {
         if (isInitialLoading) {
             initialLoading()
         } else if (data == null && error != null) {
             initialFailed(error)
-        } else if (data != null && error == null) {
-            loadSucceed(data)
-        } else if (error != null) {
-            loadFailed(error)
+        } else if (data != null) {
+            loaded(data, error)
         }
     }
 }

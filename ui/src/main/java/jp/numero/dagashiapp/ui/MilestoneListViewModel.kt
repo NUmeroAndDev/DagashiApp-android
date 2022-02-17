@@ -44,19 +44,30 @@ class MilestoneListViewModel @Inject constructor(
             isMoreLoading = nextCursor != null
         )
         viewModelScope.launch {
-            val result = runCatching {
+            runCatching {
                 if (nextCursor != null) {
                     dagashiRepository.fetchMoreMilestoneList(nextCursor)
                 } else {
                     dagashiRepository.fetchMilestoneList()
                 }
-            }
-            _uiState.value = uiState.value.copy(
-                isInitialLoading = false,
-                isRefreshing = false,
-                isMoreLoading = false,
-                data = result.getOrNull(),
-                error = result.exceptionOrNull()
+            }.fold(
+                onSuccess = {
+                    _uiState.value = uiState.value.copy(
+                        isInitialLoading = false,
+                        isRefreshing = false,
+                        isMoreLoading = false,
+                        data = it,
+                        error = null
+                    )
+                },
+                onFailure = {
+                    _uiState.value = uiState.value.copy(
+                        isInitialLoading = false,
+                        isRefreshing = false,
+                        isMoreLoading = false,
+                        error = it
+                    )
+                }
             )
         }
     }
