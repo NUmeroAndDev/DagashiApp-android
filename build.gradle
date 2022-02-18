@@ -10,7 +10,7 @@ buildscript {
 
                 lifecycle  : "2.4.1",
 
-                hilt       : "2.40.5",
+                hilt       : "2.41",
 
                 accompanist: "0.24.2-alpha"
         ]
@@ -52,7 +52,6 @@ buildscript {
                 ],
 
                 hilt                   : [
-                        plugin  : "com.google.dagger:hilt-android-gradle-plugin:$versions.hilt",
                         android : "com.google.dagger:hilt-android:$versions.hilt",
                         compiler: "com.google.dagger:hilt-compiler:$versions.hilt"
                 ],
@@ -85,10 +84,6 @@ buildscript {
                 desugarJdkLibs         : "com.android.tools:desugar_jdk_libs:1.1.5"
         ]
     }
-
-    dependencies {
-        classpath libs.hilt.plugin
-    }
 }
 
 plugins {
@@ -96,6 +91,7 @@ plugins {
     id 'com.android.library' version '7.2.0-beta02' apply false
     id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.6.10' apply false
+    id 'com.google.dagger.hilt.android' version '2.41' apply false
 }
 
 subprojects {
