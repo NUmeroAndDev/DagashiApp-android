@@ -1,11 +1,13 @@
 package jp.numero.dagashiapp.ui
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import jp.numero.dagashiapp.ui.settings.SettingsScreen
@@ -31,11 +33,17 @@ fun DagashiApp() {
             ) {
                 ScreenNavHost(
                     navController = navController,
-                    startScreen = Screen.MilestoneList,
+                    startScreen = Screen.Home,
                 ) {
                     screenComposable {
-                        milestoneList {
-                            MilestoneListScreen(navController)
+                        home {
+                            BoxWithConstraints {
+                                if (isLargeScreen) {
+                                    MilestoneListWithDetailScreen(navController)
+                                } else {
+                                    MilestoneListScreen(navController)
+                                }
+                            }
                         }
                         milestoneDetail {
                             MilestoneDetailScreen(navController)
