@@ -7,9 +7,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import jp.numero.dagashiapp.ui.milestonedetail.MilestoneDetailScreen
+import jp.numero.dagashiapp.ui.milestonelist.MilestoneListScreen
 import jp.numero.dagashiapp.ui.settings.SettingsScreen
 import jp.numero.dagashiapp.ui.theme.DagashiAppTheme
 import jp.takuji31.compose.navigation.screen.ScreenNavHost

@@ -1,4 +1,4 @@
-package jp.numero.dagashiapp.ui
+package jp.numero.dagashiapp.ui.milestonelist
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -22,7 +22,11 @@ import com.google.accompanist.insets.rememberInsetsPaddingValues
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import jp.numero.dagashiapp.model.Milestone
 import jp.numero.dagashiapp.model.MilestoneList
+import jp.numero.dagashiapp.ui.R
+import jp.numero.dagashiapp.ui.Screen
+import jp.numero.dagashiapp.ui.UiState
 import jp.numero.dagashiapp.ui.component.*
+import jp.numero.dagashiapp.ui.dateTimeString
 import jp.takuji31.compose.navigation.screen.ScreenNavController
 import java.time.Instant
 

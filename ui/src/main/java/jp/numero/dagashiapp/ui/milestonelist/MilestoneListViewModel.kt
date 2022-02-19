@@ -1,27 +1,23 @@
-package jp.numero.dagashiapp.ui
+package jp.numero.dagashiapp.ui.milestonelist
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import jp.numero.dagashiapp.model.MilestoneDetail
+import jp.numero.dagashiapp.model.MilestoneList
 import jp.numero.dagashiapp.repository.DagashiRepository
-import jp.takuji31.compose.navigation.screen.screen
+import jp.numero.dagashiapp.ui.UiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MilestoneDetailViewModel @Inject constructor(
-    private val dagashiRepository: DagashiRepository,
-    savedStateHandle: SavedStateHandle,
+class MilestoneListViewModel @Inject constructor(
+    private val dagashiRepository: DagashiRepository
 ) : ViewModel() {
 
-    private val _uiState: MutableStateFlow<UiState<MilestoneDetail>> = MutableStateFlow(UiState())
+    private val _uiState: MutableStateFlow<UiState<MilestoneList>> = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()
-
-    private val screen: Screen.MilestoneDetail by savedStateHandle.screen()
 
     init {
         load()
@@ -31,17 +27,30 @@ class MilestoneDetailViewModel @Inject constructor(
         load(isRefresh = true)
     }
 
+    fun loadMore() {
+        val data = uiState.value.data ?: return
+        if (data.hasMore) {
+            load(nextCursor = data.nextCursor)
+        }
+    }
+
     private fun load(
         isRefresh: Boolean = false,
+        nextCursor: String? = null
     ) {
         if (uiState.value.isLoading) return
         _uiState.value = uiState.value.copy(
             isInitialLoading = uiState.value.isEmpty,
             isRefreshing = isRefresh,
+            isMoreLoading = nextCursor != null
         )
         viewModelScope.launch {
             runCatching {
-                dagashiRepository.fetchMilestoneDetail(screen.path)
+                if (nextCursor != null) {
+                    dagashiRepository.fetchMoreMilestoneList(nextCursor)
+                } else {
+                    dagashiRepository.fetchMilestoneList()
+                }
             }.fold(
                 onSuccess = {
                     _uiState.value = uiState.value.handleData(it)

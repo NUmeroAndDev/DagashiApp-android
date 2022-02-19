@@ -1,4 +1,4 @@
-package jp.numero.dagashiapp.ui
+package jp.numero.dagashiapp.ui.milestonedetail
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -24,6 +24,8 @@ import com.google.accompanist.insets.rememberInsetsPaddingValues
 import jp.numero.dagashiapp.model.Issue
 import jp.numero.dagashiapp.model.Label
 import jp.numero.dagashiapp.model.MilestoneDetail
+import jp.numero.dagashiapp.ui.R
+import jp.numero.dagashiapp.ui.UiState
 import jp.numero.dagashiapp.ui.component.ErrorMessage
 import jp.numero.dagashiapp.ui.component.FullScreenLoadingIndicator
 import jp.numero.dagashiapp.ui.component.IssueDescriptionText

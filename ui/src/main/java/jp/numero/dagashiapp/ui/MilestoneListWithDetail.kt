@@ -20,6 +20,8 @@ import com.google.accompanist.insets.rememberInsetsPaddingValues
 import jp.numero.dagashiapp.model.Milestone
 import jp.numero.dagashiapp.ui.component.ErrorMessage
 import jp.numero.dagashiapp.ui.component.FullScreenLoadingIndicator
+import jp.numero.dagashiapp.ui.milestonedetail.MilestoneDetailContent
+import jp.numero.dagashiapp.ui.milestonelist.MilestoneListContent
 import jp.takuji31.compose.navigation.screen.ScreenNavController
 
 @Composable
