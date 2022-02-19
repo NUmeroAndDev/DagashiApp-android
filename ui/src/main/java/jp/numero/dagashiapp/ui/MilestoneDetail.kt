@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -125,7 +126,8 @@ fun MilestoneDetailScreen(
 @Composable
 fun MilestoneDetailContent(
     milestoneDetail: MilestoneDetail,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClickInnerShare: ((String) -> Unit)? = null
 ) {
     Column(
         modifier = modifier.verticalScroll(rememberScrollState())
@@ -142,6 +144,34 @@ fun MilestoneDetailContent(
                 )
             )
         ) {
+            if (onClickInnerShare != null) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(
+                            start = 16.dp,
+                            end = 16.dp,
+                            top = 12.dp
+                        )
+                ) {
+                    Text(
+                        text = "#${milestoneDetail.number}",
+                        style = MaterialTheme.typography.titleLarge,
+                        modifier = Modifier.align(Alignment.CenterStart)
+                    )
+                    IconButton(
+                        onClick = {
+                            onClickInnerShare(milestoneDetail.url)
+                        },
+                        modifier = Modifier.align(Alignment.CenterEnd)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Share,
+                            contentDescription = stringResource(id = R.string.share)
+                        )
+                    }
+                }
+            }
             milestoneDetail.issues.forEachIndexed { index, issue ->
                 IssueItem(issue = issue)
                 if (index != milestoneDetail.issues.lastIndex) {

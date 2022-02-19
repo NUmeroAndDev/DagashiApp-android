@@ -7,9 +7,9 @@ import jp.takuji31.compose.navigation.screen.annotation.StringArgument
 @AutoScreenId("Screen")
 enum class DagashiScreenId {
     @Route(
-        route = "/milestoneList",
+        route = "/",
     )
-    MilestoneList,
+    Home,
 
     @Route(
         route = "/milestoneDetail/{path}",
