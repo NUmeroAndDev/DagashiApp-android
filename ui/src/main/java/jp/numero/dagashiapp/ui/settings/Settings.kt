@@ -2,6 +2,7 @@ package jp.numero.dagashiapp.ui.settings
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -13,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.rememberInsetsPaddingValues
 import jp.numero.dagashiapp.ui.R
@@ -21,17 +23,20 @@ import jp.takuji31.compose.navigation.screen.ScreenNavController
 
 @Composable
 fun SettingsScreen(navController: ScreenNavController) {
+    val viewModel: SettingsViewModel = hiltViewModel()
     SettingsScreen(
+        appVersion = viewModel.appVersion,
         onBack = {
             navController.popBackStack()
-        }
+        },
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
-    onBack: () -> Unit
+    appVersion: AppVersion,
+    onBack: () -> Unit,
 ) {
     val scrollBehavior = remember { TopAppBarDefaults.pinnedScrollBehavior() }
     Scaffold(
@@ -57,6 +62,7 @@ fun SettingsScreen(
                     .padding(innerPadding)
             ) {
                 SettingsContent(
+                    appVersion = appVersion,
                     modifier = Modifier.fillMaxSize()
                 )
             }
@@ -66,6 +72,7 @@ fun SettingsScreen(
 
 @Composable
 fun SettingsContent(
+    appVersion: AppVersion,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -77,6 +84,13 @@ fun SettingsContent(
     ) {
         item {
             SettingsItem(title = "WIP")
+        }
+        item {
+            SettingsItem(
+                title = stringResource(id = R.string.application_version),
+                summary = appVersion.name,
+                modifier = Modifier.fillMaxWidth()
+            )
         }
     }
 }
