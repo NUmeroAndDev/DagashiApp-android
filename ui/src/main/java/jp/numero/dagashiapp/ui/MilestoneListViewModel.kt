@@ -7,6 +7,7 @@ import jp.numero.dagashiapp.model.MilestoneList
 import jp.numero.dagashiapp.repository.DagashiRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -52,21 +53,10 @@ class MilestoneListViewModel @Inject constructor(
                 }
             }.fold(
                 onSuccess = {
-                    _uiState.value = uiState.value.copy(
-                        isInitialLoading = false,
-                        isRefreshing = false,
-                        isMoreLoading = false,
-                        data = it,
-                        error = null
-                    )
+                    _uiState.value = uiState.value.handleData(it)
                 },
                 onFailure = {
-                    _uiState.value = uiState.value.copy(
-                        isInitialLoading = false,
-                        isRefreshing = false,
-                        isMoreLoading = false,
-                        error = it
-                    )
+                    _uiState.value = uiState.value.handleError(it)
                 }
             )
         }

@@ -70,30 +70,14 @@ class MilestoneListWithDetailViewModel @Inject constructor(
             }.fold(
                 onSuccess = { (list, detail) ->
                     _uiStates.value = uiStates.value.copy(
-                        milestoneList = uiStates.value.milestoneList.copy(
-                            isInitialLoading = false,
-                            isRefreshing = false,
-                            isMoreLoading = false,
-                            data = list,
-                            error = null
-                        ),
-                        milestoneDetail = uiStates.value.milestoneDetail.copy(
-                            data = detail,
-                            error = null
-                        ),
+                        milestoneList = uiStates.value.milestoneList.handleData(list),
+                        milestoneDetail = uiStates.value.milestoneDetail.handleData(detail),
                     )
                 },
                 onFailure = {
                     _uiStates.value = uiStates.value.copy(
-                        milestoneList = uiStates.value.milestoneList.copy(
-                            isInitialLoading = false,
-                            isRefreshing = false,
-                            isMoreLoading = false,
-                            error = it
-                        ),
-                        milestoneDetail = uiStates.value.milestoneDetail.copy(
-                            error = it
-                        ),
+                        milestoneList = uiStates.value.milestoneList.handleError(it),
+                        milestoneDetail = uiStates.value.milestoneDetail.handleError(it),
                     )
                 }
             )
@@ -115,19 +99,12 @@ class MilestoneListWithDetailViewModel @Inject constructor(
             }.fold(
                 onSuccess = {
                     _uiStates.value = uiStates.value.copy(
-                        milestoneDetail = uiStates.value.milestoneDetail.copy(
-                            isInitialLoading = false,
-                            data = it,
-                            error = null
-                        )
+                        milestoneDetail = uiStates.value.milestoneDetail.handleData(it)
                     )
                 },
                 onFailure = {
                     _uiStates.value = uiStates.value.copy(
-                        milestoneDetail = uiStates.value.milestoneDetail.copy(
-                            isInitialLoading = false,
-                            error = it
-                        )
+                        milestoneDetail = uiStates.value.milestoneDetail.handleError(it)
                     )
                 }
             )

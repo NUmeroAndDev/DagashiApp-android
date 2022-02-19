@@ -40,15 +40,15 @@ class MilestoneDetailViewModel @Inject constructor(
             isRefreshing = isRefresh,
         )
         viewModelScope.launch {
-            val result = runCatching {
+            runCatching {
                 dagashiRepository.fetchMilestoneDetail(screen.path)
-            }
-            _uiState.value = uiState.value.copy(
-                isInitialLoading = false,
-                isRefreshing = false,
-                isMoreLoading = false,
-                data = result.getOrNull(),
-                error = result.exceptionOrNull()
+            }.fold(
+                onSuccess = {
+                    _uiState.value = uiState.value.handleData(it)
+                },
+                onFailure = {
+                    _uiState.value = uiState.value.handleError(it)
+                }
             )
         }
     }

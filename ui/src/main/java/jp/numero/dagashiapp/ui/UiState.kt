@@ -26,4 +26,19 @@ data class UiState<T>(
             loaded(data, error)
         }
     }
+
+    fun handleData(data: T?): UiState<T> = copy(
+        isInitialLoading = false,
+        isRefreshing = false,
+        isMoreLoading = false,
+        data = data,
+        error = null
+    )
+
+    fun handleError(error: Throwable): UiState<T> = copy(
+        isInitialLoading = false,
+        isRefreshing = false,
+        isMoreLoading = false,
+        error = error
+    )
 }
