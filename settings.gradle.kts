@@ -21,6 +21,7 @@ rootProject.name = "DagashiApp"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(":app")
+include(":app-widget")
 include(":ui")
 include(":data")
 include(":model")
