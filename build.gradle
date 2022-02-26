@@ -6,13 +6,13 @@ buildscript {
                 minSdk     : 23,
                 targetSdk  : 32,
 
-                compose    : "1.2.0-alpha03",
+                compose    : "1.2.0-alpha04",
 
-                lifecycle  : "2.4.1",
+                lifecycle  : "2.5.0-alpha03",
 
                 hilt       : "2.41",
 
-                accompanist: "0.24.2-alpha"
+                accompanist: "0.24.3-alpha"
         ]
 
         libs = [
@@ -27,7 +27,7 @@ buildscript {
                         coreSplash: "androidx.core:core-splashscreen:1.0.0-beta01",
 
                         navigation: [
-                                compose: "androidx.navigation:navigation-compose:2.4.1"
+                                compose: "androidx.navigation:navigation-compose:2.5.0-alpha03"
                         ],
 
                         lifecycle : [
@@ -44,7 +44,7 @@ buildscript {
                                 uiTooling            : "androidx.compose.ui:ui-tooling:$versions.compose",
                                 uiToolingPreview     : "androidx.compose.ui:ui-tooling-preview:$versions.compose",
                                 foundation           : "androidx.compose.foundation:foundation:$versions.compose",
-                                material3            : "androidx.compose.material3:material3:1.0.0-alpha05",
+                                material3            : "androidx.compose.material3:material3:1.0.0-alpha06",
                                 materialIconsExtended: "androidx.compose.material:material-icons-extended:$versions.compose",
 
                                 uiTest               : "androidx.compose.ui:ui-test-junit4:$versions.compose"
