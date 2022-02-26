@@ -1,34 +1,23 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
-    id 'com.google.android.gms.oss-licenses-plugin'
 }
 
 android {
     compileSdk versions.compileSdk
 
     defaultConfig {
-        applicationId "jp.numero.dagashiapp"
         minSdk versions.minSdk
         targetSdk versions.targetSdk
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary true
-        }
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
         release {
-            shrinkResources true
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-        debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -42,26 +31,31 @@ android {
 
     buildFeatures {
         compose true
+        buildConfig false
     }
 
     composeOptions {
         kotlinCompilerExtensionVersion versions.compose
     }
-
-    packagingOptions {
-        resources {
-            excludes += '/META-INF/{AL2.0,LGPL2.1}'
-        }
-    }
 }
 
 dependencies {
-    implementation projects.ui
-    implementation projects.appwidget
+    implementation projects.model
+    implementation projects.repository
 
-    implementation libs.androidx.activity
     implementation libs.androidx.core
-    implementation libs.androidx.coreSplash
+    implementation libs.androidx.lifecycle.runtime
+    implementation libs.androidx.lifecycle.viewmodel
+
+    implementation libs.androidx.glance.widget
+
+    implementation libs.androidx.compose.ui
+    implementation libs.androidx.compose.foundation
+    implementation libs.androidx.compose.material3
+    implementation libs.androidx.compose.materialIconsExtended
+    implementation libs.androidx.compose.uiToolingPreview
+
+    debugImplementation libs.androidx.compose.uiTooling
 
     implementation libs.hilt.android
     kapt libs.hilt.compiler
@@ -69,7 +63,4 @@ dependencies {
     coreLibraryDesugaring libs.desugarJdkLibs
 
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    androidTestImplementation libs.androidx.compose.uiTest
 }
