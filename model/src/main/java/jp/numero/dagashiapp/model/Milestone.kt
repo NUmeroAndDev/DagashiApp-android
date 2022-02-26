@@ -4,7 +4,7 @@ import java.time.Instant
 
 data class MilestoneList(
     val value: List<Milestone>,
-    val hasMore: Boolean,
+    val hasMore: Boolean = false,
     val nextCursor: String? = null
 )
 
