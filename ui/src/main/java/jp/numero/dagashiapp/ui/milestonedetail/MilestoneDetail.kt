@@ -210,6 +210,10 @@ fun IssueItem(
         Spacer(modifier = Modifier.height(8.dp))
 
         IssueDescriptionText(text = issue.body)
+        if (issue.comments.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(16.dp))
+            Comments(commentList = issue.comments)
+        }
     }
 }
 

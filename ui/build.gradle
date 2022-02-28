@@ -65,6 +65,8 @@ dependencies {
     implementation libs.accompanist.systemUiController
     implementation libs.accompanist.swipeRefresh
 
+    implementation libs.coil
+
     implementation libs.navigationComposeScreen.core
     kapt libs.navigationComposeScreen.compiler
 
