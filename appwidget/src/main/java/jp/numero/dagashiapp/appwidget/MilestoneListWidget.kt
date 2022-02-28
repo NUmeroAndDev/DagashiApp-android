@@ -5,11 +5,12 @@ import android.content.Context
 import android.content.Intent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
 import androidx.glance.appwidget.*
 import androidx.glance.appwidget.lazy.LazyColumn
-import androidx.glance.appwidget.lazy.items
+import androidx.glance.appwidget.lazy.itemsIndexed
 import androidx.glance.background
 import androidx.glance.layout.*
 import androidx.glance.state.GlanceStateDefinition
@@ -17,6 +18,7 @@ import androidx.glance.state.PreferencesGlanceStateDefinition
 import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
+import androidx.glance.unit.ColorProvider
 import dagger.hilt.android.AndroidEntryPoint
 import jp.numero.dagashiapp.model.Milestone
 import jp.numero.dagashiapp.model.MilestoneList
@@ -33,42 +35,47 @@ class MilestoneListWidget : GlanceAppWidget() {
 
     @Composable
     override fun Content() {
-        Column(
-            modifier = GlanceModifier
-                .fillMaxSize()
-                .background(R.color.appwidget_background)
-                .appWidgetBackground()
-                .padding(16.dp),
-        ) {
-            Text(
-                text = "DagashiApp",
-                style = TextStyle(
-                    fontWeight = FontWeight.Medium
-                ),
+        WidgetTheme {
+            Column(
                 modifier = GlanceModifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-            )
-            Spacer(modifier = GlanceModifier.height(12.dp))
-            state.onState(
-                loading = {
-                    Box(
-                        modifier = GlanceModifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        CircularProgressIndicator()
+                    .fillMaxSize()
+                    .background(WidgetTheme.colorScheme.background)
+                    .appWidgetBackgroundRadius()
+                    .appWidgetBackground(),
+            ) {
+                Text(
+                    text = "DagashiApp",
+                    style = TextStyle(
+                        fontSize = 22.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = ColorProvider(WidgetTheme.colorScheme.textPrimary),
+                    ),
+                    modifier = GlanceModifier
+                        .fillMaxWidth()
+                        .padding(vertical = 12.dp, horizontal = 16.dp)
+                )
+                state.onState(
+                    loading = {
+                        Box(
+                            modifier = GlanceModifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator()
+                        }
+                    },
+                    loadFailed = {
+                        // TODO: error
+                    },
+                    loadSucceed = {
+                        MilestoneListContent(
+                            milestoneList = it,
+                            modifier = GlanceModifier
+                                .fillMaxSize()
+                                .padding(horizontal = 16.dp)
+                        )
                     }
-                },
-                loadFailed = {
-                    // TODO: error
-                },
-                loadSucceed = {
-                    MilestoneListContent(
-                        milestoneList = it,
-                        modifier = GlanceModifier.fillMaxSize()
-                    )
-                }
-            )
+                )
+            }
         }
     }
 
@@ -90,16 +97,24 @@ private fun MilestoneListContent(
     LazyColumn(
         modifier = modifier,
     ) {
-        items(
+        itemsIndexed(
             items = milestoneList.value,
-            itemId = {
-                it.number.toLong()
+            itemId = { _, item ->
+                item.number.toLong()
             }
-        ) { item ->
-            MilestoneItem(
-                milestone = item,
-                modifier = GlanceModifier.fillMaxWidth()
-            )
+        ) { index, item ->
+            Column {
+                MilestoneItem(
+                    milestone = item,
+                    modifier = GlanceModifier
+                        .fillMaxWidth()
+                        .background(WidgetTheme.colorScheme.innerBackground)
+                        .appWidgetInnerRadius()
+                )
+                if (index != milestoneList.value.lastIndex) {
+                    Spacer(modifier = GlanceModifier.height(8.dp))
+                }
+            }
         }
     }
 }
@@ -110,14 +125,24 @@ private fun MilestoneItem(
     modifier: GlanceModifier = GlanceModifier
 ) {
     Column(
-        modifier = modifier.padding(16.dp)
+        modifier = modifier.padding(horizontal = 16.dp, vertical = 12.dp)
     ) {
         Text(
             text = "#${milestone.number}",
+            style = TextStyle(
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Medium,
+                color = ColorProvider(WidgetTheme.colorScheme.textPrimary),
+            ),
         )
         Spacer(modifier = GlanceModifier.height(4.dp))
         Text(
             text = milestone.description,
+            style = TextStyle(
+                fontSize = 12.sp,
+                color = ColorProvider(WidgetTheme.colorScheme.textSecondary),
+            ),
+            maxLines = 2
         )
     }
 }
