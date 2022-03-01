@@ -66,7 +66,7 @@ dependencies {
 
     implementation libs.coil
 
-    implementation libs.navigationComposeScreen.core
+    implementation libs.composeDestinations.core
 
     coreLibraryDesugaring libs.desugarJdkLibs
 

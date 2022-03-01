@@ -2,36 +2,39 @@ package jp.numero.dagashiapp.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.NavHostController
 import androidx.navigation.activity
+import androidx.navigation.compose.NavHost
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
-import jp.takuji31.compose.navigation.screen.ScreenNavController
-import jp.takuji31.compose.navigation.screen.ScreenNavHost
+import com.ramcosta.composedestinations.utils.composable
+import jp.numero.dagashiapp.navigation.destinations.HomeScreenDestination
+import jp.numero.dagashiapp.navigation.destinations.LicensesScreenDestination
+import jp.numero.dagashiapp.navigation.destinations.MilestoneDetailScreenDestination
+import jp.numero.dagashiapp.navigation.destinations.SettingsScreenDestination
 
 @Composable
 fun DagashiNavigation(
-    navController: ScreenNavController,
+    navController: NavHostController,
     homeScreen: @Composable () -> Unit,
     milestoneDetailScreen: @Composable () -> Unit,
     settingsScreen: @Composable () -> Unit,
 ) {
     val context = LocalContext.current
-    ScreenNavHost(
+    NavHost(
         navController = navController,
-        startScreen = Screen.Home,
+        startDestination = HomeScreenDestination.route,
     ) {
-        screenComposable {
-            home {
-                homeScreen()
-            }
-            milestoneDetail {
-                milestoneDetailScreen()
-            }
-            settings {
-                settingsScreen()
-            }
+        composable(HomeScreenDestination) {
+            homeScreen()
+        }
+        composable(MilestoneDetailScreenDestination) { _, _ ->
+            milestoneDetailScreen()
+        }
+        composable(SettingsScreenDestination) {
+            settingsScreen()
         }
         activity(
-            route = Screen.Licenses.route,
+            route = LicensesScreenDestination.route,
         ) {
             OssLicensesMenuActivity.setActivityTitle(context.getString(R.string.licenses))
             activityClass = OssLicensesMenuActivity::class
