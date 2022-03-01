@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-parcelize'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
 }
@@ -43,10 +42,9 @@ android {
 dependencies {
     implementation projects.model
     implementation projects.repository
+    implementation projects.navigation
 
     implementation libs.androidx.core
-    implementation libs.androidx.appcompat
-    implementation libs.androidx.navigation.compose
     implementation libs.androidx.lifecycle.runtime
     implementation libs.androidx.lifecycle.viewmodel
     implementation libs.androidx.hilt.navigationCompose
@@ -69,11 +67,8 @@ dependencies {
     implementation libs.coil
 
     implementation libs.navigationComposeScreen.core
-    kapt libs.navigationComposeScreen.compiler
 
     coreLibraryDesugaring libs.desugarJdkLibs
-
-    implementation libs.licenses
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

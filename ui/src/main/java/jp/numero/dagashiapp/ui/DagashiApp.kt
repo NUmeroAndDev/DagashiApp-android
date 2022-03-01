@@ -7,15 +7,13 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
-import androidx.navigation.activity
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
+import jp.numero.dagashiapp.navigation.DagashiNavigation
 import jp.numero.dagashiapp.ui.milestonedetail.MilestoneDetailScreen
 import jp.numero.dagashiapp.ui.milestonelist.MilestoneListScreen
 import jp.numero.dagashiapp.ui.settings.SettingsScreen
 import jp.numero.dagashiapp.ui.theme.DagashiAppTheme
-import jp.takuji31.compose.navigation.screen.ScreenNavHost
 import jp.takuji31.compose.navigation.screen.rememberScreenNavController
 
 @Composable
@@ -34,33 +32,24 @@ fun DagashiApp() {
             Surface(
                 color = MaterialTheme.colorScheme.background
             ) {
-                ScreenNavHost(
+                DagashiNavigation(
                     navController = navController,
-                    startScreen = Screen.Home,
-                ) {
-                    screenComposable {
-                        home {
-                            BoxWithConstraints {
-                                if (isLargeScreen) {
-                                    MilestoneListWithDetailScreen(navController)
-                                } else {
-                                    MilestoneListScreen(navController)
-                                }
+                    homeScreen = {
+                        BoxWithConstraints {
+                            if (isLargeScreen) {
+                                MilestoneListWithDetailScreen(navController)
+                            } else {
+                                MilestoneListScreen(navController)
                             }
                         }
-                        milestoneDetail {
-                            MilestoneDetailScreen(navController)
-                        }
-                        settings {
-                            SettingsScreen(navController)
-                        }
+                    },
+                    milestoneDetailScreen = {
+                        MilestoneDetailScreen(navController)
+                    },
+                    settingsScreen = {
+                        SettingsScreen(navController)
                     }
-                    activity(
-                        route = Screen.Licenses.route,
-                    ) {
-                        activityClass = OssLicensesMenuActivity::class
-                    }
-                }
+                )
             }
         }
     }

@@ -13,28 +13,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.rememberInsetsPaddingValues
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
+import jp.numero.dagashiapp.navigation.Screen
 import jp.numero.dagashiapp.ui.R
-import jp.numero.dagashiapp.ui.Screen
 import jp.numero.dagashiapp.ui.component.TopAppBar
 import jp.takuji31.compose.navigation.screen.ScreenNavController
 
 @Composable
 fun SettingsScreen(navController: ScreenNavController) {
     val viewModel: SettingsViewModel = hiltViewModel()
-    val context = LocalContext.current
     SettingsScreen(
         appVersion = viewModel.appVersion,
         onBack = {
             navController.popBackStack()
         },
         onClickLicenses = {
-            OssLicensesMenuActivity.setActivityTitle(context.getString(R.string.licenses))
             navController.navigate(Screen.Licenses)
         }
     )

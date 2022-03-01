@@ -11,6 +11,7 @@ Unofficial [Android Dagashi](https://androiddagashi.github.io/) application
 ```mermaid
   graph TD;
       :app-->:ui;
+      :ui-->:navigation;
       :ui-->:repository;
       :ui-->:model;
       :repository-->:model;
