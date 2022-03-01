@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.numero.dagashiapp.model.MilestoneDetail
+import jp.numero.dagashiapp.navigation.Screen
 import jp.numero.dagashiapp.repository.DagashiRepository
-import jp.numero.dagashiapp.ui.Screen
 import jp.numero.dagashiapp.ui.UiState
 import jp.takuji31.compose.navigation.screen.screen
 import kotlinx.coroutines.flow.MutableStateFlow

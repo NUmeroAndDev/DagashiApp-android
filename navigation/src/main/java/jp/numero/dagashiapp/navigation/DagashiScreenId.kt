@@ -1,4 +1,4 @@
-package jp.numero.dagashiapp.ui
+package jp.numero.dagashiapp.navigation
 
 import jp.takuji31.compose.navigation.screen.annotation.AutoScreenId
 import jp.takuji31.compose.navigation.screen.annotation.Route
