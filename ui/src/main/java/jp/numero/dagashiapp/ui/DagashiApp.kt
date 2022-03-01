@@ -7,8 +7,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
+import androidx.navigation.activity
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import jp.numero.dagashiapp.ui.milestonedetail.MilestoneDetailScreen
 import jp.numero.dagashiapp.ui.milestonelist.MilestoneListScreen
 import jp.numero.dagashiapp.ui.settings.SettingsScreen
@@ -52,6 +54,11 @@ fun DagashiApp() {
                         settings {
                             SettingsScreen(navController)
                         }
+                    }
+                    activity(
+                        route = Screen.Licenses.route,
+                    ) {
+                        activityClass = OssLicensesMenuActivity::class
                     }
                 }
             }

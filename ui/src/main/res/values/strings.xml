@@ -10,6 +10,7 @@
     <string name="load_error_message">Failed to load</string>
 
     <string name="application_version">Application version</string>
+    <string name="licenses">Licenses</string>
 
     <string name="date_format">MM/dd/yyyy</string>
 </resources>

@@ -8,6 +8,7 @@
     <string name="load_error_message">読み込みに失敗しました</string>
 
     <string name="application_version">バージョン</string>
+    <string name="licenses">ライセンス</string>
 
     <string name="date_format">yyyy/MM/dd</string>
 </resources>

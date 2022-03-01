@@ -23,4 +23,9 @@ enum class DagashiScreenId {
         route = "/settings"
     )
     Settings,
+
+    @Route(
+        route = "/licenses"
+    )
+    Licenses,
 }

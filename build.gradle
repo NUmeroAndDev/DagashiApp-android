@@ -22,6 +22,7 @@ buildscript {
                 ],
 
                 androidx               : [
+                        appcompat : "androidx.appcompat:appcompat:1.6.0-alpha01",
                         activity  : "androidx.activity:activity-compose:1.4.0",
                         core      : "androidx.core:core-ktx:1.7.0",
                         coreSplash: "androidx.core:core-splashscreen:1.0.0-beta01",
@@ -81,8 +82,14 @@ buildscript {
                         compiler: "com.github.takuji31.navigation-compose-screen:compiler:1.1"
                 ],
 
-                desugarJdkLibs         : "com.android.tools:desugar_jdk_libs:1.1.5"
+                desugarJdkLibs         : "com.android.tools:desugar_jdk_libs:1.1.5",
+
+                licenses               : "com.google.android.gms:play-services-oss-licenses:17.0.0"
         ]
+    }
+
+    dependencies {
+        classpath 'com.google.android.gms:oss-licenses-plugin:0.10.5'
     }
 }
 
