@@ -19,6 +19,8 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.rememberInsetsPaddingValues
 import jp.numero.dagashiapp.model.Issue
@@ -30,10 +32,11 @@ import jp.numero.dagashiapp.ui.component.ErrorMessage
 import jp.numero.dagashiapp.ui.component.FullScreenLoadingIndicator
 import jp.numero.dagashiapp.ui.component.IssueDescriptionText
 import jp.numero.dagashiapp.ui.component.TopAppBar
-import jp.takuji31.compose.navigation.screen.ScreenNavController
 
 @Composable
-fun MilestoneDetailScreen(navController: ScreenNavController) {
+fun MilestoneDetailScreen(
+    navController: NavHostController
+) {
     val viewModel: MilestoneDetailViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
     val uriHandler = LocalUriHandler.current

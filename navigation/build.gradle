@@ -1,8 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-parcelize'
-    id 'kotlin-kapt'
+    id 'com.google.devtools.ksp'
 }
 
 android {
@@ -38,14 +37,29 @@ android {
     }
 }
 
+kotlin {
+    sourceSets {
+        debug {
+            kotlin.srcDir("build/generated/ksp/debug/kotlin")
+        }
+        release {
+            kotlin.srcDir("build/generated/ksp/release/kotlin")
+        }
+    }
+}
+
+ksp {
+    arg("compose-destinations.generateNavGraphs", "false")
+}
+
 dependencies {
     implementation libs.androidx.appcompat
     implementation libs.androidx.navigation.compose
 
     implementation libs.androidx.compose.ui
 
-    implementation libs.navigationComposeScreen.core
-    kapt libs.navigationComposeScreen.compiler
+    implementation libs.composeDestinations.core
+    ksp libs.composeDestinations.ksp
 
     implementation libs.licenses
 

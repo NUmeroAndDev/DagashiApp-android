@@ -17,27 +17,29 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.rememberInsetsPaddingValues
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import com.ramcosta.composedestinations.navigation.navigateTo
 import jp.numero.dagashiapp.model.Milestone
 import jp.numero.dagashiapp.model.MilestoneList
-import jp.numero.dagashiapp.navigation.Screen
+import jp.numero.dagashiapp.navigation.destinations.MilestoneDetailScreenDestination
+import jp.numero.dagashiapp.navigation.destinations.SettingsScreenDestination
 import jp.numero.dagashiapp.ui.R
 import jp.numero.dagashiapp.ui.UiState
 import jp.numero.dagashiapp.ui.component.*
 import jp.numero.dagashiapp.ui.dateTimeString
-import jp.takuji31.compose.navigation.screen.ScreenNavController
 import java.time.Instant
 
 @Composable
-fun MilestoneListScreen(navController: ScreenNavController) {
+fun MilestoneListScreen(navController: NavHostController) {
     val viewModel: MilestoneListViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
     MilestoneListScreen(
         uiState = uiState,
         onClickMilestone = {
-            navController.navigate(Screen.MilestoneDetail(it.path))
+            navController.navigateTo(MilestoneDetailScreenDestination(it.path))
         },
         onRetry = {
             // TODO: retry
@@ -49,7 +51,7 @@ fun MilestoneListScreen(navController: ScreenNavController) {
             viewModel.loadMore()
         },
         onClickSettings = {
-            navController.navigate(Screen.Settings)
+            navController.navigateTo(SettingsScreenDestination)
         }
     )
 }

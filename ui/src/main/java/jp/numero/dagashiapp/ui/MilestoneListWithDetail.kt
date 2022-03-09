@@ -15,19 +15,20 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.rememberInsetsPaddingValues
+import com.ramcosta.composedestinations.navigation.navigateTo
 import jp.numero.dagashiapp.model.Milestone
-import jp.numero.dagashiapp.navigation.Screen
+import jp.numero.dagashiapp.navigation.destinations.SettingsScreenDestination
 import jp.numero.dagashiapp.ui.component.ErrorMessage
 import jp.numero.dagashiapp.ui.component.FullScreenLoadingIndicator
 import jp.numero.dagashiapp.ui.milestonedetail.MilestoneDetailContent
 import jp.numero.dagashiapp.ui.milestonelist.MilestoneListContent
-import jp.takuji31.compose.navigation.screen.ScreenNavController
 
 @Composable
 fun MilestoneListWithDetailScreen(
-    navController: ScreenNavController
+    navController: NavHostController
 ) {
     val viewModel: MilestoneListWithDetailViewModel = hiltViewModel()
     val uiStates by viewModel.uiStates.collectAsState()
@@ -41,7 +42,7 @@ fun MilestoneListWithDetailScreen(
             viewModel.loadListMore()
         },
         onClickSettings = {
-            navController.navigate(Screen.Settings)
+            navController.navigateTo(SettingsScreenDestination)
         },
         onClickShare = {
             uriHandler.openUri(it)

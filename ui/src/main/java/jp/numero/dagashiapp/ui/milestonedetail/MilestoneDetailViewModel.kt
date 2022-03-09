@@ -5,10 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.numero.dagashiapp.model.MilestoneDetail
-import jp.numero.dagashiapp.navigation.Screen
+import jp.numero.dagashiapp.navigation.MilestoneDetailScreenNavArgs
+import jp.numero.dagashiapp.navigation.destinations.MilestoneDetailScreenDestination
 import jp.numero.dagashiapp.repository.DagashiRepository
 import jp.numero.dagashiapp.ui.UiState
-import jp.takuji31.compose.navigation.screen.screen
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -17,13 +17,14 @@ import javax.inject.Inject
 @HiltViewModel
 class MilestoneDetailViewModel @Inject constructor(
     private val dagashiRepository: DagashiRepository,
-    savedStateHandle: SavedStateHandle,
+    private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
     private val _uiState: MutableStateFlow<UiState<MilestoneDetail>> = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()
 
-    private val screen: Screen.MilestoneDetail by savedStateHandle.screen()
+    private val navArgs: MilestoneDetailScreenNavArgs
+        get() = MilestoneDetailScreenDestination.argsFrom(savedStateHandle = savedStateHandle)
 
     init {
         load()
@@ -43,7 +44,7 @@ class MilestoneDetailViewModel @Inject constructor(
         )
         viewModelScope.launch {
             runCatching {
-                dagashiRepository.fetchMilestoneDetail(screen.path)
+                dagashiRepository.fetchMilestoneDetail(navArgs.path)
             }.fold(
                 onSuccess = {
                     _uiState.value = uiState.value.handleData(it)

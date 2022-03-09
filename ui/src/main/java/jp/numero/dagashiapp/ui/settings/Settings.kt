@@ -15,15 +15,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.rememberInsetsPaddingValues
-import jp.numero.dagashiapp.navigation.Screen
+import com.ramcosta.composedestinations.navigation.navigateTo
+import jp.numero.dagashiapp.navigation.destinations.LicensesScreenDestination
 import jp.numero.dagashiapp.ui.R
 import jp.numero.dagashiapp.ui.component.TopAppBar
-import jp.takuji31.compose.navigation.screen.ScreenNavController
 
 @Composable
-fun SettingsScreen(navController: ScreenNavController) {
+fun SettingsScreen(navController: NavHostController) {
     val viewModel: SettingsViewModel = hiltViewModel()
     SettingsScreen(
         appVersion = viewModel.appVersion,
@@ -31,7 +32,7 @@ fun SettingsScreen(navController: ScreenNavController) {
             navController.popBackStack()
         },
         onClickLicenses = {
-            navController.navigate(Screen.Licenses)
+            navController.navigateTo(LicensesScreenDestination)
         }
     )
 }
