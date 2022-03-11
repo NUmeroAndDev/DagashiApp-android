@@ -1,7 +1,5 @@
 package jp.numero.dagashiapp.ui.milestonelist
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -222,15 +220,9 @@ fun MilestoneItem(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val interactionSource = remember { MutableInteractionSource() }
     OutlinedCard(
-        interactionSource = interactionSource,
+        onClick = onClick,
         modifier = modifier
-            .clickable(
-                interactionSource = interactionSource,
-                indication = null,
-                onClick = { onClick() }
-            )
     ) {
         Column(
             modifier = Modifier.padding(16.dp)
