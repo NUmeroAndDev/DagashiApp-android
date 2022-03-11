@@ -184,6 +184,9 @@ fun MilestoneListContent(
             items = milestoneList.value,
             key = { _, item ->
                 item.id
+            },
+            contentType = { _, _ ->
+                MilestoneListContentType.Item
             }
         ) { index, item ->
             MilestoneItem(
@@ -198,11 +201,18 @@ fun MilestoneListContent(
             }
         }
         if (milestoneList.hasMore) {
-            item {
+            item(
+                key = "Indicator",
+                contentType = MilestoneListContentType.Indicator
+            ) {
                 LoadingIndicatorItem()
             }
         }
     }
+}
+
+private enum class MilestoneListContentType {
+    Item, Indicator
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
