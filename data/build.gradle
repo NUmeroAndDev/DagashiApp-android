@@ -41,6 +41,8 @@ dependencies {
     implementation libs.kotlinx.coroutines
     implementation libs.kotlinx.serialization
 
+    implementation libs.androidx.datastore.preference
+
     implementation libs.hilt.android
     kapt libs.hilt.compiler
 
