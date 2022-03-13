@@ -7,10 +7,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Check
+import androidx.compose.material.icons.outlined.Contrast
+import androidx.compose.material.icons.outlined.Palette
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -127,6 +130,12 @@ fun SettingsContent(
                             }
                         )
                     },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Palette,
+                            contentDescription = null
+                        )
+                    },
                     onClick = {
                         onToggleApplyDynamicColor(!config.applyDynamicColor)
                     },
@@ -164,6 +173,12 @@ fun SelectThemeSettingsItem(
             summary = stringResource(id = currentTheme.titleRes),
             onClick = {
                 isExpandedMenu = true
+            },
+            icon = {
+                Icon(
+                    imageVector = Icons.Outlined.Contrast,
+                    contentDescription = null
+                )
             },
             modifier = Modifier.fillMaxWidth()
         )
