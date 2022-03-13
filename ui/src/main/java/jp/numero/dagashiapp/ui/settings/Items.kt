@@ -49,6 +49,7 @@ fun SettingsItem(
             }
             .heightIn(min = 46.dp)
             .padding(vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Box(
             modifier = Modifier.width(56.dp),
@@ -58,7 +59,9 @@ fun SettingsItem(
                 icon()
             }
         }
-        Column {
+        Column(
+            modifier = Modifier.weight(1f)
+        ) {
             Text(
                 text = title,
                 style = MaterialTheme.typography.titleMedium,

@@ -34,7 +34,7 @@ class ConfigDataSource(
         val themeName = it[themeKey] ?: Theme.default.name
         checkNotNull(Theme.toList().find { theme -> theme.name == themeName })
     }
-    val applyDynamicColor: Flow<Boolean> = dataStore.data.map { it[applyDynamicColorKey] ?: false }
+    val applyDynamicColor: Flow<Boolean> = dataStore.data.map { it[applyDynamicColorKey] ?: true }
 
     suspend fun updateTheme(theme: Theme) {
         dataStore.edit {

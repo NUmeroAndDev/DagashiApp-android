@@ -24,7 +24,8 @@ fun DagashiApp() {
     val config by sharedViewModel.config.collectAsState()
     val isDarkTheme = config.theme.isDarkTheme()
     DagashiAppTheme(
-        isDarkTheme = isDarkTheme
+        isDarkTheme = isDarkTheme,
+        dynamicColor = config.applyDynamicColor
     ) {
         val systemUiController = rememberSystemUiController()
         val useDarkIcons = !isDarkTheme

@@ -13,6 +13,7 @@
     <string name="light_theme">Light</string>
     <string name="dark_theme">Dark</string>
     <string name="follow_device">Follow device</string>
+    <string name="apply_dynamic_color">Apply dynamic color</string>
     <string name="application_version">Application version</string>
     <string name="licenses">Licenses</string>
 

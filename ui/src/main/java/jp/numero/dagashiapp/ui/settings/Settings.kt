@@ -33,6 +33,9 @@ fun SettingsScreen(navController: NavHostController) {
         onBack = {
             navController.popBackStack()
         },
+        onToggleApplyDynamicColor = {
+            viewModel.updateApplyDynamicColor(it)
+        },
         onSelectTheme = {
             viewModel.updateTheme(it)
         },
@@ -48,6 +51,7 @@ fun SettingsScreen(
     config: Config,
     appVersion: AppVersion,
     onBack: () -> Unit,
+    onToggleApplyDynamicColor: (Boolean) -> Unit,
     onSelectTheme: (Theme) -> Unit,
     onClickLicenses: () -> Unit
 ) {
@@ -78,6 +82,7 @@ fun SettingsScreen(
                     config = config,
                     appVersion = appVersion,
                     onSelectTheme = onSelectTheme,
+                    onToggleApplyDynamicColor = onToggleApplyDynamicColor,
                     onClickLicenses = onClickLicenses,
                     modifier = Modifier.fillMaxSize()
                 )
@@ -86,11 +91,13 @@ fun SettingsScreen(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsContent(
     config: Config,
     appVersion: AppVersion,
     onSelectTheme: (Theme) -> Unit,
+    onToggleApplyDynamicColor: (Boolean) -> Unit,
     onClickLicenses: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -106,6 +113,26 @@ fun SettingsContent(
                 currentTheme = config.theme,
                 onSelectTheme = onSelectTheme
             )
+        }
+        if (Config.enableDynamicColor) {
+            item {
+                SettingsItem(
+                    title = stringResource(id = R.string.apply_dynamic_color),
+                    trailing = {
+                        // TODO: replace switch
+                        Checkbox(
+                            checked = config.applyDynamicColor,
+                            onCheckedChange = {
+                                onToggleApplyDynamicColor(it)
+                            }
+                        )
+                    },
+                    onClick = {
+                        onToggleApplyDynamicColor(!config.applyDynamicColor)
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
         }
         item {
             SettingsItem(

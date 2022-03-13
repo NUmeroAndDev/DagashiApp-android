@@ -6,7 +6,12 @@ import androidx.annotation.ChecksSdkIntAtLeast
 data class Config(
     val theme: Theme = Theme.default,
     val applyDynamicColor: Boolean = false
-)
+) {
+    companion object {
+        @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S)
+        val enableDynamicColor: Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+    }
+}
 
 enum class Theme {
     Light,

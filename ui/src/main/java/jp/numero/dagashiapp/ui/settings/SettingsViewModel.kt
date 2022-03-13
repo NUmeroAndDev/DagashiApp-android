@@ -27,4 +27,10 @@ class SettingsViewModel @Inject constructor(
             configRepository.updateTheme(theme)
         }
     }
+
+    fun updateApplyDynamicColor(applyDynamicColor: Boolean) {
+        viewModelScope.launch {
+            configRepository.updateApplyDynamicColor(applyDynamicColor)
+        }
+    }
 }
