@@ -2,36 +2,14 @@ package jp.numero.dagashiapp.ui.settings
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import jp.numero.dagashiapp.ui.R
-
-@Composable
-fun DarkThemeItem(
-    modifier: Modifier = Modifier
-) {
-    // TODO apply current theme
-    SettingsItem(
-        title = "DarkTheme",
-        summary = "Light",
-        icon = {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_contrast),
-                contentDescription = null
-            )
-        },
-        onClick = {},
-        modifier = modifier.fillMaxWidth()
-    )
-}
 
 @Composable
 fun SettingsItem(
@@ -49,6 +27,7 @@ fun SettingsItem(
             }
             .heightIn(min = 46.dp)
             .padding(vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Box(
             modifier = Modifier.width(56.dp),
@@ -58,7 +37,9 @@ fun SettingsItem(
                 icon()
             }
         }
-        Column {
+        Column(
+            modifier = Modifier.weight(1f)
+        ) {
             Text(
                 text = title,
                 style = MaterialTheme.typography.titleMedium,
@@ -81,12 +62,6 @@ fun SettingsItem(
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun PreviewDarkThemeItem() {
-    DarkThemeItem()
 }
 
 @Preview

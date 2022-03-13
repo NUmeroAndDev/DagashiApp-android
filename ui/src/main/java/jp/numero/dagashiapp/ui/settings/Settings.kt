@@ -7,10 +7,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Check
+import androidx.compose.material.icons.outlined.Contrast
+import androidx.compose.material.icons.outlined.Palette
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -33,6 +36,9 @@ fun SettingsScreen(navController: NavHostController) {
         onBack = {
             navController.popBackStack()
         },
+        onToggleApplyDynamicColor = {
+            viewModel.updateApplyDynamicColor(it)
+        },
         onSelectTheme = {
             viewModel.updateTheme(it)
         },
@@ -48,6 +54,7 @@ fun SettingsScreen(
     config: Config,
     appVersion: AppVersion,
     onBack: () -> Unit,
+    onToggleApplyDynamicColor: (Boolean) -> Unit,
     onSelectTheme: (Theme) -> Unit,
     onClickLicenses: () -> Unit
 ) {
@@ -78,6 +85,7 @@ fun SettingsScreen(
                     config = config,
                     appVersion = appVersion,
                     onSelectTheme = onSelectTheme,
+                    onToggleApplyDynamicColor = onToggleApplyDynamicColor,
                     onClickLicenses = onClickLicenses,
                     modifier = Modifier.fillMaxSize()
                 )
@@ -86,11 +94,13 @@ fun SettingsScreen(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsContent(
     config: Config,
     appVersion: AppVersion,
     onSelectTheme: (Theme) -> Unit,
+    onToggleApplyDynamicColor: (Boolean) -> Unit,
     onClickLicenses: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -106,6 +116,32 @@ fun SettingsContent(
                 currentTheme = config.theme,
                 onSelectTheme = onSelectTheme
             )
+        }
+        if (Config.enableDynamicColor) {
+            item {
+                SettingsItem(
+                    title = stringResource(id = R.string.apply_dynamic_color),
+                    trailing = {
+                        // TODO: replace switch
+                        Checkbox(
+                            checked = config.applyDynamicColor,
+                            onCheckedChange = {
+                                onToggleApplyDynamicColor(it)
+                            }
+                        )
+                    },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Palette,
+                            contentDescription = null
+                        )
+                    },
+                    onClick = {
+                        onToggleApplyDynamicColor(!config.applyDynamicColor)
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
         }
         item {
             SettingsItem(
@@ -137,6 +173,12 @@ fun SelectThemeSettingsItem(
             summary = stringResource(id = currentTheme.titleRes),
             onClick = {
                 isExpandedMenu = true
+            },
+            icon = {
+                Icon(
+                    imageVector = Icons.Outlined.Contrast,
+                    contentDescription = null
+                )
             },
             modifier = Modifier.fillMaxWidth()
         )

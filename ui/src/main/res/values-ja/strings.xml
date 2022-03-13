@@ -11,6 +11,7 @@
     <string name="light_theme">ライトテーマ</string>
     <string name="dark_theme">ダークテーマ</string>
     <string name="follow_device">端末の設定に合わせる</string>
+    <string name="apply_dynamic_color">Dynamic colorの適用</string>
     <string name="application_version">バージョン</string>
     <string name="licenses">ライセンス</string>
 
