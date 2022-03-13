@@ -9,6 +9,10 @@
     <string name="retry">Retry</string>
     <string name="load_error_message">Failed to load</string>
 
+    <string name="app_theme">Theme</string>
+    <string name="light_theme">Light</string>
+    <string name="dark_theme">Dark</string>
+    <string name="follow_device">Follow device</string>
     <string name="application_version">Application version</string>
     <string name="licenses">Licenses</string>
 
