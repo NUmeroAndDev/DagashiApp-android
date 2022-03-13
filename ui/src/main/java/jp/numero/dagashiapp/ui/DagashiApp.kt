@@ -4,12 +4,13 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import jp.numero.dagashiapp.model.Theme
 import jp.numero.dagashiapp.navigation.DagashiNavigation
 import jp.numero.dagashiapp.ui.milestonedetail.MilestoneDetailScreen
 import jp.numero.dagashiapp.ui.milestonelist.MilestoneListScreen
@@ -19,9 +20,14 @@ import jp.numero.dagashiapp.ui.theme.DagashiAppTheme
 @Composable
 fun DagashiApp() {
     val navController = rememberNavController()
-    DagashiAppTheme {
+    val sharedViewModel = hiltViewModel<SharedViewModel>()
+    val config by sharedViewModel.config.collectAsState()
+    val isDarkTheme = config.theme.isDarkTheme()
+    DagashiAppTheme(
+        isDarkTheme = isDarkTheme
+    ) {
         val systemUiController = rememberSystemUiController()
-        val useDarkIcons = !isSystemInDarkTheme()
+        val useDarkIcons = !isDarkTheme
         SideEffect {
             systemUiController.setSystemBarsColor(
                 Color.Transparent,
@@ -52,5 +58,15 @@ fun DagashiApp() {
                 )
             }
         }
+    }
+}
+
+@Composable
+fun Theme.isDarkTheme(): Boolean {
+    val isSystemInDarkTheme = isSystemInDarkTheme()
+    return when (this) {
+        Theme.Light -> false
+        Theme.Dark -> true
+        Theme.FollowSystem -> isSystemInDarkTheme
     }
 }
