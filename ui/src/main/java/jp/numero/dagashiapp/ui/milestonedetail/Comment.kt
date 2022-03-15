@@ -11,7 +11,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberImagePainter
+import coil.compose.rememberAsyncImagePainter
 import jp.numero.dagashiapp.model.Comment
 import jp.numero.dagashiapp.ui.component.IssueDescriptionText
 
@@ -48,7 +48,7 @@ fun CommentItem(
             }
         ) {
             Image(
-                painter = rememberImagePainter(data = comment.author.icon),
+                painter = rememberAsyncImagePainter(model = comment.author.icon),
                 contentDescription = null,
                 modifier = Modifier
                     .size(32.dp)
