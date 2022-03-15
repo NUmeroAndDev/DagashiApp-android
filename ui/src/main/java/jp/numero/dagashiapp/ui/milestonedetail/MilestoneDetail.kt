@@ -19,10 +19,7 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.google.accompanist.insets.LocalWindowInsets
-import com.google.accompanist.insets.rememberInsetsPaddingValues
 import jp.numero.dagashiapp.model.Issue
 import jp.numero.dagashiapp.model.Label
 import jp.numero.dagashiapp.model.MilestoneDetail
@@ -73,10 +70,9 @@ fun MilestoneDetailScreen(
                     }
                 },
                 isCenterAlignedTitle = false,
-                contentPadding = rememberInsetsPaddingValues(
-                    LocalWindowInsets.current.statusBars,
-                    applyBottom = false,
-                ),
+                contentPadding = WindowInsets.statusBars
+                    .only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal)
+                    .asPaddingValues(),
                 scrollBehavior = scrollBehavior,
                 onBack = onBack,
                 actions = {
@@ -138,15 +134,17 @@ fun MilestoneDetailContent(
         modifier = modifier.verticalScroll(rememberScrollState())
     ) {
         OutlinedCard(
-            modifier = Modifier.padding(
-                rememberInsetsPaddingValues(
-                    insets = LocalWindowInsets.current.systemBars,
-                    applyTop = false,
-                    additionalStart = 16.dp,
-                    additionalEnd = 16.dp,
-                    additionalBottom = 16.dp,
-                    additionalTop = 16.dp
-                )
+            modifier = Modifier.windowInsetsPadding(
+                WindowInsets.systemBars
+                    .only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal)
+                    .add(
+                        WindowInsets(
+                            left = 16.dp,
+                            top = 16.dp,
+                            right = 16.dp,
+                            bottom = 16.dp
+                        )
+                    )
             )
         ) {
             if (onClickInnerShare != null) {

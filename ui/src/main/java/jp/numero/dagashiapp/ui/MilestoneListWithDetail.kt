@@ -16,8 +16,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.google.accompanist.insets.LocalWindowInsets
-import com.google.accompanist.insets.rememberInsetsPaddingValues
 import com.ramcosta.composedestinations.navigation.navigateTo
 import jp.numero.dagashiapp.model.Milestone
 import jp.numero.dagashiapp.navigation.destinations.SettingsScreenDestination
@@ -62,11 +60,9 @@ fun MilestoneListWithDetailScreen(
     Row(
         modifier = Modifier
             .fillMaxSize()
-            .padding(
-                rememberInsetsPaddingValues(
-                    LocalWindowInsets.current.statusBars,
-                    applyBottom = false,
-                )
+            .windowInsetsPadding(
+                WindowInsets.statusBars
+                    .only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal)
             ),
         verticalAlignment = Alignment.CenterVertically
     ) {
