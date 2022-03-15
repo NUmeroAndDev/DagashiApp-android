@@ -16,8 +16,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.google.accompanist.insets.LocalWindowInsets
-import com.google.accompanist.insets.rememberInsetsPaddingValues
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.ramcosta.composedestinations.navigation.navigateTo
 import jp.numero.dagashiapp.model.Milestone
@@ -76,10 +74,9 @@ fun MilestoneListScreen(
                     Text(text = stringResource(id = R.string.app_name))
                 },
                 isCenterAlignedTitle = true,
-                contentPadding = rememberInsetsPaddingValues(
-                    LocalWindowInsets.current.statusBars,
-                    applyBottom = false,
-                ),
+                contentPadding = WindowInsets.statusBars
+                    .only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal)
+                    .asPaddingValues(),
                 scrollBehavior = scrollBehavior,
                 actions = {
                     IconButton(onClick = onClickSettings) {
@@ -169,14 +166,17 @@ fun MilestoneListContent(
     LazyColumn(
         state = listState,
         modifier = modifier,
-        contentPadding = rememberInsetsPaddingValues(
-            insets = LocalWindowInsets.current.systemBars,
-            applyTop = false,
-            additionalStart = 16.dp,
-            additionalEnd = 16.dp,
-            additionalTop = 16.dp,
-            additionalBottom = 16.dp
-        )
+        contentPadding = WindowInsets.systemBars
+            .only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal)
+            .add(
+                WindowInsets(
+                    left = 16.dp,
+                    top = 16.dp,
+                    bottom = 16.dp,
+                    right = 16.dp
+                )
+            )
+            .asPaddingValues()
     ) {
         itemsIndexed(
             items = milestoneList.value,

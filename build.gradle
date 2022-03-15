@@ -75,8 +75,6 @@ buildscript {
                 coil               : "io.coil-kt:coil-compose:2.0.0-rc01",
 
                 accompanist        : [
-                        insets            : "com.google.accompanist:accompanist-insets:$versions.accompanist",
-                        insetsUi          : "com.google.accompanist:accompanist-insets-ui:$versions.accompanist",
                         placeholder       : "com.google.accompanist:accompanist-placeholder:$versions.accompanist",
                         systemUiController: "com.google.accompanist:accompanist-systemuicontroller:$versions.accompanist",
                         swipeRefresh      : "com.google.accompanist:accompanist-swiperefresh:$versions.accompanist",

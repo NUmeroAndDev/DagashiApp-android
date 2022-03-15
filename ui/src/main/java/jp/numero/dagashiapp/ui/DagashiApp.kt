@@ -8,7 +8,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
-import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import jp.numero.dagashiapp.model.Theme
 import jp.numero.dagashiapp.navigation.DagashiNavigation
@@ -35,29 +34,27 @@ fun DagashiApp() {
                 darkIcons = useDarkIcons
             )
         }
-        ProvideWindowInsets {
-            Surface(
-                color = MaterialTheme.colorScheme.background
-            ) {
-                DagashiNavigation(
-                    navController = navController,
-                    homeScreen = {
-                        BoxWithConstraints {
-                            if (isLargeScreen) {
-                                MilestoneListWithDetailScreen(navController)
-                            } else {
-                                MilestoneListScreen(navController)
-                            }
+        Surface(
+            color = MaterialTheme.colorScheme.background
+        ) {
+            DagashiNavigation(
+                navController = navController,
+                homeScreen = {
+                    BoxWithConstraints {
+                        if (isLargeScreen) {
+                            MilestoneListWithDetailScreen(navController)
+                        } else {
+                            MilestoneListScreen(navController)
                         }
-                    },
-                    milestoneDetailScreen = {
-                        MilestoneDetailScreen(navController)
-                    },
-                    settingsScreen = {
-                        SettingsScreen(navController)
                     }
-                )
-            }
+                },
+                milestoneDetailScreen = {
+                    MilestoneDetailScreen(navController)
+                },
+                settingsScreen = {
+                    SettingsScreen(navController)
+                }
+            )
         }
     }
 }
