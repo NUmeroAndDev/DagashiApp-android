@@ -38,10 +38,7 @@ class MilestoneDetailViewModel @Inject constructor(
         isRefresh: Boolean = false,
     ) {
         if (uiState.value.isLoading) return
-        _uiState.value = uiState.value.copy(
-            isInitialLoading = uiState.value.isEmpty,
-            isRefreshing = isRefresh,
-        )
+        _uiState.value = uiState.value.startLoading(isRefresh)
         viewModelScope.launch {
             runCatching {
                 dagashiRepository.fetchMilestoneDetail(navArgs.path)

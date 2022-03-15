@@ -47,11 +47,7 @@ class MilestoneListWithDetailViewModel @Inject constructor(
         val listUiState = uiStates.value.milestoneList
         if (listUiState.isLoading) return
         _uiStates.value = uiStates.value.copy(
-            milestoneList = listUiState.copy(
-                isInitialLoading = listUiState.isEmpty,
-                isRefreshing = isRefresh,
-                isMoreLoading = nextCursor != null
-            )
+            milestoneList = listUiState.startLoading(isRefresh)
         )
         viewModelScope.launch {
             runCatching {
@@ -89,7 +85,7 @@ class MilestoneListWithDetailViewModel @Inject constructor(
         if (detailUiState.isLoading) return
         _uiStates.value = uiStates.value.copy(
             milestoneDetail = detailUiState.copy(
-                isInitialLoading = true,
+                _isLoading = true,
                 data = null
             )
         )

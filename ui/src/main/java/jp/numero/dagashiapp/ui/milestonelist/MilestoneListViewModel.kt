@@ -39,11 +39,7 @@ class MilestoneListViewModel @Inject constructor(
         nextCursor: String? = null
     ) {
         if (uiState.value.isLoading) return
-        _uiState.value = uiState.value.copy(
-            isInitialLoading = uiState.value.isEmpty,
-            isRefreshing = isRefresh,
-            isMoreLoading = nextCursor != null
-        )
+        _uiState.value = uiState.value.startLoading(isRefresh)
         viewModelScope.launch {
             runCatching {
                 if (nextCursor != null) {

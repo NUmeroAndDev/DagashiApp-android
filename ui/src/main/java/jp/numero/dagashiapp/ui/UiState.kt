@@ -1,17 +1,19 @@
 package jp.numero.dagashiapp.ui
 
+import kotlinx.coroutines.flow.MutableStateFlow
+
 data class UiState<T>(
-    val isInitialLoading: Boolean = false,
+    private val _isLoading: Boolean = false,
     val isRefreshing: Boolean = false,
-    val isMoreLoading: Boolean = false,
     val data: T? = null,
     val error: Throwable? = null,
 ) {
-    val isLoading: Boolean
-        get() = isInitialLoading || isRefreshing || isMoreLoading
 
-    val isEmpty: Boolean
-        get() = data == null && error == null
+    val isLoading: Boolean
+        get() = _isLoading || isRefreshing
+
+    val isInitialLoading: Boolean
+        get() = _isLoading && data == null
 
     inline fun onState(
         initialLoading: () -> Unit = {},
@@ -27,18 +29,21 @@ data class UiState<T>(
         }
     }
 
+    fun startLoading(isRefreshing: Boolean = false): UiState<T> = copy(
+        _isLoading = true,
+        isRefreshing = isRefreshing
+    )
+
     fun handleData(data: T?): UiState<T> = copy(
-        isInitialLoading = false,
+        _isLoading = false,
         isRefreshing = false,
-        isMoreLoading = false,
         data = data,
         error = null
     )
 
     fun handleError(error: Throwable): UiState<T> = copy(
-        isInitialLoading = false,
+        _isLoading = false,
         isRefreshing = false,
-        isMoreLoading = false,
         error = error
     )
 }
