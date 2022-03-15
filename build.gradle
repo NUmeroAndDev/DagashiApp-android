@@ -12,7 +12,7 @@ buildscript {
 
                 hilt       : "2.41",
 
-                accompanist: "0.24.3-alpha"
+                accompanist: "0.24.4-alpha"
         ]
 
         libs = [
