@@ -55,6 +55,10 @@ buildscript {
                                 materialIconsExtended: "androidx.compose.material:material-icons-extended:$versions.compose",
 
                                 uiTest               : "androidx.compose.ui:ui-test-junit4:$versions.compose"
+                        ],
+
+                        glance    : [
+                                widget: "androidx.glance:glance-appwidget:1.0.0-alpha03"
                         ]
                 ],
 
