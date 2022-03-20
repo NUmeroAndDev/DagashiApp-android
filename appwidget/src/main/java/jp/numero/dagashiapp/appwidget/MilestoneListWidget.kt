@@ -8,7 +8,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
+import androidx.glance.action.clickable
 import androidx.glance.appwidget.*
+import androidx.glance.appwidget.action.actionStartActivity
 import androidx.glance.appwidget.lazy.LazyColumn
 import androidx.glance.appwidget.lazy.itemsIndexed
 import androidx.glance.background
@@ -107,6 +109,14 @@ private fun MilestoneListContent(
                 MilestoneItem(
                     milestone = item,
                     modifier = GlanceModifier
+                        .clickable(
+                            actionStartActivity(Intent().apply {
+                                setClassName(
+                                    "jp.numero.dagashiapp",
+                                    "jp.numero.dagashiapp.MainActivity"
+                                )
+                            })
+                        )
                         .fillMaxWidth()
                         .background(WidgetTheme.colorScheme.innerBackground)
                         .appWidgetInnerRadius()
