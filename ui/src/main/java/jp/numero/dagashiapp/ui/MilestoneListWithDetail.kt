@@ -78,7 +78,11 @@ fun MilestoneListWithDetailScreen(
                 Box(
                     modifier = Modifier
                         .width(334.dp)
-                        .fillMaxHeight(),
+                        .fillMaxHeight()
+                        .windowInsetsPadding(
+                            WindowInsets.systemBars
+                                .only(WindowInsetsSides.Top)
+                        ),
                     contentAlignment = Alignment.Center
                 ) {
                     Box(
