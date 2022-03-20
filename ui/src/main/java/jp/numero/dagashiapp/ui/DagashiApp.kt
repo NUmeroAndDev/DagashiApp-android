@@ -1,10 +1,12 @@
 package jp.numero.dagashiapp.ui
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
@@ -17,7 +19,7 @@ import jp.numero.dagashiapp.ui.settings.SettingsScreen
 import jp.numero.dagashiapp.ui.theme.DagashiAppTheme
 
 @Composable
-fun DagashiApp() {
+fun DagashiApp(windowSizeClass: WindowSizeClass) {
     val navController = rememberNavController()
     val sharedViewModel = hiltViewModel<SharedViewModel>()
     val config by sharedViewModel.config.collectAsState()
@@ -40,12 +42,10 @@ fun DagashiApp() {
             DagashiNavigation(
                 navController = navController,
                 homeScreen = {
-                    BoxWithConstraints {
-                        if (isLargeScreen) {
-                            MilestoneListWithDetailScreen(navController)
-                        } else {
-                            MilestoneListScreen(navController)
-                        }
+                    if (windowSizeClass == WindowSizeClass.Expanded) {
+                        MilestoneListWithDetailScreen(navController)
+                    } else {
+                        MilestoneListScreen(navController)
                     }
                 },
                 milestoneDetailScreen = {

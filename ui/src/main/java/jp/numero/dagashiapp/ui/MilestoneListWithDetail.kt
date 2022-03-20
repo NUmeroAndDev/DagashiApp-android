@@ -61,7 +61,7 @@ fun MilestoneListWithDetailScreen(
         modifier = Modifier
             .fillMaxSize()
             .windowInsetsPadding(
-                WindowInsets.statusBars
+                WindowInsets.displayCutout
                     .only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal)
             ),
         verticalAlignment = Alignment.CenterVertically
@@ -77,7 +77,11 @@ fun MilestoneListWithDetailScreen(
                 Box(
                     modifier = Modifier
                         .width(334.dp)
-                        .fillMaxHeight(),
+                        .fillMaxHeight()
+                        .windowInsetsPadding(
+                            WindowInsets.systemBars
+                                .only(WindowInsetsSides.Top)
+                        ),
                     contentAlignment = Alignment.Center
                 ) {
                     Box(
@@ -114,7 +118,8 @@ fun MilestoneListWithDetailScreen(
                         loaded = { data, _ ->
                             MilestoneDetailContent(
                                 milestoneDetail = data,
-                                onClickInnerShare = onClickShare
+                                onClickInnerShare = onClickShare,
+                                applyFullInsets = true
                             )
                         }
                     )

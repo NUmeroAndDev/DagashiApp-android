@@ -7,6 +7,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import dagger.hilt.android.AndroidEntryPoint
 import jp.numero.dagashiapp.ui.DagashiApp
+import jp.numero.dagashiapp.ui.rememberWindowSizeClass
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -17,7 +18,8 @@ class MainActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
-            DagashiApp()
+            val windowSizeClass = rememberWindowSizeClass()
+            DagashiApp(windowSizeClass)
         }
     }
 }
