@@ -62,6 +62,7 @@ fun MilestoneListWithDetailScreen(
             .fillMaxSize()
             .windowInsetsPadding(
                 WindowInsets.statusBars
+                    .add(WindowInsets.displayCutout)
                     .only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal)
             ),
         verticalAlignment = Alignment.CenterVertically
@@ -114,7 +115,8 @@ fun MilestoneListWithDetailScreen(
                         loaded = { data, _ ->
                             MilestoneDetailContent(
                                 milestoneDetail = data,
-                                onClickInnerShare = onClickShare
+                                onClickInnerShare = onClickShare,
+                                applyFullInsets = true
                             )
                         }
                     )

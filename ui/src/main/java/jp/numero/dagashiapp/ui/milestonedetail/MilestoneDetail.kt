@@ -128,7 +128,8 @@ fun MilestoneDetailScreen(
 fun MilestoneDetailContent(
     milestoneDetail: MilestoneDetail,
     modifier: Modifier = Modifier,
-    onClickInnerShare: ((String) -> Unit)? = null
+    onClickInnerShare: ((String) -> Unit)? = null,
+    applyFullInsets: Boolean = false,
 ) {
     Column(
         modifier = modifier.verticalScroll(rememberScrollState())
@@ -136,7 +137,13 @@ fun MilestoneDetailContent(
         OutlinedCard(
             modifier = Modifier.windowInsetsPadding(
                 WindowInsets.systemBars
-                    .only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal)
+                    .let {
+                        if (applyFullInsets) {
+                            it
+                        } else {
+                            it.only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal)
+                        }
+                    }
                     .add(
                         WindowInsets(
                             left = 16.dp,
