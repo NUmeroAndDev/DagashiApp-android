@@ -61,8 +61,7 @@ fun MilestoneListWithDetailScreen(
         modifier = Modifier
             .fillMaxSize()
             .windowInsetsPadding(
-                WindowInsets.statusBars
-                    .add(WindowInsets.displayCutout)
+                WindowInsets.displayCutout
                     .only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal)
             ),
         verticalAlignment = Alignment.CenterVertically
