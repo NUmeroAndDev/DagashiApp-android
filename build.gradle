@@ -6,9 +6,9 @@ buildscript {
                 minSdk     : 23,
                 targetSdk  : 32,
 
-                compose    : "1.2.0-alpha05",
+                compose    : "1.2.0-alpha06",
 
-                lifecycle  : "2.5.0-alpha04",
+                lifecycle  : "2.5.0-alpha05",
 
                 hilt       : "2.41",
 
@@ -26,7 +26,7 @@ buildscript {
                         appcompat : "androidx.appcompat:appcompat:1.6.0-alpha01",
                         activity  : "androidx.activity:activity-compose:1.4.0",
                         core      : "androidx.core:core-ktx:1.7.0",
-                        coreSplash: "androidx.core:core-splashscreen:1.0.0-beta01",
+                        coreSplash: "androidx.core:core-splashscreen:1.0.0-beta02",
                         window    : "androidx.window:window:1.0.0",
 
                         datastore : [
@@ -51,7 +51,7 @@ buildscript {
                                 uiTooling            : "androidx.compose.ui:ui-tooling:$versions.compose",
                                 uiToolingPreview     : "androidx.compose.ui:ui-tooling-preview:$versions.compose",
                                 foundation           : "androidx.compose.foundation:foundation:$versions.compose",
-                                material3            : "androidx.compose.material3:material3:1.0.0-alpha07",
+                                material3            : "androidx.compose.material3:material3:1.0.0-alpha08",
                                 materialIconsExtended: "androidx.compose.material:material-icons-extended:$versions.compose",
 
                                 uiTest               : "androidx.compose.ui:ui-test-junit4:$versions.compose"
