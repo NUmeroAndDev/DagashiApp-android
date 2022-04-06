@@ -1,7 +1,5 @@
 package jp.numero.dagashiapp.ui
 
-import kotlinx.coroutines.flow.MutableStateFlow
-
 data class UiState<T>(
     private val _isLoading: Boolean = false,
     val isRefreshing: Boolean = false,
