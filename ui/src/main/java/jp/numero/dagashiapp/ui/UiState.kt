@@ -1,5 +1,8 @@
 package jp.numero.dagashiapp.ui
 
+import androidx.compose.runtime.Stable
+
+@Stable
 data class UiState<T>(
     private val _isLoading: Boolean = false,
     val isRefreshing: Boolean = false,
