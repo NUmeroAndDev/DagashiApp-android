@@ -51,7 +51,7 @@ buildscript {
                                 uiTooling            : "androidx.compose.ui:ui-tooling:$versions.compose",
                                 uiToolingPreview     : "androidx.compose.ui:ui-tooling-preview:$versions.compose",
                                 foundation           : "androidx.compose.foundation:foundation:$versions.compose",
-                                material3            : "androidx.compose.material3:material3:1.0.0-alpha08",
+                                material3            : "androidx.compose.material3:material3:1.0.0-alpha09",
                                 materialIconsExtended: "androidx.compose.material:material-icons-extended:$versions.compose",
 
                                 uiTest               : "androidx.compose.ui:ui-test-junit4:$versions.compose"
