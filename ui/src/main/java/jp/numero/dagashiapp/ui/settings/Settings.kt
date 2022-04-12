@@ -87,7 +87,6 @@ fun SettingsScreen(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsContent(
     config: Config,
@@ -114,8 +113,7 @@ fun SettingsContent(
                 SettingsItem(
                     title = stringResource(id = R.string.apply_dynamic_color),
                     trailing = {
-                        // TODO: replace switch
-                        Checkbox(
+                        Switch(
                             checked = config.applyDynamicColor,
                             onCheckedChange = {
                                 onToggleApplyDynamicColor(it)
