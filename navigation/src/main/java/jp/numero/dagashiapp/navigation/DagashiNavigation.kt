@@ -27,7 +27,7 @@ fun DagashiNavigation(
         composable(HomeScreenDestination) {
             homeScreen()
         }
-        composable(MilestoneDetailScreenDestination) { _, _ ->
+        composable(MilestoneDetailScreenDestination) {
             milestoneDetailScreen()
         }
         composable(SettingsScreenDestination) {
