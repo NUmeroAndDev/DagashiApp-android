@@ -62,6 +62,8 @@ dependencies {
     implementation libs.androidx.core
     implementation libs.androidx.coreSplash
 
+    implementation libs.androidx.compose.material3WindowSizeClass
+
     implementation libs.hilt.android
     kapt libs.hilt.compiler
 

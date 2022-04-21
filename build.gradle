@@ -7,6 +7,7 @@ buildscript {
                 targetSdk  : 32,
 
                 compose    : "1.2.0-alpha08",
+                material3  : "1.0.0-alpha10",
 
                 lifecycle  : "2.5.0-beta01",
 
@@ -47,14 +48,15 @@ buildscript {
                         ],
 
                         compose   : [
-                                ui                   : "androidx.compose.ui:ui:$versions.compose",
-                                uiTooling            : "androidx.compose.ui:ui-tooling:$versions.compose",
-                                uiToolingPreview     : "androidx.compose.ui:ui-tooling-preview:$versions.compose",
-                                foundation           : "androidx.compose.foundation:foundation:$versions.compose",
-                                material3            : "androidx.compose.material3:material3:1.0.0-alpha10",
-                                materialIconsExtended: "androidx.compose.material:material-icons-extended:$versions.compose",
+                                ui                      : "androidx.compose.ui:ui:$versions.compose",
+                                uiTooling               : "androidx.compose.ui:ui-tooling:$versions.compose",
+                                uiToolingPreview        : "androidx.compose.ui:ui-tooling-preview:$versions.compose",
+                                foundation              : "androidx.compose.foundation:foundation:$versions.compose",
+                                material3               : "androidx.compose.material3:material3:$versions.material3",
+                                material3WindowSizeClass: "androidx.compose.material3:material3-window-size-class:$versions.material3",
+                                materialIconsExtended   : "androidx.compose.material:material-icons-extended:$versions.compose",
 
-                                uiTest               : "androidx.compose.ui:ui-test-junit4:$versions.compose"
+                                uiTest                  : "androidx.compose.ui:ui-test-junit4:$versions.compose"
                         ]
                 ],
 
