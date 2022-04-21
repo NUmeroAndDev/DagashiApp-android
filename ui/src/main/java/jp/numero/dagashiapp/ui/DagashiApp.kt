@@ -3,6 +3,8 @@ package jp.numero.dagashiapp.ui
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
@@ -42,7 +44,7 @@ fun DagashiApp(windowSizeClass: WindowSizeClass) {
             DagashiNavigation(
                 navController = navController,
                 homeScreen = {
-                    if (windowSizeClass == WindowSizeClass.Expanded) {
+                    if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Expanded) {
                         MilestoneListWithDetailScreen(navController)
                     } else {
                         MilestoneListScreen(navController)
