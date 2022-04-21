@@ -73,7 +73,7 @@ buildscript {
                         loggingInterceptor: "com.squareup.okhttp3:logging-interceptor:4.9.3"
                 ],
 
-                coil               : "io.coil-kt:coil-compose:2.0.0-rc02",
+                coil               : "io.coil-kt:coil-compose:2.0.0-rc03",
 
                 accompanist        : [
                         placeholder       : "com.google.accompanist:accompanist-placeholder:$versions.accompanist",
