@@ -11,7 +11,7 @@ buildscript {
 
                 lifecycle  : "2.5.0-beta01",
 
-                hilt       : "2.41",
+                hilt       : "2.42",
 
                 accompanist: "0.24.7-alpha"
         ]
@@ -105,7 +105,7 @@ plugins {
     id 'org.jetbrains.kotlin.android' version '1.6.20' apply false
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.6.10' apply false
     id 'com.google.devtools.ksp' version '1.6.20-1.0.5' apply false
-    id 'com.google.dagger.hilt.android' version '2.41' apply false
+    id 'com.google.dagger.hilt.android' version '2.42' apply false
 }
 
 subprojects {
