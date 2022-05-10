@@ -5,6 +5,8 @@ plugins {
 }
 
 android {
+    namespace 'jp.numero.dagashiapp.navigation'
+
     compileSdk versions.compileSdk
 
     defaultConfig {

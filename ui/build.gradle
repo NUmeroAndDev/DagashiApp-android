@@ -6,6 +6,8 @@ plugins {
 }
 
 android {
+    namespace 'jp.numero.dagashiapp.ui'
+
     compileSdk versions.compileSdk
 
     defaultConfig {
