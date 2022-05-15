@@ -3,7 +3,7 @@
 Unofficial [Android Dagashi](https://androiddagashi.github.io/) application
 
 ## Requirements
-- Android Studio Chipmunk
+- Android Studio Electric Eel
 
 
 ## Architecture
