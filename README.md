@@ -18,3 +18,10 @@ Unofficial [Android Dagashi](https://androiddagashi.github.io/) application
       :repository-->:data;
       :data-->:model;
 ```
+
+## Features
+
+- Material 3
+  - Dynamic color
+- Adaptive Design
+- [WIP] AppWidget
