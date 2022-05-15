@@ -54,7 +54,12 @@ fun SettingsScreen(
 ) {
     val scrollBehavior = remember { TopAppBarDefaults.pinnedScrollBehavior() }
     Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = Modifier
+            .nestedScroll(scrollBehavior.nestedScrollConnection)
+            .windowInsetsPadding(
+                WindowInsets.displayCutout
+                    .only(WindowInsetsSides.Horizontal)
+            ),
         topBar = {
             TopAppBar(
                 title = {
