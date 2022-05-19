@@ -24,4 +24,5 @@ Unofficial [Android Dagashi](https://androiddagashi.github.io/) application
 - Material 3
   - Dynamic color
 - Adaptive Design
+- Baseline profiles
 - [WIP] AppWidget
