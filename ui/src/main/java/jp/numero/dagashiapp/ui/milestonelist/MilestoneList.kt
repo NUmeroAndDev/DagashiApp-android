@@ -62,7 +62,8 @@ fun MilestoneListScreen(
     onReachedBottom: () -> Unit,
     onClickSettings: () -> Unit
 ) {
-    val scrollBehavior = remember { TopAppBarDefaults.pinnedScrollBehavior() }
+    val state = rememberTopAppBarScrollState()
+    val scrollBehavior = remember { TopAppBarDefaults.pinnedScrollBehavior(state) }
     val snackbarHostState = remember { SnackbarHostState() }
     val context = LocalContext.current
     Scaffold(

@@ -52,7 +52,8 @@ fun SettingsScreen(
     onSelectTheme: (Theme) -> Unit,
     onClickLicenses: () -> Unit
 ) {
-    val scrollBehavior = remember { TopAppBarDefaults.pinnedScrollBehavior() }
+    val state = rememberTopAppBarScrollState()
+    val scrollBehavior = remember { TopAppBarDefaults.pinnedScrollBehavior(state) }
     Scaffold(
         modifier = Modifier
             .nestedScroll(scrollBehavior.nestedScrollConnection)
