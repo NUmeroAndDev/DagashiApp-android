@@ -13,6 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import jp.numero.dagashiapp.ui.R
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopAppBar(
     title: @Composable () -> Unit,
@@ -25,7 +26,7 @@ fun TopAppBar(
     onBack: (() -> Unit)? = null
 ) {
     val backgroundColor = colors.containerColor(
-        scrollFraction = scrollBehavior?.scrollFraction ?: 0.0f
+        colorTransitionFraction = scrollBehavior?.state?.collapsedFraction ?: 0f
     ).value
     val navigationIcon: @Composable () -> Unit = if (onBack != null) {
         {

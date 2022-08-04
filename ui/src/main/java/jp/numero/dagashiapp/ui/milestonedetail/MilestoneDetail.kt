@@ -59,7 +59,7 @@ fun MilestoneDetailScreen(
     onClickShare: (String) -> Unit,
     onRetry: () -> Unit,
 ) {
-    val state = rememberTopAppBarScrollState()
+    val state = rememberTopAppBarState()
     val scrollBehavior = remember {
         TopAppBarDefaults.pinnedScrollBehavior(state)
     }
