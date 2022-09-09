@@ -10,7 +10,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -59,10 +58,7 @@ fun MilestoneDetailScreen(
     onClickShare: (String) -> Unit,
     onRetry: () -> Unit,
 ) {
-    val state = rememberTopAppBarState()
-    val scrollBehavior = remember {
-        TopAppBarDefaults.pinnedScrollBehavior(state)
-    }
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
@@ -73,9 +69,6 @@ fun MilestoneDetailScreen(
                     }
                 },
                 isCenterAlignedTitle = false,
-                contentPadding = WindowInsets.statusBars
-                    .only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal)
-                    .asPaddingValues(),
                 scrollBehavior = scrollBehavior,
                 onBack = onBack,
                 actions = {
@@ -126,7 +119,6 @@ fun MilestoneDetailScreen(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MilestoneDetailContent(
     milestoneDetail: MilestoneDetail,
@@ -188,7 +180,7 @@ fun MilestoneDetailContent(
             milestoneDetail.issues.forEachIndexed { index, issue ->
                 IssueItem(issue = issue)
                 if (index != milestoneDetail.issues.lastIndex) {
-                    Divider(startIndent = 16.dp)
+                    Divider(modifier = Modifier.padding(start = 16.dp))
                 }
             }
         }
@@ -228,7 +220,6 @@ fun IssueItem(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun IssueLabel(
     label: Label,

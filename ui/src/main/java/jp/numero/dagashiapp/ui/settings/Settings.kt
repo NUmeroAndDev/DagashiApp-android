@@ -52,8 +52,7 @@ fun SettingsScreen(
     onSelectTheme: (Theme) -> Unit,
     onClickLicenses: () -> Unit
 ) {
-    val state = rememberTopAppBarState()
-    val scrollBehavior = remember { TopAppBarDefaults.pinnedScrollBehavior(state) }
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(
         modifier = Modifier
             .nestedScroll(scrollBehavior.nestedScrollConnection)
@@ -67,9 +66,6 @@ fun SettingsScreen(
                     Text(text = stringResource(id = R.string.settings))
                 },
                 isCenterAlignedTitle = false,
-                contentPadding = WindowInsets.statusBars
-                    .only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal)
-                    .asPaddingValues(),
                 scrollBehavior = scrollBehavior,
                 onBack = onBack,
             )

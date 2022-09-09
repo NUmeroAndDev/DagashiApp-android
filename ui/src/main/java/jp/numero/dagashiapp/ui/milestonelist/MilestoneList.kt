@@ -62,8 +62,7 @@ fun MilestoneListScreen(
     onReachedBottom: () -> Unit,
     onClickSettings: () -> Unit
 ) {
-    val state = rememberTopAppBarState()
-    val scrollBehavior = remember { TopAppBarDefaults.pinnedScrollBehavior(state) }
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val snackbarHostState = remember { SnackbarHostState() }
     val context = LocalContext.current
     Scaffold(
@@ -75,9 +74,6 @@ fun MilestoneListScreen(
                     Text(text = stringResource(id = R.string.app_name))
                 },
                 isCenterAlignedTitle = true,
-                contentPadding = WindowInsets.statusBars
-                    .only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal)
-                    .asPaddingValues(),
                 scrollBehavior = scrollBehavior,
                 actions = {
                     IconButton(onClick = onClickSettings) {

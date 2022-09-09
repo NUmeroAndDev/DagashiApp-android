@@ -3,7 +3,10 @@ package jp.numero.dagashiapp.ui.milestonedetail
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.*
+import androidx.compose.material3.Divider
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,7 +18,6 @@ import coil.compose.rememberAsyncImagePainter
 import jp.numero.dagashiapp.model.Comment
 import jp.numero.dagashiapp.ui.component.IssueDescriptionText
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Comments(
     commentList: List<Comment>,
@@ -27,7 +29,7 @@ fun Comments(
         commentList.forEachIndexed { index, comment ->
             CommentItem(comment = comment)
             if (index != commentList.lastIndex) {
-                Divider(startIndent = 32.dp + 24.dp)
+                Divider(modifier = Modifier.padding(start = 32.dp + 24.dp))
             }
         }
     }

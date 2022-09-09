@@ -48,7 +48,6 @@ fun MilestoneListWithDetailScreen(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MilestoneListWithDetailScreen(
     uiStates: MilestoneListWithDetailUiStates,
@@ -129,7 +128,6 @@ fun MilestoneListWithDetailScreen(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun MilestoneListTopBar(
     onClickSettings: () -> Unit,
