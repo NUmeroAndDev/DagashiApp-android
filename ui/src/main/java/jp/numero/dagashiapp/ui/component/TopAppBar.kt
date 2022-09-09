@@ -1,6 +1,6 @@
 package jp.numero.dagashiapp.ui.component
 
-import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material3.*
@@ -31,6 +31,8 @@ fun TopAppBar(
     } else {
         {}
     }
+    val windowInsets = WindowInsets.safeDrawing
+        .only(WindowInsetsSides.Horizontal + WindowInsetsSides.Top)
     if (isCenterAlignedTitle) {
         CenterAlignedTopAppBar(
             title = title,
@@ -38,6 +40,7 @@ fun TopAppBar(
             actions = actions,
             scrollBehavior = scrollBehavior,
             modifier = modifier,
+            windowInsets = windowInsets,
         )
     } else {
         TopAppBar(
@@ -46,6 +49,7 @@ fun TopAppBar(
             actions = actions,
             scrollBehavior = scrollBehavior,
             modifier = modifier,
+            windowInsets = windowInsets,
         )
     }
 }

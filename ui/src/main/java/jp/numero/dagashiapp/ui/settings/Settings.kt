@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.ramcosta.composedestinations.navigation.navigateTo
@@ -55,11 +56,8 @@ fun SettingsScreen(
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(
         modifier = Modifier
-            .nestedScroll(scrollBehavior.nestedScrollConnection)
-            .windowInsetsPadding(
-                WindowInsets.displayCutout
-                    .only(WindowInsetsSides.Horizontal)
-            ),
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
+        contentWindowInsets = WindowInsets(0.dp),
         topBar = {
             TopAppBar(
                 title = {
@@ -100,7 +98,7 @@ fun SettingsContent(
 ) {
     LazyColumn(
         modifier = modifier,
-        contentPadding = WindowInsets.systemBars
+        contentPadding = WindowInsets.safeDrawing
             .only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal)
             .asPaddingValues()
     ) {

@@ -61,6 +61,7 @@ fun MilestoneDetailScreen(
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        contentWindowInsets = WindowInsets(0.dp),
         topBar = {
             TopAppBar(
                 title = {
@@ -131,7 +132,7 @@ fun MilestoneDetailContent(
     ) {
         OutlinedCard(
             modifier = Modifier.windowInsetsPadding(
-                WindowInsets.systemBars
+                WindowInsets.safeDrawing
                     .let {
                         if (applyFullInsets) {
                             it

@@ -68,6 +68,7 @@ fun MilestoneListScreen(
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         snackbarHost = { SnackbarHost(snackbarHostState) },
+        contentWindowInsets = WindowInsets(0.dp),
         topBar = {
             TopAppBar(
                 title = {
@@ -163,7 +164,7 @@ fun MilestoneListContent(
     LazyColumn(
         state = listState,
         modifier = modifier,
-        contentPadding = WindowInsets.systemBars
+        contentPadding = WindowInsets.safeDrawing
             .only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal)
             .add(
                 WindowInsets(
