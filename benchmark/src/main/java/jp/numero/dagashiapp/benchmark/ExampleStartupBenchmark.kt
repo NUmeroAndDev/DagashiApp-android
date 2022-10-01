@@ -20,19 +20,19 @@ import org.junit.runner.RunWith
  * Run this benchmark from Studio to see startup measurements, and captured system traces
  * for investigating your app's performance.
  */
-@RunWith(AndroidJUnit4::class)
-class ExampleStartupBenchmark {
-    @get:Rule
-    val benchmarkRule = MacrobenchmarkRule()
-
-    @Test
-    fun startup() = benchmarkRule.measureRepeated(
-        packageName = "jp.numero.dagashiapp",
-        metrics = listOf(StartupTimingMetric()),
-        iterations = 5,
-        startupMode = StartupMode.COLD
-    ) {
-        pressHome()
-        startActivityAndWait()
-    }
-}
+//@RunWith(AndroidJUnit4::class)
+//class ExampleStartupBenchmark {
+//    @get:Rule
+//    val benchmarkRule = MacrobenchmarkRule()
+//
+//    @Test
+//    fun startup() = benchmarkRule.measureRepeated(
+//        packageName = "jp.numero.dagashiapp",
+//        metrics = listOf(StartupTimingMetric()),
+//        iterations = 5,
+//        startupMode = StartupMode.COLD
+//    ) {
+//        pressHome()
+//        startActivityAndWait()
+//    }
+//}
