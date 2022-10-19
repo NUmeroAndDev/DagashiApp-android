@@ -3,7 +3,7 @@
 Unofficial [Android Dagashi](https://androiddagashi.github.io/) application
 
 ## Requirements
-- Android Studio Electric Eel
+- Android Studio Flamingo
 
 
 ## Architecture
