@@ -7,7 +7,7 @@ compose = "1.4.0-alpha01"
 composeCompiler = "1.4.7"
 material3 = "1.1.0-alpha01"
 
-hilt = "2.44"
+hilt = "2.46.1"
 okhttp = "4.11.0"
 accompanist = "0.27.0"
 
