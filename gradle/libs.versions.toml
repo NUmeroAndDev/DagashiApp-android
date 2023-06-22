@@ -42,7 +42,7 @@ hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt"
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 
 retrofit-core = "com.squareup.retrofit2:retrofit:2.9.0"
-retrofit-converter = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
+retrofit-converter = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0"
 
 okhttp3-core = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 okhttp3-loggingInterceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
@@ -56,7 +56,7 @@ accompanist-swipeRefresh = { module = "com.google.accompanist:accompanist-swiper
 composeDestinations-core = "io.github.raamcosta.compose-destinations:core:1.6.13-beta"
 composeDestinations-ksp = "io.github.raamcosta.compose-destinations:ksp:1.6.13-beta"
 
-desugarJdkLibs = "com.android.tools:desugar_jdk_libs:1.2.2"
+desugarJdkLibs = "com.android.tools:desugar_jdk_libs:2.0.3"
 
 licenses = "com.google.android.gms:play-services-oss-licenses:17.0.0"
 
