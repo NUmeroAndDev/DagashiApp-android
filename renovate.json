@@ -1,0 +1,19 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "local>NUmeroAndDev/renovate-config"
+  ],
+  "regexManagers": [
+    {
+      "fileMatch": [
+        "gradle/libs.versions.toml"
+      ],
+      "matchStrings": [
+        "composeCompiler = \"(?<currentValue>[-.\\[\\](),a-zA-Z0-9+]+)\""
+      ],
+      "depNameTemplate": "androidx.compose.compiler:compiler",
+      "datasourceTemplate": "maven",
+      "versioningTemplate": "gradle"
+    }
+  ]
+}
