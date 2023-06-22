@@ -8,7 +8,7 @@ composeCompiler = "1.3.2"
 material3 = "1.1.0-alpha01"
 
 hilt = "2.44"
-okhttp = "4.9.3"
+okhttp = "4.11.0"
 accompanist = "0.27.0"
 
 [libraries]
