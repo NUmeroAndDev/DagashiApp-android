@@ -58,7 +58,7 @@ composeDestinations-ksp = "io.github.raamcosta.compose-destinations:ksp:1.6.13-b
 
 desugarJdkLibs = "com.android.tools:desugar_jdk_libs:2.0.3"
 
-licenses = "com.google.android.gms:play-services-oss-licenses:17.0.0"
+licenses = "com.google.android.gms:play-services-oss-licenses:17.0.1"
 
 [plugins]
 androidGradlePlugin = { id = "com.android.application", version.ref = "androidGradlePlugin" }
