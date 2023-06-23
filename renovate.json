@@ -15,5 +15,16 @@
       "datasourceTemplate": "maven",
       "versioningTemplate": "gradle"
     }
+  ],
+  "packageRules": [
+    {
+      "groupName": "Kotlin & Compose Compiler",
+      "matchPackagePatterns": [
+        "^androidx\\.compose\\.compiler:",
+        "^org\\.jetbrains\\.kotlin:",
+        "^org\\.jetbrains\\.kotlin\\.",
+        "^com\\.google\\.devtools\\.ksp:"
+      ]
+    }
   ]
 }
