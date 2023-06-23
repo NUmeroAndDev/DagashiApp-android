@@ -1,4 +1,4 @@
-package jp.numero.dagashiapp.ui.settings
+package jp.numero.dagashiapp.feature.settings
 
 data class AppVersion(
     val code: Int,

@@ -1,4 +1,4 @@
-package jp.numero.dagashiapp.ui
+package jp.numero.dagashiapp
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -13,11 +13,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import jp.numero.dagashiapp.feature.settings.SettingsScreen
 import jp.numero.dagashiapp.model.Theme
 import jp.numero.dagashiapp.navigation.DagashiNavigation
+import jp.numero.dagashiapp.ui.MilestoneListWithDetailScreen
+import jp.numero.dagashiapp.ui.SharedViewModel
 import jp.numero.dagashiapp.ui.milestonedetail.MilestoneDetailScreen
 import jp.numero.dagashiapp.ui.milestonelist.MilestoneListScreen
-import jp.numero.dagashiapp.ui.settings.SettingsScreen
 import jp.numero.dagashiapp.ui.theme.DagashiAppTheme
 
 @Composable

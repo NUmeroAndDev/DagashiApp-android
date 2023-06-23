@@ -1,4 +1,4 @@
-package jp.numero.dagashiapp.ui.settings
+package jp.numero.dagashiapp.feature.settings
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,7 +18,7 @@ import com.ramcosta.composedestinations.navigation.navigateTo
 import jp.numero.dagashiapp.model.Config
 import jp.numero.dagashiapp.model.Theme
 import jp.numero.dagashiapp.navigation.destinations.LicensesScreenDestination
-import jp.numero.dagashiapp.ui.R
+import jp.numero.dagashiapp.ui.UiStrings
 import jp.numero.dagashiapp.ui.component.TopAppBar
 
 @Composable
@@ -61,7 +61,7 @@ fun SettingsScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = stringResource(id = R.string.settings))
+                    Text(text = stringResource(id = UiStrings.settings))
                 },
                 isCenterAlignedTitle = false,
                 scrollBehavior = scrollBehavior,
@@ -111,7 +111,7 @@ fun SettingsContent(
         if (Config.enableDynamicColor) {
             item {
                 SettingsItem(
-                    title = stringResource(id = R.string.apply_dynamic_color),
+                    title = stringResource(id = UiStrings.apply_dynamic_color),
                     trailing = {
                         Switch(
                             checked = config.applyDynamicColor,
@@ -135,14 +135,14 @@ fun SettingsContent(
         }
         item {
             SettingsItem(
-                title = stringResource(id = R.string.application_version),
+                title = stringResource(id = UiStrings.application_version),
                 summary = appVersion.name,
                 modifier = Modifier.fillMaxWidth()
             )
         }
         item {
             SettingsItem(
-                title = stringResource(id = R.string.licenses),
+                title = stringResource(id = UiStrings.licenses),
                 modifier = Modifier.fillMaxWidth(),
                 onClick = onClickLicenses
             )
@@ -159,7 +159,7 @@ fun SelectThemeSettingsItem(
     var isExpandedMenu by remember { mutableStateOf(false) }
     Box(modifier = modifier) {
         SettingsItem(
-            title = stringResource(id = R.string.app_theme),
+            title = stringResource(id = UiStrings.app_theme),
             summary = stringResource(id = currentTheme.titleRes),
             onClick = {
                 isExpandedMenu = true
@@ -215,7 +215,7 @@ fun ThemeDropdownItem(
 
 private val Theme.titleRes: Int
     get() = when (this) {
-        Theme.Light -> R.string.light_theme
-        Theme.Dark -> R.string.dark_theme
-        Theme.FollowSystem -> R.string.follow_device
+        Theme.Light -> UiStrings.light_theme
+        Theme.Dark -> UiStrings.dark_theme
+        Theme.FollowSystem -> UiStrings.follow_device
     }

@@ -6,12 +6,11 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.HiltAndroidApp
 import dagger.hilt.components.SingletonComponent
-import jp.numero.dagashiapp.ui.settings.AppVersion
+import jp.numero.dagashiapp.feature.settings.AppVersion
 import javax.inject.Singleton
 
 @HiltAndroidApp
-class DagashiApplication : Application() {
-}
+class DagashiApplication : Application()
 
 @InstallIn(SingletonComponent::class)
 @Module

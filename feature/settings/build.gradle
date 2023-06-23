@@ -1,43 +1,27 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
-    id 'com.google.android.gms.oss-licenses-plugin'
 }
 
 android {
-    namespace 'jp.numero.dagashiapp'
+    namespace 'jp.numero.dagashiapp.feature.settings'
 
     compileSdk versions.compileSdk
 
     defaultConfig {
-        applicationId "jp.numero.dagashiapp"
         minSdk versions.minSdk
         targetSdk versions.targetSdk
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary true
-        }
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
         release {
-            shrinkResources true
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-        debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-        benchmark {
-            signingConfig signingConfigs.debug
-            matchingFallbacks = ['release']
-            debuggable false
         }
     }
 
@@ -49,29 +33,20 @@ android {
 
     buildFeatures {
         compose true
-        buildConfig true
     }
 
     composeOptions {
         kotlinCompilerExtensionVersion libs.versions.composeCompiler.get()
     }
-
-    packagingOptions {
-        resources {
-            excludes += '/META-INF/{AL2.0,LGPL2.1}'
-        }
-    }
 }
 
 dependencies {
-    implementation projects.ui
-    implementation projects.feature.settings
-    implementation projects.navigation
     implementation projects.model
+    implementation projects.repository
+    implementation projects.navigation
+    implementation projects.ui
 
-    implementation libs.androidx.activity
     implementation libs.androidx.core
-    implementation libs.androidx.coreSplash
     implementation libs.androidx.lifecycle.runtime
     implementation libs.androidx.lifecycle.viewmodel
     implementation libs.androidx.hilt.navigation.compose
@@ -84,14 +59,19 @@ dependencies {
     implementation libs.androidx.compose.uiToolingPreview
     implementation libs.androidx.window
 
+    debugImplementation libs.androidx.compose.uiTooling
+
     implementation libs.hilt.android
     kapt libs.hilt.compiler
 
     implementation libs.accompanist.systemUiController
+    implementation libs.accompanist.swipeRefresh
+
+    implementation libs.coil
+
+    implementation libs.composeDestinations.core
 
     coreLibraryDesugaring libs.desugarJdkLibs
-
-    implementation libs.androidx.profileinstaller
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

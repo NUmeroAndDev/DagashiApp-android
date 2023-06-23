@@ -6,7 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import dagger.hilt.android.AndroidEntryPoint
-import jp.numero.dagashiapp.ui.DagashiApp
 import jp.numero.dagashiapp.ui.rememberWindowSizeClass
 
 @AndroidEntryPoint

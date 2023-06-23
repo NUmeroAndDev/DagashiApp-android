@@ -1,4 +1,4 @@
-package jp.numero.dagashiapp.ui.settings
+package jp.numero.dagashiapp.feature.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
