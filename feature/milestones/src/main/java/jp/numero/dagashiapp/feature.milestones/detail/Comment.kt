@@ -1,4 +1,4 @@
-package jp.numero.dagashiapp.ui.milestonedetail
+package jp.numero.dagashiapp.feature.milestones.detail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*

@@ -1,4 +1,4 @@
-package jp.numero.dagashiapp.ui.milestonelist
+package jp.numero.dagashiapp.feature.milestones.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

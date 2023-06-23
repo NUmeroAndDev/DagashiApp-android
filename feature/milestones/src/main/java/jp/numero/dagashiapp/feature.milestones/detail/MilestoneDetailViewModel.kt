@@ -1,4 +1,4 @@
-package jp.numero.dagashiapp.ui.milestonedetail
+package jp.numero.dagashiapp.feature.milestones.detail
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

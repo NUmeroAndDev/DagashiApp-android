@@ -1,4 +1,4 @@
-package jp.numero.dagashiapp.ui
+package jp.numero.dagashiapp.feature.milestones
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,12 +17,13 @@ import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.ramcosta.composedestinations.navigation.navigateTo
+import jp.numero.dagashiapp.feature.milestones.detail.MilestoneDetailContent
+import jp.numero.dagashiapp.feature.milestones.list.MilestoneListContent
 import jp.numero.dagashiapp.model.Milestone
 import jp.numero.dagashiapp.navigation.destinations.SettingsScreenDestination
+import jp.numero.dagashiapp.ui.R
 import jp.numero.dagashiapp.ui.component.ErrorMessage
 import jp.numero.dagashiapp.ui.component.FullScreenLoadingIndicator
-import jp.numero.dagashiapp.ui.milestonedetail.MilestoneDetailContent
-import jp.numero.dagashiapp.ui.milestonelist.MilestoneListContent
 
 @Composable
 fun MilestoneListWithDetailScreen(

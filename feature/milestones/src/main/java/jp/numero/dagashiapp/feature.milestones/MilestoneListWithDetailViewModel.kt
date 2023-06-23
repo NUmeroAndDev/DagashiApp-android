@@ -1,4 +1,4 @@
-package jp.numero.dagashiapp.ui
+package jp.numero.dagashiapp.feature.milestones
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,6 +7,7 @@ import jp.numero.dagashiapp.model.Milestone
 import jp.numero.dagashiapp.model.MilestoneDetail
 import jp.numero.dagashiapp.model.MilestoneList
 import jp.numero.dagashiapp.repository.DagashiRepository
+import jp.numero.dagashiapp.ui.UiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
