@@ -1,4 +1,4 @@
-package jp.numero.dagashiapp.ui
+package jp.numero.dagashiapp.milestones
 
 import org.junit.Test
 
