@@ -20,7 +20,6 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.ramcosta.composedestinations.navigation.navigateTo
 import jp.numero.dagashiapp.model.Milestone
 import jp.numero.dagashiapp.model.MilestoneList
-import jp.numero.dagashiapp.navigation.destinations.MilestoneDetailScreenDestination
 import jp.numero.dagashiapp.navigation.destinations.SettingsScreenDestination
 import jp.numero.dagashiapp.ui.R
 import jp.numero.dagashiapp.ui.UiState
@@ -29,14 +28,15 @@ import jp.numero.dagashiapp.ui.dateTimeString
 import java.time.Instant
 
 @Composable
-fun MilestoneListScreen(navController: NavHostController) {
-    val viewModel: MilestoneListViewModel = hiltViewModel()
+fun MilestoneListScreen(
+    navController: NavHostController,
+    onClickMilestone: (Milestone) -> Unit,
+    viewModel: MilestoneListViewModel = hiltViewModel()
+) {
     val uiState by viewModel.uiState.collectAsState()
     MilestoneListScreen(
         uiState = uiState,
-        onClickMilestone = {
-            navController.navigateTo(MilestoneDetailScreenDestination(it.path))
-        },
+        onClickMilestone = onClickMilestone,
         onRetry = {
             // TODO: retry
         },

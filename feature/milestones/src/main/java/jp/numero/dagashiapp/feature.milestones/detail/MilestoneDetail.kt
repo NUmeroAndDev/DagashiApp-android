@@ -8,6 +8,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -31,11 +32,15 @@ import jp.numero.dagashiapp.ui.component.TopAppBar
 
 @Composable
 fun MilestoneDetailScreen(
-    navController: NavHostController
+    path: String,
+    navController: NavHostController,
+    viewModel: MilestoneDetailViewModel = hiltViewModel()
 ) {
-    val viewModel: MilestoneDetailViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
     val uriHandler = LocalUriHandler.current
+    LaunchedEffect(path) {
+        viewModel.load(path)
+    }
     MilestoneDetailScreen(
         uiState = uiState,
         onBack = {

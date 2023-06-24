@@ -5,19 +5,8 @@ import com.ramcosta.composedestinations.annotation.Destination
 
 @Destination
 @Composable
-fun HomeScreen() {
+fun MilestonesScreen() {
 }
-
-@Destination(
-    navArgsDelegate = MilestoneDetailScreenNavArgs::class
-)
-@Composable
-fun MilestoneDetailScreen() {
-}
-
-data class MilestoneDetailScreenNavArgs(
-    val path: String
-)
 
 @Destination
 @Composable

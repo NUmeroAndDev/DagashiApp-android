@@ -7,28 +7,23 @@ import androidx.navigation.activity
 import androidx.navigation.compose.NavHost
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.ramcosta.composedestinations.utils.composable
-import jp.numero.dagashiapp.navigation.destinations.HomeScreenDestination
 import jp.numero.dagashiapp.navigation.destinations.LicensesScreenDestination
-import jp.numero.dagashiapp.navigation.destinations.MilestoneDetailScreenDestination
+import jp.numero.dagashiapp.navigation.destinations.MilestonesScreenDestination
 import jp.numero.dagashiapp.navigation.destinations.SettingsScreenDestination
 
 @Composable
 fun DagashiNavigation(
     navController: NavHostController,
-    homeScreen: @Composable () -> Unit,
-    milestoneDetailScreen: @Composable () -> Unit,
+    milestonesScreen: @Composable () -> Unit,
     settingsScreen: @Composable () -> Unit,
 ) {
     val context = LocalContext.current
     NavHost(
         navController = navController,
-        startDestination = HomeScreenDestination.route,
+        startDestination = MilestonesScreenDestination.route,
     ) {
-        composable(HomeScreenDestination) {
-            homeScreen()
-        }
-        composable(MilestoneDetailScreenDestination) {
-            milestoneDetailScreen()
+        composable(MilestonesScreenDestination) {
+            milestonesScreen()
         }
         composable(SettingsScreenDestination) {
             settingsScreen()
