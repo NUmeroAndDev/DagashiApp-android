@@ -1,5 +1,6 @@
 package jp.numero.dagashiapp.feature.milestones.list
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -168,14 +169,6 @@ fun MilestoneListContent(
         modifier = modifier,
         contentPadding = WindowInsets.safeDrawing
             .only(WindowInsetsSides.Bottom)
-            .add(
-                WindowInsets(
-                    left = 16.dp,
-                    top = 16.dp,
-                    bottom = 16.dp,
-                    right = 16.dp
-                )
-            )
             .asPaddingValues()
     ) {
         itemsIndexed(
@@ -186,7 +179,7 @@ fun MilestoneListContent(
             contentType = { _, _ ->
                 MilestoneListContentType.Item
             }
-        ) { index, item ->
+        ) { _, item ->
             MilestoneItem(
                 milestone = item,
                 onClick = {
@@ -194,9 +187,6 @@ fun MilestoneListContent(
                 },
                 modifier = Modifier.fillMaxWidth()
             )
-            if (index != milestoneList.value.lastIndex) {
-                Spacer(modifier = Modifier.height(12.dp))
-            }
         }
         if (milestoneList.hasMore) {
             item(
@@ -213,39 +203,35 @@ private enum class MilestoneListContentType {
     Item, Indicator
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MilestoneItem(
     milestone: Milestone,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    OutlinedCard(
-        onClick = onClick,
+    Column(
         modifier = modifier
+            .clickable(onClick = onClick)
+            .padding(16.dp)
     ) {
-        Column(
-            modifier = Modifier.padding(16.dp)
-        ) {
-            Text(
-                text = "#${milestone.number}",
-                style = MaterialTheme.typography.titleLarge,
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = milestone.description,
-                style = MaterialTheme.typography.bodyMedium,
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = dateTimeString(
-                    instant = milestone.closedAd,
-                    format = stringResource(id = R.string.date_format)
-                ),
-                style = MaterialTheme.typography.labelSmall,
-                color = LocalContentColor.current.copy(alpha = 0.54f)
-            )
-        }
+        Text(
+            text = "#${milestone.number}",
+            style = MaterialTheme.typography.titleLarge,
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = milestone.description,
+            style = MaterialTheme.typography.bodyMedium,
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = dateTimeString(
+                instant = milestone.closedAd,
+                format = stringResource(id = R.string.date_format)
+            ),
+            style = MaterialTheme.typography.labelSmall,
+            color = LocalContentColor.current.copy(alpha = 0.54f)
+        )
     }
 }
 
