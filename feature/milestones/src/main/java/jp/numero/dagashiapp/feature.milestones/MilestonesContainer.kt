@@ -36,7 +36,7 @@ fun MilestonesContainerScreen(
     BackHandler(enabled = selectedPath != null) {
         viewModel.closeDetail()
     }
-    val isLargeScreen = windowSizeClass.widthSizeClass >= WindowWidthSizeClass.Medium
+    val isLargeScreen = windowSizeClass.widthSizeClass >= WindowWidthSizeClass.Expanded
     val isSplit = isLargeScreen && !expanded
     ListDetailLayout(
         isSplit = isSplit,
