@@ -1,13 +1,19 @@
 package jp.numero.dagashiapp.feature.milestones
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -40,7 +46,8 @@ fun MilestonesContainerScreen(
     val isSplit = isLargeScreen && !expanded
     ListDetailLayout(
         isSplit = isSplit,
-        list = {
+        isShowDetail = selectedPath != null,
+        listContent = {
             MilestoneListScreen(
                 navController = navController,
                 onClickMilestone = {
@@ -48,8 +55,8 @@ fun MilestonesContainerScreen(
                 }
             )
         },
-        detail = selectedPath?.let { path ->
-            {
+        detailContent = {
+            selectedPath?.let { path ->
                 MilestoneDetailScreen(
                     path = path,
                     onBack = viewModel::closeDetail,
@@ -65,6 +72,7 @@ fun MilestonesContainerScreen(
                 )
             }
         },
+        enableSplit = isLargeScreen,
         modifier = Modifier
             .fillMaxSize()
             .windowInsetsPadding(
@@ -77,31 +85,62 @@ fun MilestonesContainerScreen(
 @Composable
 private fun ListDetailLayout(
     isSplit: Boolean,
-    list: @Composable () -> Unit,
-    detail: @Composable (() -> Unit)?,
+    isShowDetail: Boolean,
+    listContent: @Composable () -> Unit,
+    detailContent: @Composable (() -> Unit),
     modifier: Modifier = Modifier,
     containerColor: Color = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
     contentColor: Color = MaterialTheme.colorScheme.onSurface,
+    enableSplit: Boolean = true,
 ) {
-    // TODO: Implement animation
     Surface(
         modifier = modifier,
         color = containerColor,
         contentColor = contentColor
     ) {
-        if (isSplit) {
-            Row(modifier = Modifier.fillMaxSize()) {
-                Box(modifier = Modifier.weight(1f)) {
-                    list()
-                }
-                detail?.let {
-                    Box(modifier = Modifier.weight(1f)) {
-                        it.invoke()
+        if (enableSplit) {
+            BoxWithConstraints {
+                val width = maxWidth
+                Row(modifier = Modifier.fillMaxSize()) {
+                    Box(modifier = Modifier.animateContentSize()) {
+                        Box(
+                            modifier = Modifier
+                                .let {
+                                    if (isSplit && isShowDetail) {
+                                        it.width(width / 2)
+                                    } else if (isShowDetail) {
+                                        it.width(0.dp)
+                                    } else {
+                                        it.fillMaxWidth()
+                                    }
+                                }
+                        ) {
+                            listContent()
+                        }
+                    }
+                    Box(
+                        modifier = Modifier
+                            .let {
+                                if (!isSplit && isShowDetail) {
+                                    it.fillMaxSize()
+                                } else {
+                                    it.requiredWidth(width / 2)
+                                }
+                            }
+                    ) {
+                        detailContent()
                     }
                 }
+
             }
         } else {
-            detail?.invoke() ?: list()
+            Crossfade(targetState = isShowDetail) {
+                if (it) {
+                    detailContent()
+                } else {
+                    listContent()
+                }
+            }
         }
     }
 }
