@@ -36,8 +36,10 @@ fun MilestonesContainerScreen(
     BackHandler(enabled = selectedPath != null) {
         viewModel.closeDetail()
     }
+    val isLargeScreen = windowSizeClass.widthSizeClass >= WindowWidthSizeClass.Medium
+    val isSplit = isLargeScreen && !expanded
     ListDetailLayout(
-        isLargeScreen = windowSizeClass.widthSizeClass >= WindowWidthSizeClass.Medium,
+        isSplit = isSplit,
         list = {
             MilestoneListScreen(
                 navController = navController,
@@ -50,11 +52,11 @@ fun MilestonesContainerScreen(
             {
                 MilestoneDetailScreen(
                     path = path,
-                    navController = navController
+                    navController = navController,
+                    isExpanded = !isSplit
                 )
             }
         },
-        expanded = expanded,
         modifier = Modifier
             .fillMaxSize()
             .windowInsetsPadding(
@@ -66,12 +68,11 @@ fun MilestonesContainerScreen(
 
 @Composable
 private fun ListDetailLayout(
-    isLargeScreen: Boolean,
+    isSplit: Boolean,
     list: @Composable () -> Unit,
     detail: @Composable (() -> Unit)?,
     modifier: Modifier = Modifier,
-    expanded: Boolean = false,
-    containerColor: Color = MaterialTheme.colorScheme.surfaceColorAtElevation(6.dp),
+    containerColor: Color = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
     contentColor: Color = MaterialTheme.colorScheme.onSurface,
 ) {
     // TODO: Implement animation
@@ -80,7 +81,7 @@ private fun ListDetailLayout(
         color = containerColor,
         contentColor = contentColor
     ) {
-        if (isLargeScreen && !expanded) {
+        if (isSplit) {
             Row(modifier = Modifier.fillMaxSize()) {
                 Box(modifier = Modifier.weight(1f)) {
                     list()
