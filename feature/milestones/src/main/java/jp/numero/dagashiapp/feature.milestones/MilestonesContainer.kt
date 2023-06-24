@@ -53,7 +53,15 @@ fun MilestonesContainerScreen(
                 MilestoneDetailScreen(
                     path = path,
                     onBack = viewModel::closeDetail,
-                    isExpanded = !isSplit
+                    isExpanded = !isSplit,
+                    onChangedExpanded = {
+                        if (it) {
+                            viewModel.expandDetail()
+                        } else {
+                            viewModel.collapseDetail()
+                        }
+                    },
+                    enableExpand = isLargeScreen
                 )
             }
         },

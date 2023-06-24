@@ -5,6 +5,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.CloseFullscreen
+import androidx.compose.material.icons.outlined.OpenInFull
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -31,7 +33,9 @@ import jp.numero.dagashiapp.ui.component.TopAppBar
 fun MilestoneDetailScreen(
     path: String,
     onBack: () -> Unit,
-    isExpanded: Boolean = false,
+    isExpanded: Boolean,
+    onChangedExpanded: (Boolean) -> Unit,
+    enableExpand: Boolean = false,
     viewModel: MilestoneDetailViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -49,6 +53,8 @@ fun MilestoneDetailScreen(
             // TODO: retry
         },
         isExpanded = isExpanded,
+        onChangedExpanded = onChangedExpanded,
+        enableExpand = enableExpand
     )
 }
 
@@ -59,7 +65,9 @@ fun MilestoneDetailScreen(
     onBack: () -> Unit,
     onClickShare: (String) -> Unit,
     onRetry: () -> Unit,
-    isExpanded: Boolean = false,
+    isExpanded: Boolean,
+    onChangedExpanded: (Boolean) -> Unit,
+    enableExpand: Boolean = false,
 ) {
     Surface(
         color = MaterialTheme.colorScheme.surface,
@@ -92,6 +100,12 @@ fun MilestoneDetailScreen(
                 isCenterAlignedTitle = false,
                 onBack = onBack,
                 actions = {
+                    if (enableExpand) {
+                        ToggleExpandButton(
+                            isExpanded = isExpanded,
+                            onChanged = onChangedExpanded
+                        )
+                    }
                     uiState.data?.url?.let {
                         IconButton(
                             onClick = {
@@ -215,6 +229,27 @@ fun IssueLabel(
             style = MaterialTheme.typography.labelSmall,
             modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
         )
+    }
+}
+
+@Composable
+private fun ToggleExpandButton(
+    isExpanded: Boolean,
+    onChanged: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Box(modifier = modifier) {
+        IconButton(onClick = { onChanged(!isExpanded) }) {
+            Icon(
+                imageVector = if (isExpanded) {
+                    Icons.Outlined.CloseFullscreen
+                } else {
+                    Icons.Outlined.OpenInFull
+                },
+                // TODO: description
+                contentDescription = null
+            )
+        }
     }
 }
 
