@@ -17,7 +17,6 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import jp.numero.dagashiapp.model.Issue
 import jp.numero.dagashiapp.model.Label
 import jp.numero.dagashiapp.model.MilestoneDetail
@@ -31,7 +30,7 @@ import jp.numero.dagashiapp.ui.component.TopAppBar
 @Composable
 fun MilestoneDetailScreen(
     path: String,
-    navController: NavHostController,
+    onBack: () -> Unit,
     isExpanded: Boolean = false,
     viewModel: MilestoneDetailViewModel = hiltViewModel(),
 ) {
@@ -42,9 +41,7 @@ fun MilestoneDetailScreen(
     }
     MilestoneDetailScreen(
         uiState = uiState,
-        onBack = {
-            navController.popBackStack()
-        },
+        onBack = onBack,
         onClickShare = {
             uriHandler.openUri(it)
         },

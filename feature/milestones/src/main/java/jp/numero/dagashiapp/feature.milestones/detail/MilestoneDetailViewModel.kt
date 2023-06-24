@@ -50,6 +50,9 @@ class MilestoneDetailViewModel @Inject constructor(
     }
 
     fun load(path: String) {
+        if (this.path.value != path) {
+            _uiState.value = UiState()
+        }
         savedStateHandle[pathKey] = path
     }
 

@@ -52,7 +52,7 @@ fun MilestonesContainerScreen(
             {
                 MilestoneDetailScreen(
                     path = path,
-                    navController = navController,
+                    onBack = viewModel::closeDetail,
                     isExpanded = !isSplit
                 )
             }
