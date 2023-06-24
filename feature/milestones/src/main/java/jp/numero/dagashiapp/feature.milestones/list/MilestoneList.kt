@@ -1,5 +1,6 @@
 package jp.numero.dagashiapp.feature.milestones.list
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -8,8 +9,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,7 +21,6 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.ramcosta.composedestinations.navigation.navigateTo
 import jp.numero.dagashiapp.model.Milestone
 import jp.numero.dagashiapp.model.MilestoneList
-import jp.numero.dagashiapp.navigation.destinations.MilestoneDetailScreenDestination
 import jp.numero.dagashiapp.navigation.destinations.SettingsScreenDestination
 import jp.numero.dagashiapp.ui.R
 import jp.numero.dagashiapp.ui.UiState
@@ -29,14 +29,15 @@ import jp.numero.dagashiapp.ui.dateTimeString
 import java.time.Instant
 
 @Composable
-fun MilestoneListScreen(navController: NavHostController) {
-    val viewModel: MilestoneListViewModel = hiltViewModel()
+fun MilestoneListScreen(
+    navController: NavHostController,
+    onClickMilestone: (Milestone) -> Unit,
+    viewModel: MilestoneListViewModel = hiltViewModel()
+) {
     val uiState by viewModel.uiState.collectAsState()
     MilestoneListScreen(
         uiState = uiState,
-        onClickMilestone = {
-            navController.navigateTo(MilestoneDetailScreenDestination(it.path))
-        },
+        onClickMilestone = onClickMilestone,
         onRetry = {
             // TODO: retry
         },
@@ -62,20 +63,15 @@ fun MilestoneListScreen(
     onReachedBottom: () -> Unit,
     onClickSettings: () -> Unit
 ) {
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val snackbarHostState = remember { SnackbarHostState() }
     val context = LocalContext.current
-    Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        snackbarHost = { SnackbarHost(snackbarHostState) },
-        contentWindowInsets = WindowInsets(0.dp),
-        topBar = {
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier.fillMaxSize()) {
             TopAppBar(
                 title = {
                     Text(text = stringResource(id = R.string.app_name))
                 },
                 isCenterAlignedTitle = true,
-                scrollBehavior = scrollBehavior,
                 actions = {
                     IconButton(onClick = onClickSettings) {
                         Icon(
@@ -85,12 +81,8 @@ fun MilestoneListScreen(
                     }
                 }
             )
-        },
-        content = { innerPadding ->
             Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
+                modifier = Modifier.weight(1f)
             ) {
                 uiState.onState(
                     initialLoading = {
@@ -135,8 +127,12 @@ fun MilestoneListScreen(
                     },
                 )
             }
-        },
-    )
+        }
+        SnackbarHost(
+            hostState = snackbarHostState,
+            modifier = Modifier.align(Alignment.BottomCenter)
+        )
+    }
 }
 
 @Composable
@@ -165,15 +161,7 @@ fun MilestoneListContent(
         state = listState,
         modifier = modifier,
         contentPadding = WindowInsets.safeDrawing
-            .only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal)
-            .add(
-                WindowInsets(
-                    left = 16.dp,
-                    top = 16.dp,
-                    bottom = 16.dp,
-                    right = 16.dp
-                )
-            )
+            .only(WindowInsetsSides.Bottom)
             .asPaddingValues()
     ) {
         itemsIndexed(
@@ -184,7 +172,7 @@ fun MilestoneListContent(
             contentType = { _, _ ->
                 MilestoneListContentType.Item
             }
-        ) { index, item ->
+        ) { _, item ->
             MilestoneItem(
                 milestone = item,
                 onClick = {
@@ -192,9 +180,6 @@ fun MilestoneListContent(
                 },
                 modifier = Modifier.fillMaxWidth()
             )
-            if (index != milestoneList.value.lastIndex) {
-                Spacer(modifier = Modifier.height(12.dp))
-            }
         }
         if (milestoneList.hasMore) {
             item(
@@ -211,39 +196,35 @@ private enum class MilestoneListContentType {
     Item, Indicator
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MilestoneItem(
     milestone: Milestone,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    OutlinedCard(
-        onClick = onClick,
+    Column(
         modifier = modifier
+            .clickable(onClick = onClick)
+            .padding(16.dp)
     ) {
-        Column(
-            modifier = Modifier.padding(16.dp)
-        ) {
-            Text(
-                text = "#${milestone.number}",
-                style = MaterialTheme.typography.titleLarge,
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = milestone.description,
-                style = MaterialTheme.typography.bodyMedium,
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = dateTimeString(
-                    instant = milestone.closedAd,
-                    format = stringResource(id = R.string.date_format)
-                ),
-                style = MaterialTheme.typography.labelSmall,
-                color = LocalContentColor.current.copy(alpha = 0.54f)
-            )
-        }
+        Text(
+            text = "#${milestone.number}",
+            style = MaterialTheme.typography.titleLarge,
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = milestone.description,
+            style = MaterialTheme.typography.bodyMedium,
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = dateTimeString(
+                instant = milestone.closedAd,
+                format = stringResource(id = R.string.date_format)
+            ),
+            style = MaterialTheme.typography.labelSmall,
+            color = LocalContentColor.current.copy(alpha = 0.54f)
+        )
     }
 }
 

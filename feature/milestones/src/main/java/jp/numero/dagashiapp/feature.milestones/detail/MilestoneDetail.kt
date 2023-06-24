@@ -5,20 +5,20 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.CloseFullscreen
+import androidx.compose.material.icons.outlined.OpenInFull
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import jp.numero.dagashiapp.model.Issue
 import jp.numero.dagashiapp.model.Label
 import jp.numero.dagashiapp.model.MilestoneDetail
@@ -31,22 +31,30 @@ import jp.numero.dagashiapp.ui.component.TopAppBar
 
 @Composable
 fun MilestoneDetailScreen(
-    navController: NavHostController
+    path: String,
+    onBack: () -> Unit,
+    isExpanded: Boolean,
+    onChangedExpanded: (Boolean) -> Unit,
+    enableExpand: Boolean = false,
+    viewModel: MilestoneDetailViewModel = hiltViewModel(),
 ) {
-    val viewModel: MilestoneDetailViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
     val uriHandler = LocalUriHandler.current
+    LaunchedEffect(path) {
+        viewModel.load(path)
+    }
     MilestoneDetailScreen(
         uiState = uiState,
-        onBack = {
-            navController.popBackStack()
-        },
+        onBack = onBack,
         onClickShare = {
             uriHandler.openUri(it)
         },
         onRetry = {
             // TODO: retry
-        }
+        },
+        isExpanded = isExpanded,
+        onChangedExpanded = onChangedExpanded,
+        enableExpand = enableExpand
     )
 }
 
@@ -57,12 +65,32 @@ fun MilestoneDetailScreen(
     onBack: () -> Unit,
     onClickShare: (String) -> Unit,
     onRetry: () -> Unit,
+    isExpanded: Boolean,
+    onChangedExpanded: (Boolean) -> Unit,
+    enableExpand: Boolean = false,
 ) {
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-    Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        contentWindowInsets = WindowInsets(0.dp),
-        topBar = {
+    Surface(
+        color = MaterialTheme.colorScheme.surface,
+        shape = if (isExpanded) {
+            RoundedCornerShape(percent = 0)
+        } else {
+            MaterialTheme.shapes.extraLarge
+        },
+        modifier = Modifier.fillMaxSize()
+            .let {
+                if (isExpanded) {
+                    it
+                } else {
+                    it
+                        .windowInsetsPadding(
+                            WindowInsets.safeDrawing
+                                .only(WindowInsetsSides.Top + WindowInsetsSides.Bottom)
+                        )
+                        .padding(16.dp)
+                }
+            }
+    ) {
+        Column(modifier = Modifier.fillMaxSize()) {
             TopAppBar(
                 title = {
                     uiState.data?.number?.let {
@@ -70,9 +98,14 @@ fun MilestoneDetailScreen(
                     }
                 },
                 isCenterAlignedTitle = false,
-                scrollBehavior = scrollBehavior,
                 onBack = onBack,
                 actions = {
+                    if (enableExpand) {
+                        ToggleExpandButton(
+                            isExpanded = isExpanded,
+                            onChanged = onChangedExpanded
+                        )
+                    }
                     uiState.data?.url?.let {
                         IconButton(
                             onClick = {
@@ -87,13 +120,7 @@ fun MilestoneDetailScreen(
                     }
                 }
             )
-        },
-        content = { innerPadding ->
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
-            ) {
+            Box(modifier = Modifier.weight(1f)) {
                 uiState.onState(
                     initialLoading = {
                         FullScreenLoadingIndicator()
@@ -112,77 +139,41 @@ fun MilestoneDetailScreen(
                         )
                     },
                     loaded = { data, _ ->
-                        MilestoneDetailContent(milestoneDetail = data)
+                        MilestoneDetailContent(
+                            milestoneDetail = data,
+                            isExpanded = isExpanded,
+                        )
                     },
                 )
             }
-        },
-    )
+        }
+    }
 }
 
 @Composable
 fun MilestoneDetailContent(
     milestoneDetail: MilestoneDetail,
     modifier: Modifier = Modifier,
-    onClickInnerShare: ((String) -> Unit)? = null,
-    applyFullInsets: Boolean = false,
+    isExpanded: Boolean = false,
 ) {
     Column(
-        modifier = modifier.verticalScroll(rememberScrollState())
-    ) {
-        OutlinedCard(
-            modifier = Modifier.windowInsetsPadding(
-                WindowInsets.safeDrawing
-                    .let {
-                        if (applyFullInsets) {
-                            it
-                        } else {
-                            it.only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal)
-                        }
-                    }
-                    .add(
-                        WindowInsets(
-                            left = 16.dp,
-                            top = 16.dp,
-                            right = 16.dp,
-                            bottom = 16.dp
-                        )
+        modifier = modifier
+            .verticalScroll(rememberScrollState())
+            .let {
+                if (isExpanded) {
+                    it.windowInsetsPadding(
+                        WindowInsets.safeDrawing
+                            .only(WindowInsetsSides.Bottom)
                     )
-            )
-        ) {
-            if (onClickInnerShare != null) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(
-                            start = 16.dp,
-                            end = 16.dp,
-                            top = 12.dp
-                        )
-                ) {
-                    Text(
-                        text = "#${milestoneDetail.number}",
-                        style = MaterialTheme.typography.titleLarge,
-                        modifier = Modifier.align(Alignment.CenterStart)
-                    )
-                    IconButton(
-                        onClick = {
-                            onClickInnerShare(milestoneDetail.url)
-                        },
-                        modifier = Modifier.align(Alignment.CenterEnd)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Outlined.Share,
-                            contentDescription = stringResource(id = R.string.share)
-                        )
-                    }
+                } else {
+                    it
                 }
             }
-            milestoneDetail.issues.forEachIndexed { index, issue ->
-                IssueItem(issue = issue)
-                if (index != milestoneDetail.issues.lastIndex) {
-                    Divider(modifier = Modifier.padding(start = 16.dp))
-                }
+    ) {
+        milestoneDetail.issues.forEachIndexed { index, issue ->
+            IssueItem(issue = issue)
+            if (index != milestoneDetail.issues.lastIndex) {
+                Divider(modifier = Modifier.padding(start = 16.dp))
             }
         }
     }
@@ -238,6 +229,27 @@ fun IssueLabel(
             style = MaterialTheme.typography.labelSmall,
             modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
         )
+    }
+}
+
+@Composable
+private fun ToggleExpandButton(
+    isExpanded: Boolean,
+    onChanged: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Box(modifier = modifier) {
+        IconButton(onClick = { onChanged(!isExpanded) }) {
+            Icon(
+                imageVector = if (isExpanded) {
+                    Icons.Outlined.CloseFullscreen
+                } else {
+                    Icons.Outlined.OpenInFull
+                },
+                // TODO: description
+                contentDescription = null
+            )
+        }
     }
 }
 
