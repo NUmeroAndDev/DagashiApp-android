@@ -9,9 +9,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -64,21 +63,15 @@ fun MilestoneListScreen(
     onReachedBottom: () -> Unit,
     onClickSettings: () -> Unit
 ) {
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val snackbarHostState = remember { SnackbarHostState() }
     val context = LocalContext.current
-    Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        snackbarHost = { SnackbarHost(snackbarHostState) },
-        contentWindowInsets = WindowInsets(0.dp),
-        containerColor = Color.Transparent,
-        topBar = {
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier.fillMaxSize()) {
             TopAppBar(
                 title = {
                     Text(text = stringResource(id = R.string.app_name))
                 },
                 isCenterAlignedTitle = true,
-                scrollBehavior = scrollBehavior,
                 actions = {
                     IconButton(onClick = onClickSettings) {
                         Icon(
@@ -88,12 +81,8 @@ fun MilestoneListScreen(
                     }
                 }
             )
-        },
-        content = { innerPadding ->
             Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
+                modifier = Modifier.weight(1f)
             ) {
                 uiState.onState(
                     initialLoading = {
@@ -138,8 +127,12 @@ fun MilestoneListScreen(
                     },
                 )
             }
-        },
-    )
+        }
+        SnackbarHost(
+            hostState = snackbarHostState,
+            modifier = Modifier.align(Alignment.BottomCenter)
+        )
+    }
 }
 
 @Composable

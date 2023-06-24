@@ -6,6 +6,7 @@ import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import jp.numero.dagashiapp.ui.R
 
@@ -33,6 +34,9 @@ fun TopAppBar(
     }
     val windowInsets = WindowInsets.safeDrawing
         .only(WindowInsetsSides.Horizontal + WindowInsetsSides.Top)
+    val colors = TopAppBarDefaults.topAppBarColors(
+        containerColor = Color.Transparent
+    )
     if (isCenterAlignedTitle) {
         CenterAlignedTopAppBar(
             title = title,
@@ -41,6 +45,7 @@ fun TopAppBar(
             scrollBehavior = scrollBehavior,
             modifier = modifier,
             windowInsets = windowInsets,
+            colors = colors,
         )
     } else {
         TopAppBar(
@@ -50,6 +55,7 @@ fun TopAppBar(
             scrollBehavior = scrollBehavior,
             modifier = modifier,
             windowInsets = windowInsets,
+            colors = colors,
         )
     }
 }
