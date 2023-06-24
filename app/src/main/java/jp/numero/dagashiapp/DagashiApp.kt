@@ -38,7 +38,7 @@ fun DagashiApp(windowSizeClass: WindowSizeClass) {
             )
         }
         Surface(
-            color = MaterialTheme.colorScheme.background
+            color = Color.Black
         ) {
             DagashiNavigation(
                 navController = navController,

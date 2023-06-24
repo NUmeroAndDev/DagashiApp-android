@@ -165,7 +165,7 @@ fun MilestoneListContent(
         state = listState,
         modifier = modifier,
         contentPadding = WindowInsets.safeDrawing
-            .only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal)
+            .only(WindowInsetsSides.Bottom)
             .add(
                 WindowInsets(
                     left = 16.dp,
