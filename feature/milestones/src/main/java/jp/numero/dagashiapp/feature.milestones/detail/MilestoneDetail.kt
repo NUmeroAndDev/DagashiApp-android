@@ -75,7 +75,6 @@ fun MilestoneDetailScreen(
                     }
                 },
                 isCenterAlignedTitle = false,
-                scrollBehavior = scrollBehavior,
                 onBack = onBack,
                 actions = {
                     uiState.data?.url?.let {

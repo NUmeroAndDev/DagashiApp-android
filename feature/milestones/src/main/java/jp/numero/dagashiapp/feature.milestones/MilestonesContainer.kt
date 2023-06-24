@@ -9,12 +9,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import jp.numero.dagashiapp.feature.milestones.detail.MilestoneDetailScreen
@@ -66,11 +71,17 @@ private fun ListDetailLayout(
     detail: @Composable (() -> Unit)?,
     modifier: Modifier = Modifier,
     expanded: Boolean = false,
+    containerColor: Color = MaterialTheme.colorScheme.surfaceColorAtElevation(6.dp),
+    contentColor: Color = MaterialTheme.colorScheme.onSurface,
 ) {
     // TODO: Implement animation
-    Box(modifier = modifier) {
+    Surface(
+        modifier = modifier,
+        color = containerColor,
+        contentColor = contentColor
+    ) {
         if (isLargeScreen && !expanded) {
-            Row(modifier = Modifier.matchParentSize()) {
+            Row(modifier = Modifier.fillMaxSize()) {
                 Box(modifier = Modifier.weight(1f)) {
                     list()
                 }
