@@ -58,6 +58,10 @@ gradlePlugin {
         }
 
         // conventions
+        register("appModule") {
+            id = "jp.numero.dagashiapp.buildlogic.conventions.appmodule"
+            implementationClass = "jp.numero.dagashiapp.buildlogic.conventions.AppModulePlugin"
+        }
         register("featureModule") {
             id = "jp.numero.dagashiapp.buildlogic.conventions.featuremodule"
             implementationClass = "jp.numero.dagashiapp.buildlogic.conventions.FeatureModulePlugin"
