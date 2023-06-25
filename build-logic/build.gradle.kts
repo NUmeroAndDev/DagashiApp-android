@@ -66,5 +66,9 @@ gradlePlugin {
             id = "jp.numero.dagashiapp.buildlogic.conventions.featuremodule"
             implementationClass = "jp.numero.dagashiapp.buildlogic.conventions.FeatureModulePlugin"
         }
+        register("dataModule") {
+            id = "jp.numero.dagashiapp.buildlogic.conventions.datamodule"
+            implementationClass = "jp.numero.dagashiapp.buildlogic.conventions.DataModulePlugin"
+        }
     }
 }
