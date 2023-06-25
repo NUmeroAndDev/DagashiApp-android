@@ -12,6 +12,10 @@ class AndroidLibraryPlugin : Plugin<Project> {
 
             library {
                 commonConfiguration()
+
+                defaultConfig {
+                    consumerProguardFiles("consumer-rules.pro")
+                }
             }
         }
     }

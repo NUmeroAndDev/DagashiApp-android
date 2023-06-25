@@ -1,7 +1,9 @@
 package jp.numero.dagashiapp.buildlogic.conventions
 
+import jp.numero.dagashiapp.buildlogic.primitive.implementation
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.dependencies
 
 class FeatureModulePlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -11,6 +13,11 @@ class FeatureModulePlugin : Plugin<Project> {
                 apply("jp.numero.dagashiapp.buildlogic.primitive.kotlin")
                 apply("jp.numero.dagashiapp.buildlogic.primitive.compose")
                 apply("jp.numero.dagashiapp.buildlogic.primitive.hilt")
+            }
+            dependencies {
+                implementation(project(":model"))
+                implementation(project(":repository"))
+                implementation(project(":ui"))
             }
         }
     }

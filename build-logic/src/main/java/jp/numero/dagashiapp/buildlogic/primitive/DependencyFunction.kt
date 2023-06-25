@@ -8,6 +8,7 @@ import org.gradle.api.provider.Provider
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 import org.gradle.kotlin.dsl.getByType
 import java.util.Optional
+
 fun DependencyHandlerScope.implementation(
     artifact: Optional<Provider<MinimalExternalModuleDependency>>,
 ) = add("implementation", artifact.get())
@@ -15,6 +16,10 @@ fun DependencyHandlerScope.implementation(
 fun DependencyHandlerScope.implementation(
     artifact: Provider<MinimalExternalModuleDependency>,
 ) = add("implementation", artifact)
+
+fun DependencyHandlerScope.implementation(
+    project: Project,
+) = add("implementation", project)
 
 internal fun DependencyHandlerScope.implementationBundles(
     dependency: Optional<Provider<ExternalModuleDependencyBundle>>,
