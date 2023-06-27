@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.surfaceColorAtElevation
@@ -44,12 +45,14 @@ fun MilestonesContainerScreen(
     }
     val isLargeScreen = windowSizeClass.widthSizeClass >= WindowWidthSizeClass.Expanded
     val isSplit = isLargeScreen && !expanded
+    val listState = rememberLazyListState()
     ListDetailLayout(
         isSplit = isSplit,
         isShowDetail = selectedPath != null,
         listContent = {
             MilestoneListScreen(
                 navController = navController,
+                listState = listState,
                 onClickMilestone = {
                     viewModel.openDetail(it.path)
                 }

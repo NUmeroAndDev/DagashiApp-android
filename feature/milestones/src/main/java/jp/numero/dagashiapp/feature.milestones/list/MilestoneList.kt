@@ -3,6 +3,7 @@ package jp.numero.dagashiapp.feature.milestones.list
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
@@ -32,6 +33,7 @@ import java.time.Instant
 fun MilestoneListScreen(
     navController: NavHostController,
     onClickMilestone: (Milestone) -> Unit,
+    listState: LazyListState = rememberLazyListState(),
     viewModel: MilestoneListViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -49,7 +51,8 @@ fun MilestoneListScreen(
         },
         onClickSettings = {
             navController.navigateTo(SettingsScreenDestination)
-        }
+        },
+        listState = listState,
     )
 }
 
@@ -61,7 +64,8 @@ fun MilestoneListScreen(
     onRetry: () -> Unit,
     onRefresh: () -> Unit,
     onReachedBottom: () -> Unit,
-    onClickSettings: () -> Unit
+    onClickSettings: () -> Unit,
+    listState: LazyListState = rememberLazyListState(),
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val context = LocalContext.current
@@ -110,6 +114,7 @@ fun MilestoneListScreen(
                                 milestoneList = data,
                                 onClickMilestone = onClickMilestone,
                                 onReachedBottom = onReachedBottom,
+                                listState = listState,
                                 modifier = Modifier.fillMaxSize()
                             )
                         }
@@ -140,9 +145,9 @@ fun MilestoneListContent(
     milestoneList: MilestoneList,
     onClickMilestone: (Milestone) -> Unit,
     onReachedBottom: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    listState: LazyListState = rememberLazyListState(),
 ) {
-    val listState = rememberLazyListState()
     val currentOnReachedBottom by rememberUpdatedState(onReachedBottom)
     val isReachedBottom by remember {
         derivedStateOf {
