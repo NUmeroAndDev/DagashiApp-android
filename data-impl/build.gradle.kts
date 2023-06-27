@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "jp.numero.dagashiapp.data"
+    namespace = "jp.numero.dagashiapp.dataimpl"
 }
 
 dependencies {

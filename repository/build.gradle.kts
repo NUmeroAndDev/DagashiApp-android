@@ -10,7 +10,7 @@ android {
 
 dependencies {
     implementation(projects.model)
-    implementation(projects.data)
+    implementation(projects.dataImpl)
 
     testImplementation("junit:junit:4.13.2")
 }
