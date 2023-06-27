@@ -12,7 +12,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven { url 'https://jitpack.io' }
+        maven("https://jitpack.io")
     }
 }
 
@@ -20,12 +20,12 @@ rootProject.name = "DagashiApp"
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-include ':app'
-include ':ui'
-include ':repository'
-include ':model'
-include ':data'
-include ':navigation'
-include ':feature:milestones'
-include ':feature:settings'
-include ':benchmark'
+include(":app")
+include(":ui")
+include(":repository")
+include(":model")
+include(":data")
+include(":navigation")
+include(":feature:milestones")
+include(":feature:settings")
+include(":benchmark")
