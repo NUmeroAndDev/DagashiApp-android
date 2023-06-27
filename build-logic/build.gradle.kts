@@ -40,6 +40,10 @@ gradlePlugin {
             id = "jp.numero.dagashiapp.buildlogic.primitive.androidlibrary"
             implementationClass = "jp.numero.dagashiapp.buildlogic.primitive.AndroidLibraryPlugin"
         }
+        register("androidTest") {
+            id = "jp.numero.dagashiapp.buildlogic.primitive.androidtest"
+            implementationClass = "jp.numero.dagashiapp.buildlogic.primitive.AndroidTestPlugin"
+        }
         register("compose") {
             id = "jp.numero.dagashiapp.buildlogic.primitive.compose"
             implementationClass = "jp.numero.dagashiapp.buildlogic.primitive.ComposePlugin"
@@ -69,6 +73,10 @@ gradlePlugin {
         register("dataModule") {
             id = "jp.numero.dagashiapp.buildlogic.conventions.datamodule"
             implementationClass = "jp.numero.dagashiapp.buildlogic.conventions.DataModulePlugin"
+        }
+        register("benchmarkModule") {
+            id = "jp.numero.dagashiapp.buildlogic.conventions.benchmarkmodule"
+            implementationClass = "jp.numero.dagashiapp.buildlogic.conventions.BenchmarkModulePlugin"
         }
     }
 }

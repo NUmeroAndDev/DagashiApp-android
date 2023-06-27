@@ -2,6 +2,7 @@ package jp.numero.dagashiapp.buildlogic.primitive
 
 import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.LibraryExtension
+import com.android.build.gradle.TestExtension
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
@@ -17,6 +18,10 @@ fun Project.library(action: LibraryExtension.() -> Unit) {
 }
 
 fun Project.android(action: BaseExtension.() -> Unit) {
+    extensions.configure(action)
+}
+
+fun Project.test(action: TestExtension.() -> Unit) {
     extensions.configure(action)
 }
 
