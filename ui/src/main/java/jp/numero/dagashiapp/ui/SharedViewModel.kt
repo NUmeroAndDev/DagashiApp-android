@@ -3,7 +3,7 @@ package jp.numero.dagashiapp.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import jp.numero.dagashiapp.repository.ConfigRepository
+import jp.numero.dagashiapp.data.ConfigRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn

@@ -1,11 +1,9 @@
-package jp.numero.dagashiapp.repository
+package jp.numero.dagashiapp.data
 
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import jp.numero.dagashiapp.data.DagashiLocalDataSource
-import jp.numero.dagashiapp.data.DagashiRemoteDataSource
 import jp.numero.dagashiapp.data.response.MilestoneDetailResponse
 import jp.numero.dagashiapp.data.response.MilestoneListResponse
 import jp.numero.dagashiapp.model.*

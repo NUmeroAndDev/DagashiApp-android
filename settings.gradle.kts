@@ -22,7 +22,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(":app")
 include(":ui")
-include(":repository")
+include(":data")
 include(":model")
 include(":data-impl")
 include(":navigation")

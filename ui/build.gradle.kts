@@ -11,7 +11,7 @@ android {
 
 dependencies {
     implementation(projects.model)
-    implementation(projects.repository)
+    implementation(projects.data)
     implementation(projects.navigation)
 
     implementation(libs.androidx.core)
