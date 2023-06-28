@@ -1,10 +1,11 @@
-package jp.numero.dagashiapp.repository
+package jp.numero.dagashiapp.data.repository
 
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import jp.numero.dagashiapp.data.ConfigDataSource
+import jp.numero.dagashiapp.data.ConfigRepository
 import jp.numero.dagashiapp.model.Config
 import jp.numero.dagashiapp.model.Theme
 import kotlinx.coroutines.flow.Flow

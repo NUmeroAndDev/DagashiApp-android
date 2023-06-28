@@ -1,4 +1,4 @@
-package jp.numero.dagashiapp.repository
+package jp.numero.dagashiapp.data
 
 import jp.numero.dagashiapp.model.Config
 import jp.numero.dagashiapp.model.Theme

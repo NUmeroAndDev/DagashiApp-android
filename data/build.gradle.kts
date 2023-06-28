@@ -1,6 +1,6 @@
 plugins {
-    id("jp.numero.dagashiapp.buildlogic.conventions.datamodule")
-    id("kotlinx-serialization")
+    id("jp.numero.dagashiapp.buildlogic.primitive.androidlibrary")
+    id("jp.numero.dagashiapp.buildlogic.primitive.kotlin")
 }
 
 android {
@@ -8,15 +8,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.kotlinx.serialization)
-
-    implementation(libs.androidx.datastore.preference)
-
-    implementation(libs.okhttp3.core)
-    debugImplementation(libs.okhttp3.loggingInterceptor)
-
-    implementation(libs.retrofit.core)
-    implementation(libs.retrofit.converter)
+    implementation(projects.model)
 
     testImplementation("junit:junit:4.13.2")
 }

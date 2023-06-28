@@ -54,6 +54,7 @@ dependencies {
     implementation(projects.feature.milestones)
     implementation(projects.feature.settings)
     implementation(projects.navigation)
+    implementation(projects.dataImpl)
 
     implementation(libs.androidx.activity)
     implementation(libs.androidx.core)

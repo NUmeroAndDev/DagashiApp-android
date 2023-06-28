@@ -1,4 +1,4 @@
-package jp.numero.dagashiapp.repository
+package jp.numero.dagashiapp.data
 
 import org.junit.Test
 

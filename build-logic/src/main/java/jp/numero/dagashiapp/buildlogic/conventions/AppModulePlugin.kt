@@ -16,7 +16,7 @@ class AppModulePlugin : Plugin<Project> {
             }
             dependencies {
                 implementation(project(":model"))
-                implementation(project(":repository"))
+                implementation(project(":data"))
                 implementation(project(":ui"))
             }
         }

@@ -11,12 +11,13 @@ Unofficial [Android Dagashi](https://androiddagashi.github.io/) application
 ```mermaid
   graph TD;
       :app-->:feature:*;
+      :app-->:data-impl;
       :feature:*-->:navigation;
-      :feature:*-->:repository;
+      :feature:*-->:data;
       :feature:*-->:model;
       :feature:*-->:ui;
-      :repository-->:model;
-      :repository-->:data;
+      :data-impl-->:data;
+      :data-impl-->:model;
       :data-->:model;
 ```
 

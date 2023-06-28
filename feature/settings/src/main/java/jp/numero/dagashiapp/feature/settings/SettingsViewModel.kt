@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.numero.dagashiapp.model.Config
 import jp.numero.dagashiapp.model.Theme
-import jp.numero.dagashiapp.repository.ConfigRepository
+import jp.numero.dagashiapp.data.ConfigRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
