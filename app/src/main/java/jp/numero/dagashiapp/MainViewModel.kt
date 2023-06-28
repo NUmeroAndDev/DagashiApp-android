@@ -1,4 +1,4 @@
-package jp.numero.dagashiapp.ui
+package jp.numero.dagashiapp
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,7 +11,7 @@ import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @HiltViewModel
-class SharedViewModel @Inject constructor(
+class MainViewModel @Inject constructor(
     private val configRepository: ConfigRepository,
 ) : ViewModel() {
 

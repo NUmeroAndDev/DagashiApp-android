@@ -1,7 +1,6 @@
 plugins {
     id("jp.numero.dagashiapp.buildlogic.primitive.androidlibrary")
     id("jp.numero.dagashiapp.buildlogic.primitive.kotlin")
-    id("jp.numero.dagashiapp.buildlogic.primitive.hilt")
     id("jp.numero.dagashiapp.buildlogic.primitive.compose")
 }
 

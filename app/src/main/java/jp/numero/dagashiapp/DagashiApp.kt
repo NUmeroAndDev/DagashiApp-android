@@ -1,7 +1,6 @@
 package jp.numero.dagashiapp
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
@@ -16,14 +15,13 @@ import jp.numero.dagashiapp.feature.milestones.MilestonesContainerScreen
 import jp.numero.dagashiapp.feature.settings.SettingsScreen
 import jp.numero.dagashiapp.model.Theme
 import jp.numero.dagashiapp.navigation.DagashiNavigation
-import jp.numero.dagashiapp.ui.SharedViewModel
 import jp.numero.dagashiapp.ui.theme.DagashiAppTheme
 
 @Composable
 fun DagashiApp(windowSizeClass: WindowSizeClass) {
     val navController = rememberNavController()
-    val sharedViewModel = hiltViewModel<SharedViewModel>()
-    val config by sharedViewModel.config.collectAsState()
+    val viewModel = hiltViewModel<MainViewModel>()
+    val config by viewModel.config.collectAsState()
     val isDarkTheme = config.theme.isDarkTheme()
     DagashiAppTheme(
         isDarkTheme = isDarkTheme,
