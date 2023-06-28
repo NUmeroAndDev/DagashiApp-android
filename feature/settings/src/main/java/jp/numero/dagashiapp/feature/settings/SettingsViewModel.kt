@@ -7,7 +7,6 @@ import jp.numero.dagashiapp.data.ConfigRepository
 import jp.numero.dagashiapp.model.Config
 import jp.numero.dagashiapp.model.Theme
 import jp.numero.dagashiapp.ui.lifecycleStateIn
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,7 +21,6 @@ class SettingsViewModel @Inject constructor(
 
     fun updateTheme(theme: Theme) {
         viewModelScope.launch {
-            delay(200)
             configRepository.updateTheme(theme)
         }
     }
