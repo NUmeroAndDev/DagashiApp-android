@@ -16,7 +16,6 @@ dependencies {
     implementation(libs.androidx.window)
 
     implementation(libs.accompanist.systemUiController)
-    implementation(libs.accompanist.swipeRefresh)
 
     implementation(libs.coil)
 

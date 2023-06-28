@@ -11,20 +11,15 @@ android {
 dependencies {
     implementation(projects.model)
     implementation(projects.data)
-    implementation(projects.navigation)
 
     implementation(libs.androidx.core)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.lifecycle.viewmodel)
-    implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.window)
 
-    implementation(libs.accompanist.systemUiController)
     implementation(libs.accompanist.swipeRefresh)
 
     implementation(libs.coil)
-
-    implementation(libs.composeDestinations.core)
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
