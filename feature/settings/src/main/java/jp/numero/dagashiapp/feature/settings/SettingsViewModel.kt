@@ -3,12 +3,11 @@ package jp.numero.dagashiapp.feature.settings
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import jp.numero.dagashiapp.data.ConfigRepository
 import jp.numero.dagashiapp.model.Config
 import jp.numero.dagashiapp.model.Theme
-import jp.numero.dagashiapp.data.ConfigRepository
+import jp.numero.dagashiapp.ui.lifecycleStateIn
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,7 +18,7 @@ class SettingsViewModel @Inject constructor(
 ) : ViewModel() {
 
     val config = configRepository.observe()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), Config())
+        .lifecycleStateIn(Config())
 
     fun updateTheme(theme: Theme) {
         viewModelScope.launch {
