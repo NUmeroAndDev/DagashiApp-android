@@ -210,11 +210,14 @@ fun MilestoneItem(
     Column(
         modifier = modifier
             .clickable(onClick = onClick)
-            .padding(16.dp)
+            .padding(
+                horizontal = 16.dp,
+                vertical = 12.dp
+            )
     ) {
         Text(
             text = "#${milestone.number}",
-            style = MaterialTheme.typography.titleLarge,
+            style = MaterialTheme.typography.headlineMedium,
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
