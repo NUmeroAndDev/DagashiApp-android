@@ -1,10 +1,10 @@
 [versions]
 androidGradlePlugin = "8.0.2"
-kotlin = "1.8.21"
+kotlin = "1.8.22"
 
 lifecycle = "2.6.1"
 compose = "1.5.0-beta02"
-composeCompiler = "1.4.7"
+composeCompiler = "1.4.8"
 material3 = "1.1.1"
 
 hilt = "2.46.1"
@@ -64,7 +64,7 @@ androidGradlePlugin = { module = "com.android.tools.build:gradle", version.ref =
 kotlinPlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlinSerializationPlugin = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
 hiltPlugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt" }
-kspPlugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version = "1.8.21-1.0.11" }
+kspPlugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version = "1.8.22-1.0.11" }
 
 [plugins]
 androidGradlePlugin = { id = "com.android.application", version.ref = "androidGradlePlugin" }

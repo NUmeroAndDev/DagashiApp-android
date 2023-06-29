@@ -25,6 +25,16 @@
         "^org\\.jetbrains\\.kotlin\\.",
         "^com\\.google\\.devtools\\.ksp:"
       ]
+    },
+    {
+      "matchManagers": ["regex"],
+      "matchDatasources": ["maven"],
+      "registryUrls": [
+        "https://dl.google.com/android/maven2/",
+        "https://repo.maven.apache.org/maven2",
+        "https://jitpack.io",
+        "https://plugins.gradle.org/m2/"
+      ]
     }
   ]
 }
