@@ -3,7 +3,7 @@
 Unofficial [Android Dagashi](https://androiddagashi.github.io/) application
 
 ## Requirements
-- Android Studio Flamingo
+- Android Studio Giraffe
 
 
 ## Architecture
