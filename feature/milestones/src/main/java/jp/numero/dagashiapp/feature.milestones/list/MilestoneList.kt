@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
-import com.ramcosta.composedestinations.navigation.navigateTo
+import com.ramcosta.composedestinations.navigation.navigate
 import jp.numero.dagashiapp.model.Milestone
 import jp.numero.dagashiapp.model.MilestoneList
 import jp.numero.dagashiapp.navigation.destinations.SettingsScreenDestination
@@ -50,7 +50,7 @@ fun MilestoneListScreen(
             viewModel.loadMore()
         },
         onClickSettings = {
-            navController.navigateTo(SettingsScreenDestination)
+            navController.navigate(SettingsScreenDestination)
         },
         listState = listState,
     )

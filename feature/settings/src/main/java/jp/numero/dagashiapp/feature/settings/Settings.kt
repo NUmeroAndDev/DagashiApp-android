@@ -14,7 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.ramcosta.composedestinations.navigation.navigateTo
+import com.ramcosta.composedestinations.navigation.navigate
 import jp.numero.dagashiapp.model.Config
 import jp.numero.dagashiapp.model.Theme
 import jp.numero.dagashiapp.navigation.destinations.LicensesScreenDestination
@@ -38,7 +38,7 @@ fun SettingsScreen(navController: NavHostController) {
             viewModel.updateTheme(it)
         },
         onClickLicenses = {
-            navController.navigateTo(LicensesScreenDestination)
+            navController.navigate(LicensesScreenDestination)
         }
     )
 }
