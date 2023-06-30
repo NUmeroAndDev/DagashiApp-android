@@ -2,6 +2,7 @@ package jp.numero.dagashiapp.feature.settings
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.Contrast
@@ -115,9 +116,7 @@ fun SettingsContent(
                     trailing = {
                         Switch(
                             checked = config.applyDynamicColor,
-                            onCheckedChange = {
-                                onToggleApplyDynamicColor(it)
-                            }
+                            onCheckedChange = null
                         )
                     },
                     icon = {
@@ -126,10 +125,14 @@ fun SettingsContent(
                             contentDescription = null
                         )
                     },
-                    onClick = {
-                        onToggleApplyDynamicColor(!config.applyDynamicColor)
-                    },
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .toggleable(
+                            value = config.applyDynamicColor,
+                            onValueChange = {
+                                onToggleApplyDynamicColor(it)
+                            }
+                        ),
                 )
             }
         }
