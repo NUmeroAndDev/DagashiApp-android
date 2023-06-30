@@ -13,7 +13,7 @@ accompanist = "0.31.4-beta"
 
 [libraries]
 
-kotlinx-coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1"
+kotlinx-coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2"
 kotlinx-serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1"
 
 androidx-annotation = "androidx.annotation:annotation:1.6.0"
