@@ -12,6 +12,7 @@ dependencies {
     implementation(projects.model)
     implementation(projects.data)
 
+    implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.lifecycle.viewmodel)
