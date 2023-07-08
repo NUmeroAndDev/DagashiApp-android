@@ -1,6 +1,7 @@
 [versions]
 androidGradlePlugin = "8.1.0-rc01"
 kotlin = "1.8.22"
+ksp = "1.8.22-1.0.11"
 
 lifecycle = "2.6.1"
 compose = "1.5.0-beta03"
@@ -66,11 +67,10 @@ androidGradlePlugin = { module = "com.android.tools.build:gradle", version.ref =
 kotlinPlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlinSerializationPlugin = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
 hiltPlugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt" }
-kspPlugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version = "1.8.22-1.0.11" }
+kspPlugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 
 [plugins]
 androidGradlePlugin = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 kotlinPlugin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinSerializationPlugin = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 hiltPlugin = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-kspPlugin = { id = "com.google.devtools.ksp", version = "1.8.22-1.0.11" }
