@@ -55,6 +55,7 @@ dependencies {
     implementation(projects.feature.settings)
     implementation(projects.feature.licenses)
     implementation(projects.dataImpl)
+    implementation(projects.appwidget)
 
     implementation(libs.androidx.activity)
     implementation(libs.androidx.core)

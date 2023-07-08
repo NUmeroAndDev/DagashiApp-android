@@ -22,9 +22,9 @@ import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
 import dagger.hilt.android.AndroidEntryPoint
+import jp.numero.dagashiapp.data.DagashiRepository
 import jp.numero.dagashiapp.model.Milestone
 import jp.numero.dagashiapp.model.MilestoneList
-import jp.numero.dagashiapp.repository.DagashiRepository
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
