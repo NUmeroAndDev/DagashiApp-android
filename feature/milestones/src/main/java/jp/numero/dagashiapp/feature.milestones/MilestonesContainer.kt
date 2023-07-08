@@ -52,6 +52,7 @@ fun MilestonesContainerScreen(
         listContent = {
             MilestoneListScreen(
                 navController = navController,
+                selectedPath = selectedPath,
                 listState = listState,
                 onClickMilestone = {
                     viewModel.openDetail(it.path)
