@@ -1,10 +1,11 @@
 package jp.numero.dagashiapp.feature.milestones.list
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Settings
@@ -32,6 +33,7 @@ import java.time.Instant
 @Composable
 fun MilestoneListScreen(
     navController: NavHostController,
+    selectedPath: String?,
     onClickMilestone: (Milestone) -> Unit,
     listState: LazyListState = rememberLazyListState(),
     viewModel: MilestoneListViewModel = hiltViewModel()
@@ -39,6 +41,7 @@ fun MilestoneListScreen(
     val uiState by viewModel.uiState.collectAsState()
     MilestoneListScreen(
         uiState = uiState,
+        selectedPath = selectedPath,
         onClickMilestone = onClickMilestone,
         onRetry = {
             // TODO: retry
@@ -60,6 +63,7 @@ fun MilestoneListScreen(
 @Composable
 fun MilestoneListScreen(
     uiState: UiState<MilestoneList>,
+    selectedPath: String?,
     onClickMilestone: (Milestone) -> Unit,
     onRetry: () -> Unit,
     onRefresh: () -> Unit,
@@ -112,6 +116,7 @@ fun MilestoneListScreen(
                         ) {
                             MilestoneListContent(
                                 milestoneList = data,
+                                selectedPath = selectedPath,
                                 onClickMilestone = onClickMilestone,
                                 onReachedBottom = onReachedBottom,
                                 listState = listState,
@@ -143,6 +148,7 @@ fun MilestoneListScreen(
 @Composable
 fun MilestoneListContent(
     milestoneList: MilestoneList,
+    selectedPath: String?,
     onClickMilestone: (Milestone) -> Unit,
     onReachedBottom: () -> Unit,
     modifier: Modifier = Modifier,
@@ -169,17 +175,18 @@ fun MilestoneListContent(
             .only(WindowInsetsSides.Bottom)
             .asPaddingValues()
     ) {
-        itemsIndexed(
+        items(
             items = milestoneList.value,
-            key = { _, item ->
-                item.id
+            key = {
+                it.id
             },
-            contentType = { _, _ ->
+            contentType = {
                 MilestoneListContentType.Item
             }
-        ) { _, item ->
+        ) { item ->
             MilestoneItem(
                 milestone = item,
+                isSelected = selectedPath == item.path,
                 onClick = {
                     onClickMilestone(item)
                 },
@@ -205,40 +212,59 @@ private enum class MilestoneListContentType {
 fun MilestoneItem(
     milestone: Milestone,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    isSelected: Boolean = false,
 ) {
-    Column(
+    Box(
         modifier = modifier
             .clickable(onClick = onClick)
+            .padding(horizontal = 8.dp)
+            .let {
+                if (isSelected) {
+                    it.background(
+                        color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.38f),
+                        shape = MaterialTheme.shapes.medium
+                    )
+                } else {
+                    it
+                }
+            }
             .padding(
-                horizontal = 16.dp,
+                horizontal = 8.dp,
                 vertical = 12.dp
             )
     ) {
-        Text(
-            text = "#${milestone.number}",
-            style = MaterialTheme.typography.headlineMedium,
-        )
-        Spacer(modifier = Modifier.height(4.dp))
-        Text(
-            text = milestone.description,
-            style = MaterialTheme.typography.bodyMedium,
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = dateTimeString(
-                instant = milestone.closedAd,
-                format = stringResource(id = R.string.date_format)
-            ),
-            style = MaterialTheme.typography.labelSmall,
-            color = LocalContentColor.current.copy(alpha = 0.54f)
-        )
+        Column(
+            verticalArrangement = Arrangement.spacedBy(2.dp)
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "#${milestone.number}",
+                    style = MaterialTheme.typography.headlineMedium,
+                    modifier = Modifier.weight(1f)
+                )
+                Text(
+                    text = dateTimeString(
+                        instant = milestone.closedAd,
+                        format = stringResource(id = R.string.date_format)
+                    ),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+            Text(
+                text = milestone.description,
+                style = MaterialTheme.typography.bodyMedium,
+            )
+        }
     }
 }
 
 @Preview("MilestoneItem")
 @Composable
-fun PreviewMilestoneItem() {
+private fun PreviewMilestoneItem() {
     MilestoneItem(
         milestone = Milestone(
             id = "id",
