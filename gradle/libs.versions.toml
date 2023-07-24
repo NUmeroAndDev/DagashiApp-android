@@ -10,7 +10,7 @@ material3 = "1.1.1"
 
 composeDestinations = "1.9.42-beta"
 
-hilt = "2.46.1"
+hilt = "2.47"
 okhttp = "4.11.0"
 accompanist = "0.31.4-beta"
 
