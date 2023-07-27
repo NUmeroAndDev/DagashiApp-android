@@ -5,7 +5,7 @@ ksp = "1.9.0-1.0.12"
 
 lifecycle = "2.6.1"
 compose = "1.5.0-beta03"
-composeCompiler = "1.5.0"
+composeCompiler = "1.5.1"
 material3 = "1.1.1"
 
 composeDestinations = "1.9.42-beta"
