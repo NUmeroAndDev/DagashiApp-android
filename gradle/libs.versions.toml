@@ -8,7 +8,7 @@ compose = "1.5.0-rc01"
 composeCompiler = "1.5.1"
 material3 = "1.1.1"
 
-composeDestinations = "1.9.42-beta"
+composeDestinations = "1.9.52"
 
 hilt = "2.47"
 okhttp = "4.11.0"
