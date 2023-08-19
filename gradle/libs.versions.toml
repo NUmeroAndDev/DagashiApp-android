@@ -55,6 +55,7 @@ accompanist-systemUiController = { module = "com.google.accompanist:accompanist-
 accompanist-swipeRefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanist" }
 
 desugarJdkLibs = "com.android.tools:desugar_jdk_libs:2.0.3"
+markdown = "org.jetbrains:markdown-jvm:0.5.0"
 
 licenses = "com.google.android.gms:play-services-oss-licenses:17.0.1"
 
