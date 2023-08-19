@@ -12,7 +12,6 @@ Unofficial [Android Dagashi](https://androiddagashi.github.io/) application
   graph TD;
       :app-->:feature:*;
       :app-->:data-impl;
-      :feature:*-->:navigation;
       :feature:*-->:data;
       :feature:*-->:model;
       :feature:*-->:ui;
