@@ -53,7 +53,7 @@ android {
 dependencies {
     implementation(projects.feature.milestones)
     implementation(projects.feature.settings)
-    implementation(projects.navigation)
+    implementation(projects.feature.licenses)
     implementation(projects.dataImpl)
 
     implementation(libs.androidx.activity)

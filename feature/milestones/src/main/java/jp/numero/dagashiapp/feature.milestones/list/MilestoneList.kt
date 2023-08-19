@@ -18,12 +18,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
-import com.ramcosta.composedestinations.navigation.navigate
 import jp.numero.dagashiapp.model.Milestone
 import jp.numero.dagashiapp.model.MilestoneList
-import jp.numero.dagashiapp.navigation.destinations.SettingsScreenDestination
 import jp.numero.dagashiapp.ui.R
 import jp.numero.dagashiapp.ui.UiState
 import jp.numero.dagashiapp.ui.component.*
@@ -32,9 +29,9 @@ import java.time.Instant
 
 @Composable
 fun MilestoneListScreen(
-    navController: NavHostController,
     selectedPath: String?,
     onClickMilestone: (Milestone) -> Unit,
+    onClickSettings: () -> Unit,
     listState: LazyListState = rememberLazyListState(),
     viewModel: MilestoneListViewModel = hiltViewModel()
 ) {
@@ -52,9 +49,7 @@ fun MilestoneListScreen(
         onReachedBottom = {
             viewModel.loadMore()
         },
-        onClickSettings = {
-            navController.navigate(SettingsScreenDestination)
-        },
+        onClickSettings = onClickSettings,
         listState = listState,
     )
 }

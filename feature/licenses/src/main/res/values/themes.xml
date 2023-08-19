@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <style name="Base.Theme.DagashiApp" parent="Theme.AppCompat.DayNight">
-        <item name="android:statusBarColor">?attr/colorPrimary</item>
-    </style>
-
     <style name="Theme.DagashiApp.Licenses" parent="Base.Theme.DagashiApp">
         <item name="android:windowLightStatusBar">true</item>
     </style>

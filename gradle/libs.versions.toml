@@ -8,8 +8,6 @@ compose = "1.5.0"
 composeCompiler = "1.5.1"
 material3 = "1.1.1"
 
-composeDestinations = "1.9.42-beta"
-
 hilt = "2.47"
 okhttp = "4.11.0"
 accompanist = "0.31.4-beta"
@@ -55,9 +53,6 @@ coil = "io.coil-kt:coil-compose:2.4.0"
 accompanist-placeholder = { module = "com.google.accompanist:accompanist-placeholder", version.ref = "accompanist" }
 accompanist-systemUiController = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
 accompanist-swipeRefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanist" }
-
-composeDestinations-core = { module = "io.github.raamcosta.compose-destinations:core", version.ref = "composeDestinations" }
-composeDestinations-ksp = { module = "io.github.raamcosta.compose-destinations:ksp", version.ref = "composeDestinations" }
 
 desugarJdkLibs = "com.android.tools:desugar_jdk_libs:2.0.3"
 

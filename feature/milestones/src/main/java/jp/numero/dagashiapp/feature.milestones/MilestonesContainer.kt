@@ -28,14 +28,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import jp.numero.dagashiapp.feature.milestones.detail.MilestoneDetailScreen
 import jp.numero.dagashiapp.feature.milestones.list.MilestoneListScreen
 
 @Composable
 fun MilestonesContainerScreen(
-    navController: NavHostController,
     windowSizeClass: WindowSizeClass,
+    onClickSettings: () -> Unit,
     viewModel: MilestonesContainerViewModel = hiltViewModel()
 ) {
     val selectedPath by viewModel.selectedPath.collectAsState()
@@ -51,12 +50,12 @@ fun MilestonesContainerScreen(
         isShowDetail = selectedPath != null,
         listContent = {
             MilestoneListScreen(
-                navController = navController,
                 selectedPath = selectedPath,
                 listState = listState,
                 onClickMilestone = {
                     viewModel.openDetail(it.path)
-                }
+                },
+                onClickSettings = onClickSettings,
             )
         },
         detailContent = {
