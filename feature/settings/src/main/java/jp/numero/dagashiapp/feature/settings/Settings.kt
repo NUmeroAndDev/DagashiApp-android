@@ -14,33 +14,29 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
-import com.ramcosta.composedestinations.navigation.navigate
 import jp.numero.dagashiapp.model.Config
 import jp.numero.dagashiapp.model.Theme
-import jp.numero.dagashiapp.navigation.destinations.LicensesScreenDestination
 import jp.numero.dagashiapp.ui.UiStrings
 import jp.numero.dagashiapp.ui.component.TopAppBar
 
 @Composable
-fun SettingsScreen(navController: NavHostController) {
-    val viewModel: SettingsViewModel = hiltViewModel()
+fun SettingsScreen(
+    onBack: () -> Unit,
+    onClickLicenses: () -> Unit,
+    viewModel: SettingsViewModel = hiltViewModel()
+) {
     val config by viewModel.config.collectAsState()
     SettingsScreen(
         config = config,
         appVersion = viewModel.appVersion,
-        onBack = {
-            navController.popBackStack()
-        },
+        onBack = onBack,
         onToggleApplyDynamicColor = {
             viewModel.updateApplyDynamicColor(it)
         },
         onSelectTheme = {
             viewModel.updateTheme(it)
         },
-        onClickLicenses = {
-            navController.navigate(LicensesScreenDestination)
-        }
+        onClickLicenses = onClickLicenses
     )
 }
 

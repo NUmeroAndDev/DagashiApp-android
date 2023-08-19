@@ -7,8 +7,6 @@ android {
 }
 
 dependencies {
-    implementation(projects.navigation)
-
     implementation(libs.androidx.core)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.lifecycle.viewmodel)
@@ -18,6 +16,4 @@ dependencies {
     implementation(libs.accompanist.systemUiController)
 
     implementation(libs.coil)
-
-    implementation(libs.composeDestinations.core)
 }
