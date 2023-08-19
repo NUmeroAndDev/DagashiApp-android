@@ -1,56 +1,93 @@
 package jp.numero.dagashiapp.appwidget
 
-import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
+import androidx.glance.GlanceTheme
 import androidx.glance.action.clickable
-import androidx.glance.appwidget.*
+import androidx.glance.appwidget.CircularProgressIndicator
+import androidx.glance.appwidget.GlanceAppWidget
+import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import androidx.glance.appwidget.action.actionStartActivity
+import androidx.glance.appwidget.appWidgetBackground
 import androidx.glance.appwidget.lazy.LazyColumn
 import androidx.glance.appwidget.lazy.itemsIndexed
+import androidx.glance.appwidget.provideContent
 import androidx.glance.background
-import androidx.glance.layout.*
-import androidx.glance.state.GlanceStateDefinition
-import androidx.glance.state.PreferencesGlanceStateDefinition
+import androidx.glance.layout.Alignment
+import androidx.glance.layout.Box
+import androidx.glance.layout.Column
+import androidx.glance.layout.Spacer
+import androidx.glance.layout.fillMaxSize
+import androidx.glance.layout.fillMaxWidth
+import androidx.glance.layout.height
+import androidx.glance.layout.padding
 import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
-import androidx.glance.unit.ColorProvider
+import dagger.hilt.EntryPoint
+import dagger.hilt.EntryPoints
+import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.components.SingletonComponent
 import jp.numero.dagashiapp.data.DagashiRepository
 import jp.numero.dagashiapp.model.Milestone
 import jp.numero.dagashiapp.model.MilestoneList
-import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MilestoneListWidget : GlanceAppWidget() {
 
-    override var stateDefinition: GlanceStateDefinition<*> = PreferencesGlanceStateDefinition
-
-    private var state: WidgetState<MilestoneList> = WidgetState()
+    override suspend fun provideGlance(context: Context, id: GlanceId) {
+        val entryPoint = EntryPoints.get(context, AppWidgetModule::class.java)
+        provideContent {
+            var state by remember { mutableStateOf(WidgetState<MilestoneList>()) }
+            LaunchedEffect(Unit) {
+                state = runCatching {
+                    entryPoint.provideRepository().fetchMilestoneList()
+                }.fold(
+                    onSuccess = {
+                        WidgetState(data = it)
+                    },
+                    onFailure = {
+                        WidgetState(error = it)
+                    }
+                )
+            }
+            DagashiWidget(state = state)
+        }
+    }
 
     @Composable
-    override fun Content() {
-        WidgetTheme {
+    private fun DagashiWidget(
+        state: WidgetState<MilestoneList>
+    ) {
+        GlanceTheme {
             Column(
                 modifier = GlanceModifier
                     .fillMaxSize()
-                    .background(WidgetTheme.colorScheme.background)
+                    .padding(16.dp)
+                    .appWidgetBackground()
+                    .background(GlanceTheme.colors.background)
                     .appWidgetBackgroundRadius()
-                    .appWidgetBackground(),
             ) {
                 Text(
                     text = "DagashiApp",
                     style = TextStyle(
                         fontSize = 22.sp,
                         fontWeight = FontWeight.Medium,
-                        color = ColorProvider(WidgetTheme.colorScheme.textPrimary),
+                        color = GlanceTheme.colors.onBackground,
                     ),
                     modifier = GlanceModifier
                         .fillMaxWidth()
@@ -73,21 +110,13 @@ class MilestoneListWidget : GlanceAppWidget() {
                             milestoneList = it,
                             modifier = GlanceModifier
                                 .fillMaxSize()
-                                .padding(horizontal = 16.dp)
+                                .background(GlanceTheme.colors.surfaceVariant)
+                                .appWidgetInnerRadius()
                         )
                     }
                 )
             }
         }
-    }
-
-    suspend fun updateState(
-        widgetState: WidgetState<MilestoneList>,
-        context: Context,
-        glanceId: GlanceId
-    ) {
-        state = widgetState
-        update(context, glanceId)
     }
 }
 
@@ -118,8 +147,6 @@ private fun MilestoneListContent(
                             })
                         )
                         .fillMaxWidth()
-                        .background(WidgetTheme.colorScheme.innerBackground)
-                        .appWidgetInnerRadius()
                 )
                 if (index != milestoneList.value.lastIndex) {
                     Spacer(modifier = GlanceModifier.height(8.dp))
@@ -142,7 +169,7 @@ private fun MilestoneItem(
             style = TextStyle(
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
-                color = ColorProvider(WidgetTheme.colorScheme.textPrimary),
+                color = GlanceTheme.colors.onBackground,
             ),
         )
         Spacer(modifier = GlanceModifier.height(4.dp))
@@ -150,7 +177,7 @@ private fun MilestoneItem(
             text = milestone.description,
             style = TextStyle(
                 fontSize = 12.sp,
-                color = ColorProvider(WidgetTheme.colorScheme.textSecondary),
+                color = GlanceTheme.colors.onBackground,
             ),
             maxLines = 2
         )
@@ -160,8 +187,6 @@ private fun MilestoneItem(
 @AndroidEntryPoint
 class MilestoneListWidgetReceiver : GlanceAppWidgetReceiver() {
 
-    private val coroutineScope = MainScope()
-
     @Inject
     lateinit var repository: DagashiRepository
 
@@ -169,49 +194,19 @@ class MilestoneListWidgetReceiver : GlanceAppWidgetReceiver() {
 
     override val glanceAppWidget: GlanceAppWidget = milestoneListWidget
 
-    override fun onUpdate(
-        context: Context,
-        appWidgetManager: AppWidgetManager,
-        appWidgetIds: IntArray
-    ) {
-        super.onUpdate(context, appWidgetManager, appWidgetIds)
-        updateData(context)
-    }
-
-    override fun onReceive(context: Context, intent: Intent) {
-        super.onReceive(context, intent)
-        updateData(context)
-    }
-
-    private fun updateData(context: Context) {
-        coroutineScope.launch {
-            val glanceId = GlanceAppWidgetManager(context)
-                .getGlanceIds(MilestoneListWidget::class.java)
-                .firstOrNull() ?: return@launch
-
-            milestoneListWidget.updateState(
-                widgetState = WidgetState(isLoading = true),
-                context = context,
-                glanceId = glanceId
-            )
-
-            val state = runCatching {
-                repository.fetchMilestoneList()
-            }.fold(
-                onSuccess = {
-                    WidgetState(data = it)
-                },
-                onFailure = {
-                    WidgetState(error = it)
-                }
-            )
-            milestoneListWidget.updateState(
-                widgetState = state,
-                context = context,
-                glanceId = glanceId
-            )
+    override fun onEnabled(context: Context?) {
+        super.onEnabled(context)
+        CoroutineScope(Dispatchers.IO).launch {
+            // FIXME: Update latest issue
+            repository.fetchMilestoneList()
         }
     }
+}
+
+@EntryPoint
+@InstallIn(SingletonComponent::class)
+interface AppWidgetModule {
+    fun provideRepository(): DagashiRepository
 }
 
 data class WidgetState<T>(
