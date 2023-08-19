@@ -21,7 +21,7 @@ fun IssueDescriptionText(
         var cursorPosition = 0
 
         for (token in tokens) {
-            LinkedText(
+            MarkdownText(
                 text = text.slice(cursorPosition until token.range.first),
                 style = MaterialTheme.typography.bodyMedium
             )
@@ -30,12 +30,12 @@ fun IssueDescriptionText(
         }
 
         if (!tokens.none()) {
-            LinkedText(
+            MarkdownText(
                 text = text.slice(cursorPosition..text.lastIndex),
                 style = MaterialTheme.typography.bodyMedium
             )
         } else {
-            LinkedText(
+            MarkdownText(
                 text = text,
                 style = MaterialTheme.typography.bodyMedium
             )
