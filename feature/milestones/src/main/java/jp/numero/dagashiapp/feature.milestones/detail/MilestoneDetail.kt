@@ -1,14 +1,36 @@
 package jp.numero.dagashiapp.feature.milestones.detail
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CloseFullscreen
 import androidx.compose.material.icons.outlined.OpenInFull
 import androidx.compose.material.icons.outlined.Share
-import androidx.compose.material3.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -76,7 +98,8 @@ fun MilestoneDetailScreen(
         } else {
             MaterialTheme.shapes.extraLarge
         },
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .let {
                 if (isExpanded) {
                     it
@@ -142,6 +165,7 @@ fun MilestoneDetailScreen(
                         MilestoneDetailContent(
                             milestoneDetail = data,
                             isExpanded = isExpanded,
+                            modifier = Modifier.fillMaxSize(),
                         )
                     },
                 )
@@ -156,21 +180,17 @@ fun MilestoneDetailContent(
     modifier: Modifier = Modifier,
     isExpanded: Boolean = false,
 ) {
-    Column(
-        modifier = modifier
-            .verticalScroll(rememberScrollState())
-            .let {
-                if (isExpanded) {
-                    it.windowInsetsPadding(
-                        WindowInsets.safeDrawing
-                            .only(WindowInsetsSides.Bottom)
-                    )
-                } else {
-                    it
-                }
-            }
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = if (isExpanded) {
+            WindowInsets.safeDrawing
+                .only(WindowInsetsSides.Bottom)
+                .asPaddingValues()
+        } else {
+            PaddingValues()
+        },
     ) {
-        milestoneDetail.issues.forEachIndexed { index, issue ->
+        itemsIndexed(milestoneDetail.issues) { index, issue ->
             IssueItem(issue = issue)
             if (index != milestoneDetail.issues.lastIndex) {
                 Divider(modifier = Modifier.padding(start = 16.dp))
@@ -185,29 +205,35 @@ fun IssueItem(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier.padding(16.dp)
+        modifier = modifier.padding(16.dp),
     ) {
-        Text(
-            text = issue.title,
-            style = MaterialTheme.typography.titleMedium
-        )
-        if (issue.labels.isNotEmpty()) {
-            Spacer(modifier = Modifier.height(8.dp))
-            Row {
-                issue.labels.forEachIndexed { index, label ->
-                    IssueLabel(label)
-                    if (index < issue.labels.lastIndex) {
-                        Spacer(modifier = Modifier.width(4.dp))
+        Column(
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Text(
+                text = issue.title,
+                style = MaterialTheme.typography.titleMedium
+            )
+            if (issue.labels.isNotEmpty()) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    issue.labels.forEach { label ->
+                        IssueLabel(label)
                     }
                 }
             }
         }
+
         Spacer(modifier = Modifier.height(8.dp))
 
         IssueDescriptionText(text = issue.body)
         if (issue.comments.isNotEmpty()) {
             Spacer(modifier = Modifier.height(16.dp))
-            Comments(commentList = issue.comments)
+            Comments(
+                commentList = issue.comments,
+                modifier = Modifier.fillMaxWidth(),
+            )
         }
     }
 }

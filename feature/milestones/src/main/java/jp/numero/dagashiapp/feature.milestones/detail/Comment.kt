@@ -1,10 +1,16 @@
 package jp.numero.dagashiapp.feature.milestones.detail
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,7 +29,7 @@ fun Comments(
     commentList: List<Comment>,
     modifier: Modifier = Modifier,
 ) {
-    ElevatedCard(
+    Card(
         modifier = modifier,
     ) {
         commentList.forEachIndexed { index, comment ->
@@ -45,6 +51,7 @@ fun CommentItem(
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
             modifier = Modifier.semantics(mergeDescendants = true) {
                 contentDescription = comment.author.id
             }
@@ -56,7 +63,6 @@ fun CommentItem(
                     .size(32.dp)
                     .clip(CircleShape)
             )
-            Spacer(modifier = Modifier.width(12.dp))
             Text(
                 text = comment.author.id,
                 style = MaterialTheme.typography.titleMedium
