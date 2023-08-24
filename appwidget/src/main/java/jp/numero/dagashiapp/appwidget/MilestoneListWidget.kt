@@ -45,17 +45,16 @@ import javax.inject.Inject
 class MilestoneListWidget : GlanceAppWidget() {
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
-        val entryPoint = EntryPoints.get(context, AppWidgetModule::class.java)
         provideContent {
-            val state by entryPoint.provideStateHolder().latestMilestone.collectAsState()
-            DagashiWidget(state = state)
+            DagashiWidget()
         }
     }
 
     @Composable
-    private fun DagashiWidget(
-        state: WidgetState<Milestone>
-    ) {
+    private fun DagashiWidget() {
+        val context = LocalContext.current
+        val entryPoint = EntryPoints.get(context, AppWidgetModule::class.java)
+        val state by entryPoint.provideStateHolder().latestMilestone.collectAsState()
         GlanceTheme {
             Box(
                 modifier = GlanceModifier
