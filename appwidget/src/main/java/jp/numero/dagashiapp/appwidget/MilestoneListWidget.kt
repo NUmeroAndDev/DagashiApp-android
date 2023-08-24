@@ -1,31 +1,27 @@
 package jp.numero.dagashiapp.appwidget
 
 import android.content.Context
-import android.content.Intent
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
 import androidx.glance.GlanceTheme
-import androidx.glance.action.clickable
+import androidx.glance.LocalContext
 import androidx.glance.appwidget.CircularProgressIndicator
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.GlanceAppWidgetReceiver
-import androidx.glance.appwidget.action.actionStartActivity
 import androidx.glance.appwidget.appWidgetBackground
 import androidx.glance.appwidget.lazy.LazyColumn
-import androidx.glance.appwidget.lazy.itemsIndexed
+import androidx.glance.appwidget.lazy.items
 import androidx.glance.appwidget.provideContent
 import androidx.glance.background
 import androidx.glance.layout.Alignment
 import androidx.glance.layout.Box
 import androidx.glance.layout.Column
+import androidx.glance.layout.Row
 import androidx.glance.layout.Spacer
 import androidx.glance.layout.fillMaxSize
 import androidx.glance.layout.fillMaxWidth
@@ -39,9 +35,9 @@ import dagger.hilt.EntryPoints
 import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.components.SingletonComponent
-import jp.numero.dagashiapp.data.DagashiRepository
 import jp.numero.dagashiapp.model.Milestone
-import jp.numero.dagashiapp.model.MilestoneList
+import jp.numero.dagashiapp.ui.R
+import jp.numero.dagashiapp.ui.dateTimeString
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -52,29 +48,17 @@ class MilestoneListWidget : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         val entryPoint = EntryPoints.get(context, AppWidgetModule::class.java)
         provideContent {
-            var state by remember { mutableStateOf(WidgetState<MilestoneList>()) }
-            LaunchedEffect(Unit) {
-                state = runCatching {
-                    entryPoint.provideRepository().fetchMilestoneList()
-                }.fold(
-                    onSuccess = {
-                        WidgetState(data = it)
-                    },
-                    onFailure = {
-                        WidgetState(error = it)
-                    }
-                )
-            }
+            val state by entryPoint.provideStateHolder().latestMilestone.collectAsState()
             DagashiWidget(state = state)
         }
     }
 
     @Composable
     private fun DagashiWidget(
-        state: WidgetState<MilestoneList>
+        state: WidgetState<Milestone>
     ) {
         GlanceTheme {
-            Column(
+            Box(
                 modifier = GlanceModifier
                     .fillMaxSize()
                     .padding(16.dp)
@@ -82,17 +66,6 @@ class MilestoneListWidget : GlanceAppWidget() {
                     .background(GlanceTheme.colors.background)
                     .appWidgetBackgroundRadius()
             ) {
-                Text(
-                    text = "DagashiApp",
-                    style = TextStyle(
-                        fontSize = 22.sp,
-                        fontWeight = FontWeight.Medium,
-                        color = GlanceTheme.colors.onBackground,
-                    ),
-                    modifier = GlanceModifier
-                        .fillMaxWidth()
-                        .padding(vertical = 12.dp, horizontal = 16.dp)
-                )
                 state.onState(
                     loading = {
                         Box(
@@ -103,16 +76,73 @@ class MilestoneListWidget : GlanceAppWidget() {
                         }
                     },
                     loadFailed = {
-                        // TODO: error
+                        Column(
+                            modifier = GlanceModifier.fillMaxSize(),
+                        ) {
+                            Text(
+                                text = "Error",
+                                style = TextStyle(
+                                    fontSize = 22.sp,
+                                    fontWeight = FontWeight.Medium,
+                                    color = GlanceTheme.colors.onBackground,
+                                ),
+                            )
+                            Spacer(GlanceModifier.height(8.dp))
+                            Text(
+                                text = it.message.orEmpty(),
+                                style = TextStyle(
+                                    fontSize = 14.sp,
+                                    color = GlanceTheme.colors.error,
+                                ),
+                            )
+                        }
                     },
                     loadSucceed = {
-                        MilestoneListContent(
-                            milestoneList = it,
-                            modifier = GlanceModifier
-                                .fillMaxSize()
-                                .background(GlanceTheme.colors.surfaceVariant)
-                                .appWidgetInnerRadius()
-                        )
+                        Column(
+                            horizontalAlignment = Alignment.End
+                        ) {
+                            Row(
+                                modifier = GlanceModifier.fillMaxWidth(),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = "Latest",
+                                    style = TextStyle(
+                                        fontSize = 22.sp,
+                                        fontWeight = FontWeight.Medium,
+                                        color = GlanceTheme.colors.onBackground,
+                                    ),
+                                )
+                                Spacer(GlanceModifier.defaultWeight())
+                                Text(
+                                    text = "#${it.number}",
+                                    style = TextStyle(
+                                        fontSize = 22.sp,
+                                        fontWeight = FontWeight.Medium,
+                                        color = GlanceTheme.colors.onBackground,
+                                    ),
+                                )
+                            }
+                            Spacer(GlanceModifier.height(12.dp))
+                            MilestoneListContent(
+                                milestone = it,
+                                modifier = GlanceModifier
+                                    .defaultWeight()
+                                    .background(GlanceTheme.colors.surfaceVariant)
+                                    .appWidgetInnerRadius()
+                            )
+                            Spacer(GlanceModifier.height(8.dp))
+                            Text(
+                                text = dateTimeString(
+                                    instant = state.updatedAt,
+                                    format = LocalContext.current.getString(R.string.date_format)
+                                ),
+                                style = TextStyle(
+                                    fontSize = 12.sp,
+                                    color = GlanceTheme.colors.onSurfaceVariant,
+                                ),
+                            )
+                        }
                     }
                 )
             }
@@ -122,65 +152,36 @@ class MilestoneListWidget : GlanceAppWidget() {
 
 @Composable
 private fun MilestoneListContent(
-    milestoneList: MilestoneList,
+    milestone: Milestone,
     modifier: GlanceModifier = GlanceModifier
 ) {
     LazyColumn(
         modifier = modifier,
     ) {
-        itemsIndexed(
-            items = milestoneList.value,
-            itemId = { _, item ->
-                item.number.toLong()
-            }
-        ) { index, item ->
-            Column {
-                MilestoneItem(
-                    milestone = item,
-                    modifier = GlanceModifier
-                        .clickable(
-                            actionStartActivity(Intent().apply {
-                                setClassName(
-                                    "jp.numero.dagashiapp",
-                                    "jp.numero.dagashiapp.MainActivity"
-                                )
-                            })
-                        )
-                        .fillMaxWidth()
+        item {
+            Spacer(GlanceModifier.height(8.dp))
+        }
+        items(
+            items = milestone.issues,
+        ) { item ->
+            Column(
+                modifier = GlanceModifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+            ) {
+                Text(
+                    text = "・${item.title}",
+                    style = TextStyle(
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = GlanceTheme.colors.onBackground,
+                    ),
                 )
-                if (index != milestoneList.value.lastIndex) {
-                    Spacer(modifier = GlanceModifier.height(8.dp))
-                }
             }
         }
-    }
-}
-
-@Composable
-private fun MilestoneItem(
-    milestone: Milestone,
-    modifier: GlanceModifier = GlanceModifier
-) {
-    Column(
-        modifier = modifier.padding(horizontal = 16.dp, vertical = 12.dp)
-    ) {
-        Text(
-            text = "#${milestone.number}",
-            style = TextStyle(
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Medium,
-                color = GlanceTheme.colors.onBackground,
-            ),
-        )
-        Spacer(modifier = GlanceModifier.height(4.dp))
-        Text(
-            text = milestone.description,
-            style = TextStyle(
-                fontSize = 12.sp,
-                color = GlanceTheme.colors.onBackground,
-            ),
-            maxLines = 2
-        )
+        item {
+            Spacer(GlanceModifier.height(8.dp))
+        }
     }
 }
 
@@ -188,17 +189,14 @@ private fun MilestoneItem(
 class MilestoneListWidgetReceiver : GlanceAppWidgetReceiver() {
 
     @Inject
-    lateinit var repository: DagashiRepository
+    lateinit var stateHolder: WidgetStateHolder
 
-    private val milestoneListWidget = MilestoneListWidget()
-
-    override val glanceAppWidget: GlanceAppWidget = milestoneListWidget
+    override val glanceAppWidget: GlanceAppWidget = MilestoneListWidget()
 
     override fun onEnabled(context: Context?) {
         super.onEnabled(context)
         CoroutineScope(Dispatchers.IO).launch {
-            // FIXME: Update latest issue
-            repository.fetchMilestoneList()
+            stateHolder.invalidate()
         }
     }
 }
@@ -206,25 +204,5 @@ class MilestoneListWidgetReceiver : GlanceAppWidgetReceiver() {
 @EntryPoint
 @InstallIn(SingletonComponent::class)
 interface AppWidgetModule {
-    fun provideRepository(): DagashiRepository
-}
-
-data class WidgetState<T>(
-    val isLoading: Boolean = false,
-    val data: T? = null,
-    val error: Throwable? = null,
-) {
-    inline fun onState(
-        loading: () -> Unit = {},
-        loadFailed: (error: Throwable) -> Unit = {},
-        loadSucceed: (data: T) -> Unit = {},
-    ) {
-        if (isLoading) {
-            loading()
-        } else if (error != null) {
-            loadFailed(error)
-        } else if (data != null) {
-            loadSucceed(data)
-        }
-    }
+    fun provideStateHolder(): WidgetStateHolder
 }

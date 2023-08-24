@@ -15,6 +15,7 @@ android {
 dependencies {
     implementation(projects.model)
     implementation(projects.data)
+    implementation(projects.ui)
 
     implementation(libs.androidx.compose.material3)
 
