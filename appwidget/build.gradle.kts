@@ -19,7 +19,7 @@ dependencies {
 
     implementation(libs.androidx.compose.material3)
 
-    implementation(libs.androidx.glance.widget)
+    api(libs.androidx.glance.widget)
     implementation(libs.androidx.glance.widget.material3)
 
     testImplementation("junit:junit:4.13.2")
