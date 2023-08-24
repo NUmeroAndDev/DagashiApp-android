@@ -24,7 +24,7 @@ androidx-core = "androidx.core:core-ktx:1.10.1"
 androidx-coreSplash = "androidx.core:core-splashscreen:1.0.1"
 androidx-window = "androidx.window:window:1.1.0"
 androidx-datastore-preference = "androidx.datastore:datastore-preferences:1.0.0"
-androidx-navigation-compose = "androidx.navigation:navigation-compose:2.7.0"
+androidx-navigation-compose = "androidx.navigation:navigation-compose:2.7.1"
 androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 androidx-hilt-navigation-compose = "androidx.hilt:hilt-navigation-compose:1.0.0"
