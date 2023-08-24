@@ -36,7 +36,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.components.SingletonComponent
 import jp.numero.dagashiapp.model.Milestone
-import jp.numero.dagashiapp.ui.R
 import jp.numero.dagashiapp.ui.dateTimeString
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -135,7 +134,7 @@ class MilestoneListWidget : GlanceAppWidget() {
                             Text(
                                 text = dateTimeString(
                                     instant = state.updatedAt,
-                                    format = LocalContext.current.getString(R.string.date_format)
+                                    format = LocalContext.current.getString(R.string.widget_updated_at_format)
                                 ),
                                 style = TextStyle(
                                     fontSize = 12.sp,
@@ -167,7 +166,7 @@ private fun MilestoneListContent(
             Column(
                 modifier = GlanceModifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                    .padding(horizontal = 16.dp, vertical = 2.dp)
             ) {
                 Text(
                     text = "・${item.title}",

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="widget_description">Description</string>
+    <string name="widget_updated_at_format">Updated MM/dd HH:mm</string>
 </resources>
