@@ -12,7 +12,6 @@ import androidx.glance.GlanceTheme
 import androidx.glance.LocalContext
 import androidx.glance.appwidget.CircularProgressIndicator
 import androidx.glance.appwidget.GlanceAppWidget
-import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import androidx.glance.appwidget.appWidgetBackground
 import androidx.glance.appwidget.lazy.LazyColumn
 import androidx.glance.appwidget.lazy.items
@@ -33,25 +32,20 @@ import androidx.glance.text.TextStyle
 import dagger.hilt.EntryPoint
 import dagger.hilt.EntryPoints
 import dagger.hilt.InstallIn
-import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.components.SingletonComponent
 import jp.numero.dagashiapp.model.Milestone
 import jp.numero.dagashiapp.ui.dateTimeString
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class MilestoneListWidget : GlanceAppWidget() {
+class LatestMilestoneWidget : GlanceAppWidget() {
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         provideContent {
-            DagashiWidget()
+            LatestMilestone()
         }
     }
 
     @Composable
-    private fun DagashiWidget() {
+    private fun LatestMilestone() {
         val context = LocalContext.current
         val entryPoint = EntryPoints.get(context, AppWidgetModule::class.java)
         val state by entryPoint.provideStateHolder().latestMilestone.collectAsState()
@@ -122,7 +116,7 @@ class MilestoneListWidget : GlanceAppWidget() {
                                 )
                             }
                             Spacer(GlanceModifier.height(12.dp))
-                            MilestoneListContent(
+                            IssueListContent(
                                 milestone = it,
                                 modifier = GlanceModifier
                                     .defaultWeight()
@@ -149,7 +143,7 @@ class MilestoneListWidget : GlanceAppWidget() {
 }
 
 @Composable
-private fun MilestoneListContent(
+private fun IssueListContent(
     milestone: Milestone,
     modifier: GlanceModifier = GlanceModifier
 ) {
@@ -179,22 +173,6 @@ private fun MilestoneListContent(
         }
         item {
             Spacer(GlanceModifier.height(8.dp))
-        }
-    }
-}
-
-@AndroidEntryPoint
-class MilestoneListWidgetReceiver : GlanceAppWidgetReceiver() {
-
-    @Inject
-    lateinit var stateHolder: WidgetStateHolder
-
-    override val glanceAppWidget: GlanceAppWidget = MilestoneListWidget()
-
-    override fun onEnabled(context: Context?) {
-        super.onEnabled(context)
-        CoroutineScope(Dispatchers.IO).launch {
-            stateHolder.invalidate()
         }
     }
 }
