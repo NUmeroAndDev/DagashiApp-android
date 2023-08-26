@@ -65,7 +65,5 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.window)
 
-    implementation(libs.accompanist.systemUiController)
-
     implementation(libs.androidx.profileinstaller)
 }
