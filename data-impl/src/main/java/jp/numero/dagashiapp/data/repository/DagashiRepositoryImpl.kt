@@ -46,7 +46,8 @@ internal class DagashiRepositoryImpl @Inject constructor(
                     number = milestoneResponse.number,
                     description = milestoneResponse.description,
                     path = milestoneResponse.path,
-                    closedAd = milestoneResponse.closedAt
+                    closedAd = milestoneResponse.closedAt,
+                    issues = milestoneResponse.issues.nodes.map { Milestone.Issue(it.title) }
                 )
             },
             hasMore = milestones.pageInfo.hasNextPage,

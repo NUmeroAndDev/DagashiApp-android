@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="latest_milestone_widget_description">最新のIssuesが見れるウィジェット</string>
+    <string name="updated_at">%s 更新</string>
+    <string name="updated_at_format">MM/dd HH:mm</string>
+</resources>

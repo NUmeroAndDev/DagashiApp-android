@@ -22,7 +22,19 @@ data class MilestoneResponse(
     val description: String,
     val path: String,
     @Serializable(with = InstantSerializer::class)
-    val closedAt: Instant
+    val closedAt: Instant,
+    val issues: MilestoneIssuesResponse,
+)
+
+@Serializable
+data class MilestoneIssuesResponse(
+    val totalCount: Int,
+    val nodes: List<MilestoneIssueResponse>
+)
+
+@Serializable
+data class MilestoneIssueResponse(
+    val title: String
 )
 
 @Serializable

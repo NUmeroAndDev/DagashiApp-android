@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="appwidget_background">@android:color/system_neutral1_900</color>
+    <color name="appwidget_inner_background">@android:color/system_neutral1_600</color>
+    <color name="appwidget_text_primary">@android:color/system_neutral1_100</color>
+    <color name="appwidget_text_secondary">@android:color/system_neutral2_200</color>
+</resources>

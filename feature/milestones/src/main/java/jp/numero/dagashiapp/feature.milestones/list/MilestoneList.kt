@@ -296,7 +296,8 @@ private fun PreviewMilestoneItem() {
             number = 100,
             description = "Description",
             path = "",
-            closedAd = Instant.now()
+            closedAd = Instant.now(),
+            issues = emptyList(),
         ),
         onClick = {}
     )
