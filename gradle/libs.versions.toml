@@ -57,7 +57,6 @@ okhttp3-loggingInterceptor = { module = "com.squareup.okhttp3:logging-intercepto
 
 coil = "io.coil-kt:coil-compose:2.4.0"
 
-accompanist-placeholder = { module = "com.google.accompanist:accompanist-placeholder", version.ref = "accompanist" }
 accompanist-swipeRefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanist" }
 
 desugarJdkLibs = "com.android.tools:desugar_jdk_libs:2.0.3"
