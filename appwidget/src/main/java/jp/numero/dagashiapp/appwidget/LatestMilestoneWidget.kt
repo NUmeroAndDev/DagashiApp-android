@@ -125,9 +125,12 @@ class LatestMilestoneWidget : GlanceAppWidget() {
                             )
                             Spacer(GlanceModifier.height(8.dp))
                             Text(
-                                text = dateTimeString(
-                                    instant = state.updatedAt,
-                                    format = LocalContext.current.getString(R.string.widget_updated_at_format)
+                                text = LocalContext.current.getString(
+                                    R.string.updated_at,
+                                    dateTimeString(
+                                        instant = state.updatedAt,
+                                        format = LocalContext.current.getString(R.string.updated_at_format)
+                                    )
                                 ),
                                 style = TextStyle(
                                     fontSize = 12.sp,

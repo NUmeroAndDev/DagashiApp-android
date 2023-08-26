@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="latest_milestone_widget_description">Widget with an overview of the latest issues</string>
-    <string name="widget_updated_at_format">Updated MM/dd HH:mm</string>
+    <string name="updated_at">Updated %s</string>
+    <string name="updated_at_format">MMM/dd HH:mm</string>
 </resources>
