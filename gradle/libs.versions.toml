@@ -10,7 +10,7 @@ material3 = "1.1.1"
 glance = "1.0.0-rc01"
 androidXHilt = "1.0.0"
 
-hilt = "2.47"
+hilt = "2.48"
 okhttp = "4.11.0"
 accompanist = "0.32.0"
 
