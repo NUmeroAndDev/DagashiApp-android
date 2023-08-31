@@ -41,12 +41,8 @@ fun DependencyHandlerScope.api(
     artifact: Optional<Provider<MinimalExternalModuleDependency>>,
 ) = add("api", artifact.get())
 
-fun DependencyHandlerScope.kapt(
+fun DependencyHandlerScope.ksp(
     dependency: Optional<Provider<MinimalExternalModuleDependency>>,
-) = add("kapt", dependency.get())
-
-fun DependencyHandlerScope.kaptTest(
-    dependency: Optional<Provider<MinimalExternalModuleDependency>>,
-) = add("kaptTest", dependency.get())
+) = add("ksp", dependency.get())
 
 val Project.libs get() = extensions.getByType<VersionCatalogsExtension>().named("libs")
