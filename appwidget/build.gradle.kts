@@ -20,7 +20,7 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.work)
     api(libs.androidx.hilt.work)
-    kapt(libs.androidx.hilt.compiler)
+    ksp(libs.androidx.hilt.compiler)
     api(libs.androidx.glance.widget)
     implementation(libs.androidx.glance.widget.material3)
 
