@@ -7,7 +7,7 @@ lifecycle = "2.6.1"
 compose = "1.5.1"
 composeCompiler = "1.5.3"
 material3 = "1.1.1"
-glance = "1.0.0-rc01"
+glance = "1.0.0"
 androidXHilt = "1.1.0-alpha01"
 
 hilt = "2.48"
