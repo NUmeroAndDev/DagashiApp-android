@@ -6,7 +6,7 @@ ksp = "1.9.10-1.0.13"
 lifecycle = "2.6.2"
 compose = "1.5.1"
 composeCompiler = "1.5.3"
-material3 = "1.1.1"
+material3 = "1.1.2"
 glance = "1.0.0"
 androidXHilt = "1.1.0-alpha01"
 
