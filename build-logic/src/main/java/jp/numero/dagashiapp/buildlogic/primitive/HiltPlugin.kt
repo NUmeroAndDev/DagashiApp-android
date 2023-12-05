@@ -12,11 +12,6 @@ class HiltPlugin : Plugin<Project> {
                 apply("com.google.devtools.ksp")
                 apply("dagger.hilt.android.plugin")
             }
-            android {
-                sourceSets.configureEach {
-                    kotlin.srcDir("$buildDir/generated/ksp/$name/kotlin/")
-                }
-            }
             dependencies {
                 implementation(libs.findLibrary("hilt.android"))
                 ksp(libs.findLibrary("hilt.compiler"))

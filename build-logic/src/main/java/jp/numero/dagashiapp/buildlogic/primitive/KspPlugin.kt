@@ -9,11 +9,6 @@ class KspPlugin : Plugin<Project> {
             with(pluginManager) {
                 apply("com.google.devtools.ksp")
             }
-            android {
-                sourceSets.configureEach {
-                    kotlin.srcDir("$buildDir/generated/ksp/$name/kotlin/")
-                }
-            }
         }
     }
 }
