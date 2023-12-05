@@ -8,14 +8,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: setup Android SDK
-        uses: android-actions/setup-android@v3
-
       - name: setup JDK
         uses: actions/setup-java@v4
         with:
           java-version: 17
           distribution: zulu
+
+      - name: setup Android SDK
+        uses: android-actions/setup-android@v3
 
       - name: setup Gradle
         uses: gradle/gradle-build-action@v2
@@ -24,7 +24,7 @@ jobs:
 
       - name: Generate baseline profile
         run: |
-          ./gradlew :app:generateBaselineProfile -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect
+          ./gradlew :app:generateBaselineProfile -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect"
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v5
