@@ -9,10 +9,12 @@ composeCompiler = "1.5.5"
 material3 = "1.1.2"
 glance = "1.0.0"
 androidXHilt = "1.1.0"
+androidXBaselineProfile = "1.2.2"
 
 hilt = "2.49"
 okhttp = "4.12.0"
 accompanist = "0.32.0"
+benchmarkBaselineProfileGradlePlugin = "1.2.2"
 
 [libraries]
 
@@ -69,9 +71,11 @@ kotlinPlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.r
 kotlinSerializationPlugin = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
 hiltPlugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt" }
 kspPlugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+baselineProfilePlugin = { module = "androidx.benchmark:benchmark-baseline-profile-gradle-plugin", version.ref = "androidXBaselineProfile" }
 
 [plugins]
 androidGradlePlugin = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 kotlinPlugin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinSerializationPlugin = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kspPlugin = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+baselineProfilePlugin = { id = "androidx.baselineprofile", version.ref = "androidXBaselineProfile" }

@@ -1,10 +1,12 @@
 package jp.numero.dagashiapp.buildlogic.conventions
 
+import androidx.baselineprofile.gradle.producer.BaselineProfileProducerExtension
+import com.android.build.api.dsl.ManagedVirtualDevice
 import jp.numero.dagashiapp.buildlogic.primitive.test
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.invoke
-import com.android.build.api.dsl.ManagedVirtualDevice
 
 class BenchmarkModulePlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -12,13 +14,14 @@ class BenchmarkModulePlugin : Plugin<Project> {
             with(pluginManager) {
                 apply("jp.numero.dagashiapp.buildlogic.primitive.androidtest")
                 apply("jp.numero.dagashiapp.buildlogic.primitive.kotlin")
+                apply("androidx.baselineprofile")
             }
+            val deviceName = "pixel2Api31"
             test {
-                experimentalProperties["android.experimental.self-instrumenting"] = true
                 testOptions {
                     managedDevices {
                         devices {
-                            maybeCreate("pixel2Api31", ManagedVirtualDevice::class.java).apply {
+                            maybeCreate(deviceName, ManagedVirtualDevice::class.java).apply {
                                 device = "Pixel 2"
                                 apiLevel = 31
                                 systemImageSource = "aosp"
@@ -26,6 +29,10 @@ class BenchmarkModulePlugin : Plugin<Project> {
                         }
                     }
                 }
+            }
+            extensions.configure<BaselineProfileProducerExtension> {
+                managedDevices += deviceName
+                useConnectedDevices = false
             }
         }
     }
