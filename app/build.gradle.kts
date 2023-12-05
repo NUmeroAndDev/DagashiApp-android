@@ -1,6 +1,7 @@
 plugins {
     id("jp.numero.dagashiapp.buildlogic.conventions.appmodule")
     id("com.google.android.gms.oss-licenses-plugin")
+    alias(libs.plugins.baselineProfilePlugin)
 }
 
 android {
@@ -32,11 +33,6 @@ android {
                 "proguard-rules.pro"
             )
         }
-        create("benchmark") {
-            signingConfig = signingConfigs.getByName("debug")
-            matchingFallbacks.add("release")
-            isDebuggable = false
-        }
     }
 
     buildFeatures {
@@ -66,4 +62,6 @@ dependencies {
     implementation(libs.androidx.window)
 
     implementation(libs.androidx.profileinstaller)
+
+    "baselineProfile"(projects.benchmark)
 }
