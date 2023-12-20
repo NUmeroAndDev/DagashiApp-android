@@ -11,7 +11,7 @@ glance = "1.0.0"
 androidXHilt = "1.1.0"
 androidXBaselineProfile = "1.2.2"
 
-hilt = "2.49"
+hilt = "2.50"
 okhttp = "4.12.0"
 accompanist = "0.32.0"
 benchmarkBaselineProfileGradlePlugin = "1.2.2"
