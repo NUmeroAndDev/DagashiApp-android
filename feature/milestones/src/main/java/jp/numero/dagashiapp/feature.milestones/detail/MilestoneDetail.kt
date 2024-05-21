@@ -24,8 +24,8 @@ import androidx.compose.material.icons.outlined.CloseFullscreen
 import androidx.compose.material.icons.outlined.OpenInFull
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material3.Button
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -193,7 +193,7 @@ fun MilestoneDetailContent(
         itemsIndexed(milestoneDetail.issues) { index, issue ->
             IssueItem(issue = issue)
             if (index != milestoneDetail.issues.lastIndex) {
-                Divider(modifier = Modifier.padding(start = 16.dp))
+                HorizontalDivider(modifier = Modifier.padding(start = 16.dp))
             }
         }
     }

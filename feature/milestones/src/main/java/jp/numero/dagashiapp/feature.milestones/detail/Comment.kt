@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,7 +35,7 @@ fun Comments(
         commentList.forEachIndexed { index, comment ->
             CommentItem(comment = comment)
             if (index != commentList.lastIndex) {
-                Divider(modifier = Modifier.padding(start = 32.dp + 24.dp))
+                HorizontalDivider(modifier = Modifier.padding(start = 32.dp + 24.dp))
             }
         }
     }
