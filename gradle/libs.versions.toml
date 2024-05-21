@@ -9,7 +9,7 @@ composeCompiler = "1.5.14"
 material3 = "1.2.1"
 glance = "1.0.0"
 androidXHilt = "1.2.0"
-androidXBaselineProfile = "1.2.3"
+androidXBaselineProfile = "1.2.4"
 
 hilt = "2.51.1"
 okhttp = "4.12.0"
