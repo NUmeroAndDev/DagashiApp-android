@@ -4,8 +4,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import jp.numero.dagashiapp.model.MilestoneDetail
 import jp.numero.dagashiapp.data.DagashiRepository
+import jp.numero.dagashiapp.model.MilestoneDetail
 import jp.numero.dagashiapp.ui.UiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -36,15 +36,15 @@ class MilestoneDetailViewModel @Inject constructor(
                     dagashiRepository.fetchMilestoneDetail(it)
                 }.fold(
                     onSuccess = {
-                        _uiState.value = uiState.value.handleData(it)
+                        _uiState.value = uiState.value.endLoading(data = it)
                     },
                     onFailure = {
-                        _uiState.value = uiState.value.handleError(it)
+                        _uiState.value = uiState.value.endLoading(error = it)
                     }
                 )
             }
             .catch {
-                _uiState.value = uiState.value.handleError(it)
+                _uiState.value = uiState.value.endLoading(error = it)
             }
             .launchIn(viewModelScope)
     }
