@@ -57,7 +57,7 @@ retrofit-converter = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-c
 okhttp3-core = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 okhttp3-loggingInterceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
 
-coil = "io.coil-kt:coil-compose:2.5.0"
+coil = "io.coil-kt:coil-compose:2.6.0"
 
 accompanist-swipeRefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanist" }
 
