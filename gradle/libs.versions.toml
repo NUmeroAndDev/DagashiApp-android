@@ -18,7 +18,7 @@ benchmarkBaselineProfileGradlePlugin = "1.2.2"
 
 [libraries]
 
-kotlinx-coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0"
+kotlinx-coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1"
 kotlinx-serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3"
 
 androidx-annotation = "androidx.annotation:annotation:1.7.1"
