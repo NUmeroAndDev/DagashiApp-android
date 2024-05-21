@@ -3,8 +3,8 @@ package jp.numero.dagashiapp.feature.milestones.list
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import jp.numero.dagashiapp.model.MilestoneList
 import jp.numero.dagashiapp.data.DagashiRepository
+import jp.numero.dagashiapp.model.MilestoneList
 import jp.numero.dagashiapp.ui.UiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -49,10 +49,10 @@ class MilestoneListViewModel @Inject constructor(
                 }
             }.fold(
                 onSuccess = {
-                    _uiState.value = uiState.value.handleData(it)
+                    _uiState.value = uiState.value.endLoading(data = it)
                 },
                 onFailure = {
-                    _uiState.value = uiState.value.handleError(it)
+                    _uiState.value = uiState.value.endLoading(error = it)
                 }
             )
         }

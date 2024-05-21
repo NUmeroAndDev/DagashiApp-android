@@ -35,16 +35,13 @@ data class UiState<T>(
         isRefreshing = isRefreshing
     )
 
-    fun handleData(data: T?): UiState<T> = copy(
+    fun endLoading(
+        data: T? = null,
+        error: Throwable? = null
+    ): UiState<T> = copy(
         _isLoading = false,
         isRefreshing = false,
-        data = data,
-        error = null
-    )
-
-    fun handleError(error: Throwable): UiState<T> = copy(
-        _isLoading = false,
-        isRefreshing = false,
+        data = data ?: this.data,
         error = error
     )
 }
