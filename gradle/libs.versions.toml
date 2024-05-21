@@ -62,7 +62,7 @@ coil = "io.coil-kt:coil-compose:2.5.0"
 accompanist-swipeRefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanist" }
 
 desugarJdkLibs = "com.android.tools:desugar_jdk_libs:2.0.4"
-markdown = "org.jetbrains:markdown-jvm:0.6.1"
+markdown = "org.jetbrains:markdown-jvm:0.7.2"
 
 licenses = "com.google.android.gms:play-services-oss-licenses:17.0.1"
 
