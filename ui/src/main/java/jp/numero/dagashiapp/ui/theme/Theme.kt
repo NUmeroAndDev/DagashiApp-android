@@ -1,5 +1,7 @@
 package jp.numero.dagashiapp.ui.theme
 
+import android.app.UiModeManager
+import android.content.Context
 import android.os.Build
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
@@ -244,19 +246,26 @@ fun DagashiAppTheme(
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
+
+    val context = LocalContext.current
+    val uiModeManager = context.getSystemService(Context.UI_MODE_SERVICE) as UiModeManager
+    val colorScheme =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE && !dynamicColor) {
+            when (uiModeManager.contrast) {
+                in 0.0f..0.33f -> if (isDarkTheme) darkScheme else lightScheme
+                in 0.34f..0.66f -> if (isDarkTheme) mediumContrastDarkColorScheme else mediumContrastLightColorScheme
+                in 0.67f..1.0f -> if (isDarkTheme) highContrastDarkColorScheme else highContrastLightColorScheme
+                else -> if (isDarkTheme) darkScheme else lightScheme
+            }
+        } else if (dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (isDarkTheme) {
                 dynamicDarkColorScheme(context)
             } else {
                 dynamicLightColorScheme(context)
             }
+        } else {
+            if (isDarkTheme) darkScheme else lightScheme
         }
-
-        isDarkTheme -> darkScheme
-        else -> lightScheme
-    }
 
     MaterialTheme(
         colorScheme = colorScheme,
