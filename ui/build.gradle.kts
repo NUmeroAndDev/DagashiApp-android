@@ -18,8 +18,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.window)
 
-    implementation(libs.accompanist.swipeRefresh)
-
     implementation(libs.coil)
 
     implementation(libs.markdown)
