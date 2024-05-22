@@ -29,6 +29,8 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -44,7 +46,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import jp.numero.dagashiapp.model.Milestone
 import jp.numero.dagashiapp.model.MilestoneList
 import jp.numero.dagashiapp.ui.R
@@ -52,7 +53,6 @@ import jp.numero.dagashiapp.ui.UiState
 import jp.numero.dagashiapp.ui.component.ErrorMessage
 import jp.numero.dagashiapp.ui.component.FullScreenLoadingIndicator
 import jp.numero.dagashiapp.ui.component.LoadingIndicatorItem
-import jp.numero.dagashiapp.ui.component.SwipeRefresh
 import jp.numero.dagashiapp.ui.component.TopAppBar
 import jp.numero.dagashiapp.ui.dateTimeString
 import java.time.Instant
@@ -135,8 +135,10 @@ fun MilestoneListScreen(
                         )
                     },
                     loaded = { data, error ->
-                        SwipeRefresh(
-                            state = rememberSwipeRefreshState(isRefreshing = uiState.isRefreshing),
+                        val state = rememberPullToRefreshState()
+                        PullToRefreshBox(
+                            state = state,
+                            isRefreshing = uiState.isRefreshing,
                             onRefresh = onRefresh,
                         ) {
                             MilestoneListContent(
