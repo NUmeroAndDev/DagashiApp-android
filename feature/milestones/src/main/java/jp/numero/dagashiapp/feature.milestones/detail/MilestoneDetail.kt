@@ -76,7 +76,7 @@ fun MilestoneDetailScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MilestoneDetailScreen(
+private fun MilestoneDetailScreen(
     uiState: UiState<MilestoneDetail>,
     onBack: () -> Unit,
     onClickShare: (String) -> Unit,
@@ -161,7 +161,7 @@ fun MilestoneDetailScreen(
 }
 
 @Composable
-fun MilestoneDetailContent(
+private fun MilestoneDetailContent(
     milestoneDetail: MilestoneDetail,
     modifier: Modifier = Modifier,
     isExpanded: Boolean = false,
@@ -186,7 +186,7 @@ fun MilestoneDetailContent(
 }
 
 @Composable
-fun IssueItem(
+private fun IssueItem(
     issue: Issue,
     modifier: Modifier = Modifier
 ) {
@@ -225,7 +225,7 @@ fun IssueItem(
 }
 
 @Composable
-fun IssueLabel(
+private fun IssueLabel(
     label: Label,
     modifier: Modifier = Modifier
 ) {

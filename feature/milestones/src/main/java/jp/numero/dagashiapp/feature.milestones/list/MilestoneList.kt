@@ -1,7 +1,5 @@
 package jp.numero.dagashiapp.feature.milestones.list
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -91,7 +89,7 @@ fun MilestoneListScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MilestoneListScreen(
+private fun MilestoneListScreen(
     uiState: UiState<MilestoneList>,
     selectedPath: String?,
     onClickMilestone: (Milestone) -> Unit,
@@ -179,7 +177,7 @@ fun MilestoneListScreen(
 }
 
 @Composable
-fun MilestoneListContent(
+private fun MilestoneListContent(
     milestoneList: MilestoneList,
     selectedPath: String?,
     onClickMilestone: (Milestone) -> Unit,
