@@ -13,5 +13,9 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.window)
 
+    implementation(libs.androidx.compose.material3Adaptive)
+    implementation(libs.androidx.compose.material3AdaptiveLayout)
+    implementation(libs.androidx.compose.material3AdaptiveNavigation)
+
     implementation(libs.coil)
 }
