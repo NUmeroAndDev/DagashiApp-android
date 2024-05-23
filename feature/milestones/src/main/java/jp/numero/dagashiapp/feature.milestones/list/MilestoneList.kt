@@ -22,12 +22,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
@@ -62,8 +65,9 @@ fun MilestoneListScreen(
     selectedPath: String?,
     onClickMilestone: (Milestone) -> Unit,
     onClickSettings: () -> Unit,
+    modifier: Modifier = Modifier,
     listState: LazyListState = rememberLazyListState(),
-    viewModel: MilestoneListViewModel = hiltViewModel()
+    viewModel: MilestoneListViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
     MilestoneListScreen(
@@ -81,6 +85,7 @@ fun MilestoneListScreen(
         },
         onClickSettings = onClickSettings,
         listState = listState,
+        modifier = modifier
     )
 }
 
@@ -94,11 +99,12 @@ fun MilestoneListScreen(
     onRefresh: () -> Unit,
     onReachedBottom: () -> Unit,
     onClickSettings: () -> Unit,
+    modifier: Modifier = Modifier,
     listState: LazyListState = rememberLazyListState(),
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val context = LocalContext.current
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = modifier) {
         Column(modifier = Modifier.fillMaxSize()) {
             TopAppBar(
                 title = {
@@ -198,6 +204,7 @@ fun MilestoneListContent(
     LazyColumn(
         state = listState,
         modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(4.dp),
         contentPadding = WindowInsets.safeDrawing
             .only(WindowInsetsSides.Bottom)
             .asPaddingValues()
@@ -242,26 +249,19 @@ fun MilestoneItem(
     modifier: Modifier = Modifier,
     isSelected: Boolean = false,
 ) {
-    Box(
-        modifier = modifier
-            .clickable(onClick = onClick)
-            .padding(horizontal = 8.dp)
-            .let {
-                if (isSelected) {
-                    it.background(
-                        color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.38f),
-                        shape = MaterialTheme.shapes.medium
-                    )
-                } else {
-                    it
-                }
-            }
-            .padding(
-                horizontal = 8.dp,
-                vertical = 16.dp
-            )
+    FilterChipDefaults.filterChipColors()
+    Surface(
+        onClick = onClick,
+        modifier = modifier.padding(horizontal = 16.dp),
+        color = if (isSelected) {
+            MaterialTheme.colorScheme.secondaryContainer
+        } else {
+            MaterialTheme.colorScheme.surfaceContainer
+        },
+        shape = MaterialTheme.shapes.medium
     ) {
         Column(
+            modifier = Modifier.padding(12.dp),
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Row(
@@ -278,7 +278,7 @@ fun MilestoneItem(
                         format = stringResource(id = R.string.date_format)
                     ),
                     style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = LocalContentColor.current.copy(alpha = 0.64f)
                 )
             }
             Text(

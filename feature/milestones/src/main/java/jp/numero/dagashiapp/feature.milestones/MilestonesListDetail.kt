@@ -3,6 +3,7 @@ package jp.numero.dagashiapp.feature.milestones
 import android.os.Parcelable
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.layout.AnimatedPane
@@ -28,7 +29,10 @@ fun MilestonesListDetailScreen(
         navigator.navigateBack()
     }
     val listState = rememberLazyListState()
-    Surface {
+    Surface(
+        color = MaterialTheme.colorScheme.surfaceContainer,
+        contentColor = MaterialTheme.colorScheme.onSurface
+    ) {
         ListDetailPaneScaffold(
             directive = navigator.scaffoldDirective,
             value = navigator.scaffoldValue,
