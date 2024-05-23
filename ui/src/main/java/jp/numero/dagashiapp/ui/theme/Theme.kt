@@ -250,7 +250,7 @@ fun DagashiAppTheme(
     val context = LocalContext.current
     val uiModeManager = context.getSystemService(Context.UI_MODE_SERVICE) as UiModeManager
     val colorScheme =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE && !dynamicColor) {
+        if (!dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             when (uiModeManager.contrast) {
                 in 0.0f..0.33f -> if (isDarkTheme) darkScheme else lightScheme
                 in 0.34f..0.66f -> if (isDarkTheme) mediumContrastDarkColorScheme else mediumContrastLightColorScheme
