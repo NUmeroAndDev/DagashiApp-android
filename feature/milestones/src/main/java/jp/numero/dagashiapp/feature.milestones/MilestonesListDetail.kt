@@ -19,7 +19,7 @@ import kotlinx.parcelize.Parcelize
 
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
 @Composable
-fun MilestonesContainerScreen(
+fun MilestonesListDetailScreen(
     windowSizeClass: WindowSizeClass,
     onClickSettings: () -> Unit,
 ) {

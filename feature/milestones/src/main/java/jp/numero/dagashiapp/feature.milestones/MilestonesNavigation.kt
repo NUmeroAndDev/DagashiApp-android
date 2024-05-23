@@ -17,7 +17,7 @@ fun NavGraphBuilder.milestonesScreen(
     onClickSettings: () -> Unit,
 ) {
     composable(route = milestonesRoute) {
-        MilestonesContainerScreen(
+        MilestonesListDetailScreen(
             windowSizeClass = windowSizeClass,
             onClickSettings = onClickSettings,
         )
