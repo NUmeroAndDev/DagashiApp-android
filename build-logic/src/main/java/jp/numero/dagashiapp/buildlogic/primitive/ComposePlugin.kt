@@ -2,7 +2,6 @@ package jp.numero.dagashiapp.buildlogic.primitive
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.dependencies
 
 class ComposePlugin : Plugin<Project> {
@@ -10,13 +9,10 @@ class ComposePlugin : Plugin<Project> {
         with(target) {
             with(pluginManager) {
                 apply("kotlin-parcelize")
+                apply("org.jetbrains.kotlin.plugin.compose")
             }
             android {
                 buildFeatures.compose = true
-                composeOptions {
-                    kotlinCompilerExtensionVersion =
-                        libs.findVersion("composeCompiler").get().toString()
-                }
             }
             dependencies {
                 implementation(libs.findLibrary("androidx.compose.ui"))
