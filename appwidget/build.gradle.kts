@@ -2,14 +2,12 @@ plugins {
     id("jp.numero.dagashiapp.buildlogic.primitive.androidlibrary")
     id("jp.numero.dagashiapp.buildlogic.primitive.kotlin")
     id("jp.numero.dagashiapp.buildlogic.primitive.hilt")
+    id("org.jetbrains.kotlin.plugin.compose")
 }
 
 android {
     namespace = "jp.numero.dagashiapp.appwidget"
     buildFeatures.compose = true
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
-    }
 }
 
 dependencies {

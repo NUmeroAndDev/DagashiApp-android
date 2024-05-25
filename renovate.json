@@ -3,24 +3,10 @@
   "extends": [
     "local>NUmeroAndDev/renovate-config"
   ],
-  "regexManagers": [
-    {
-      "fileMatch": [
-        "gradle/libs.versions.toml"
-      ],
-      "matchStrings": [
-        "composeCompiler = \"(?<currentValue>[-.\\[\\](),a-zA-Z0-9+]+)\""
-      ],
-      "depNameTemplate": "androidx.compose.compiler:compiler",
-      "datasourceTemplate": "maven",
-      "versioningTemplate": "gradle"
-    }
-  ],
   "packageRules": [
     {
-      "groupName": "Kotlin & Compose Compiler",
+      "groupName": "Kotlin",
       "matchPackagePatterns": [
-        "^androidx\\.compose\\.compiler:",
         "^org\\.jetbrains\\.kotlin:",
         "^org\\.jetbrains\\.kotlin\\.",
         "^com\\.google\\.devtools\\.ksp:"

@@ -12,6 +12,7 @@ plugins {
     alias(libs.plugins.kotlinSerializationPlugin) apply false
     alias(libs.plugins.kspPlugin) apply false
     alias(libs.plugins.baselineProfilePlugin) apply false
+    alias(libs.plugins.composeCompiler) apply false
 }
 
 subprojects {
