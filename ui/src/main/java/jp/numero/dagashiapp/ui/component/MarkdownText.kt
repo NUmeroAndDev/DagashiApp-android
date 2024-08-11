@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withLink
@@ -75,7 +76,9 @@ private fun AnnotatedString.Builder.appendFromParsedTree(
                         withLink(
                             LinkAnnotation.Url(
                                 url = makeXssSafeDestination(linkValue).toString(),
-                                style = SpanStyle(color = linkColor)
+                                styles = TextLinkStyles(
+                                    style = SpanStyle(color = linkColor)
+                                ),
                             )
                         ) {
                             append(
@@ -102,7 +105,9 @@ private fun AnnotatedString.Builder.appendFromParsedTree(
                     withLink(
                         LinkAnnotation.Url(
                             url = makeXssSafeDestination(value).toString(),
-                            style = SpanStyle(color = linkColor)
+                            styles = TextLinkStyles(
+                                style = SpanStyle(color = linkColor)
+                            ),
                         )
                     ) {
                         append(value)
