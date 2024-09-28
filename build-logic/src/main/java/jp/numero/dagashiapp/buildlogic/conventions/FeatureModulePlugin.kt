@@ -15,7 +15,6 @@ class FeatureModulePlugin : Plugin<Project> {
                 apply("jp.numero.dagashiapp.buildlogic.primitive.hilt")
             }
             dependencies {
-                implementation(project(":model"))
                 implementation(project(":data"))
                 implementation(project(":ui"))
             }

@@ -33,7 +33,7 @@ import dagger.hilt.EntryPoint
 import dagger.hilt.EntryPoints
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import jp.numero.dagashiapp.model.Milestone
+import jp.numero.dagashiapp.data.Milestone
 import jp.numero.dagashiapp.ui.dateTimeString
 
 class LatestMilestoneWidget : GlanceAppWidget() {

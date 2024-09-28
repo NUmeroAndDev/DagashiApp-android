@@ -39,9 +39,9 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import jp.numero.dagashiapp.model.Issue
-import jp.numero.dagashiapp.model.Label
-import jp.numero.dagashiapp.model.MilestoneDetail
+import jp.numero.dagashiapp.data.Issue
+import jp.numero.dagashiapp.data.Label
+import jp.numero.dagashiapp.data.MilestoneDetail
 import jp.numero.dagashiapp.ui.R
 import jp.numero.dagashiapp.ui.UiState
 import jp.numero.dagashiapp.ui.component.ErrorMessage

@@ -1,7 +1,7 @@
 package jp.numero.dagashiapp.appwidget
 
 import jp.numero.dagashiapp.data.DagashiRepository
-import jp.numero.dagashiapp.model.Milestone
+import jp.numero.dagashiapp.data.Milestone
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import java.time.Instant
