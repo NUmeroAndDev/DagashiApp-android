@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.DagashiApp.Licenses" parent="Base.Theme.DagashiApp" />
+    <style name="Theme.DagashiApp.Licenses" parent="Base.Theme.DagashiApp.Licenses" />
 </resources>

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="Theme.DagashiApp.Licenses" parent="Base.Theme.DagashiApp">
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Base.Theme.DagashiApp.Licenses" parent="Base.Theme.DagashiApp">
+        <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">false</item>
+    </style>
+
+    <style name="Theme.DagashiApp.Licenses" parent="Base.Theme.DagashiApp.Licenses">
         <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>
