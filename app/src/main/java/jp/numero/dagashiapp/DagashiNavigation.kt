@@ -2,6 +2,7 @@ package jp.numero.dagashiapp
 
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -16,11 +17,13 @@ import jp.numero.dagashiapp.feature.settings.settingsScreen
 fun DagashiNavigation(
     navController: NavHostController,
     windowSizeClass: WindowSizeClass,
+    modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
     NavHost(
         navController = navController,
         startDestination = milestonesRoute,
+        modifier = modifier
     ) {
         milestonesScreen(
             windowSizeClass = windowSizeClass,

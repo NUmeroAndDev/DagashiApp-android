@@ -116,7 +116,7 @@ fun SettingsContent(
     LazyColumn(
         modifier = modifier,
         contentPadding = WindowInsets.safeDrawing
-            .only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal)
+            .only(WindowInsetsSides.Bottom)
             .asPaddingValues()
     ) {
         item {
