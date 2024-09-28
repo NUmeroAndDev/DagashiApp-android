@@ -48,7 +48,6 @@ androidx-compose-material3WindowSizeClass = { module = "androidx.compose.materia
 androidx-compose-material3Adaptive = { module = "androidx.compose.material3.adaptive:adaptive", version.ref = "material3Adaptive" }
 androidx-compose-material3AdaptiveLayout = { module = "androidx.compose.material3.adaptive:adaptive-layout", version.ref = "material3Adaptive" }
 androidx-compose-material3AdaptiveNavigation = { module = "androidx.compose.material3.adaptive:adaptive-navigation", version.ref = "material3Adaptive" }
-androidx-compose-materialIconsExtended = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" }
 androidx-compose-uiTest = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
 
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }

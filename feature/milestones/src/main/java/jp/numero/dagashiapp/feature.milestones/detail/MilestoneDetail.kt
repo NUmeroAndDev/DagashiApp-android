@@ -19,8 +19,6 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -36,6 +34,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -43,6 +42,7 @@ import jp.numero.dagashiapp.data.Issue
 import jp.numero.dagashiapp.data.Label
 import jp.numero.dagashiapp.data.MilestoneDetail
 import jp.numero.dagashiapp.ui.R
+import jp.numero.dagashiapp.ui.UiDrawables
 import jp.numero.dagashiapp.ui.UiState
 import jp.numero.dagashiapp.ui.component.ErrorMessage
 import jp.numero.dagashiapp.ui.component.FullScreenLoadingIndicator
@@ -122,7 +122,7 @@ private fun MilestoneDetailScreen(
                             }
                         ) {
                             Icon(
-                                imageVector = Icons.Outlined.Share,
+                                painter = painterResource(UiDrawables.ic_share),
                                 contentDescription = stringResource(id = R.string.share)
                             )
                         }
