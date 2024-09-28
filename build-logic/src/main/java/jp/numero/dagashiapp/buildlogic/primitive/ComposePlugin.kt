@@ -18,7 +18,6 @@ class ComposePlugin : Plugin<Project> {
                 implementation(libs.findLibrary("androidx.compose.ui"))
                 implementation(libs.findLibrary("androidx.compose.uiToolingPreview"))
                 implementation(libs.findLibrary("androidx.compose.foundation"))
-                implementation(libs.findLibrary("androidx.compose.materialIconsExtended"))
                 implementation(libs.findLibrary("androidx.compose.material3"))
                 implementation(libs.findLibrary("androidx.compose.material3WindowSizeClass"))
 
