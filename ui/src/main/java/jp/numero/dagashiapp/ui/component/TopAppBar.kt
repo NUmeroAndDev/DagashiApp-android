@@ -42,8 +42,7 @@ fun TopAppBar(
     } else {
         {}
     }
-    val windowInsets = WindowInsets.safeDrawing
-        .only(WindowInsetsSides.Horizontal + WindowInsetsSides.Top)
+    val windowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Top)
     val colors = TopAppBarDefaults.topAppBarColors(
         containerColor = Color.Transparent
     )
