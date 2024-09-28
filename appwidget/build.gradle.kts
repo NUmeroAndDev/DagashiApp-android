@@ -14,7 +14,6 @@ dependencies {
     implementation(projects.data)
     implementation(projects.ui)
 
-    implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.work)
     api(libs.androidx.hilt.work)
     ksp(libs.androidx.hilt.compiler)
