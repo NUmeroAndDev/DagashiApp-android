@@ -13,11 +13,8 @@ Unofficial [Android Dagashi](https://androiddagashi.github.io/) application
       :app-->:feature:*;
       :app-->:data-impl;
       :feature:*-->:data;
-      :feature:*-->:model;
       :feature:*-->:ui;
       :data-impl-->:data;
-      :data-impl-->:model;
-      :data-->:model;
 ```
 
 ## Features

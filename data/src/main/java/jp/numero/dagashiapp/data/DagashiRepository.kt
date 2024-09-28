@@ -1,8 +1,5 @@
 package jp.numero.dagashiapp.data
 
-import jp.numero.dagashiapp.model.MilestoneDetail
-import jp.numero.dagashiapp.model.MilestoneList
-
 interface DagashiRepository {
     suspend fun fetchMilestoneList(): MilestoneList
 

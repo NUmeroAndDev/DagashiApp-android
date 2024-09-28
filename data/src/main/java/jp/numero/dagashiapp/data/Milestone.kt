@@ -1,4 +1,4 @@
-package jp.numero.dagashiapp.model
+package jp.numero.dagashiapp.data
 
 import java.time.Instant
 

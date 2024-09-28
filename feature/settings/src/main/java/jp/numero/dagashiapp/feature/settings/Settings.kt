@@ -34,8 +34,8 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import jp.numero.dagashiapp.model.Config
-import jp.numero.dagashiapp.model.Theme
+import jp.numero.dagashiapp.data.Config
+import jp.numero.dagashiapp.data.Theme
 import jp.numero.dagashiapp.ui.UiStrings
 import jp.numero.dagashiapp.ui.component.TopAppBar
 

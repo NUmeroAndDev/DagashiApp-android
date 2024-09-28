@@ -47,8 +47,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import jp.numero.dagashiapp.model.Milestone
-import jp.numero.dagashiapp.model.MilestoneList
+import jp.numero.dagashiapp.data.Milestone
+import jp.numero.dagashiapp.data.MilestoneList
 import jp.numero.dagashiapp.ui.R
 import jp.numero.dagashiapp.ui.UiState
 import jp.numero.dagashiapp.ui.component.ErrorMessage

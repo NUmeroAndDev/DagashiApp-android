@@ -4,12 +4,18 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import jp.numero.dagashiapp.data.Author
+import jp.numero.dagashiapp.data.Comment
 import jp.numero.dagashiapp.data.DagashiLocalDataSource
 import jp.numero.dagashiapp.data.DagashiRemoteDataSource
 import jp.numero.dagashiapp.data.DagashiRepository
+import jp.numero.dagashiapp.data.Issue
+import jp.numero.dagashiapp.data.Label
+import jp.numero.dagashiapp.data.Milestone
+import jp.numero.dagashiapp.data.MilestoneDetail
+import jp.numero.dagashiapp.data.MilestoneList
 import jp.numero.dagashiapp.data.response.MilestoneDetailResponse
 import jp.numero.dagashiapp.data.response.MilestoneListResponse
-import jp.numero.dagashiapp.model.*
 import javax.inject.Inject
 import javax.inject.Singleton
 

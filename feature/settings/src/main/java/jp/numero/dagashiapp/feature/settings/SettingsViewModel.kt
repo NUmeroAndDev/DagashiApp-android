@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.numero.dagashiapp.data.ConfigRepository
-import jp.numero.dagashiapp.model.Config
-import jp.numero.dagashiapp.model.Theme
+import jp.numero.dagashiapp.data.Config
+import jp.numero.dagashiapp.data.Theme
 import jp.numero.dagashiapp.ui.lifecycleStateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject

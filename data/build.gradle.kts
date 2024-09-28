@@ -8,7 +8,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.model)
+    implementation(libs.androidx.annotation)
 
     testImplementation("junit:junit:4.13.2")
 }
