@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Base.Theme.DagashiApp.Licenses" parent="Base.Theme.DagashiApp">
-        <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">false</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
     </style>
 
     <style name="Theme.DagashiApp.Licenses" parent="Base.Theme.DagashiApp.Licenses">
