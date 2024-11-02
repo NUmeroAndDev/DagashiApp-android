@@ -32,7 +32,7 @@ androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-kt
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 androidx-hilt-navigation-compose = "androidx.hilt:hilt-navigation-compose:1.2.0"
 androidx-profileinstaller = "androidx.profileinstaller:profileinstaller:1.4.1"
-androidx-work = "androidx.work:work-runtime-ktx:2.9.1"
+androidx-work = "androidx.work:work-runtime-ktx:2.10.0"
 androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "androidXHilt" }
 androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidXHilt" }
 androidx-glance-widget = { module = "androidx.glance:glance-appwidget", version.ref = "glance" }
