@@ -1,21 +1,22 @@
 package jp.numero.dagashiapp.feature.milestones
 
 import android.os.Parcelable
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.layout.AnimatedPane
-import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffold
 import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffoldRole
 import androidx.compose.material3.adaptive.layout.PaneAdaptedValue
+import androidx.compose.material3.adaptive.navigation.NavigableListDetailPaneScaffold
 import androidx.compose.material3.adaptive.navigation.ThreePaneScaffoldNavigator
 import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaffoldNavigator
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import jp.numero.dagashiapp.feature.milestones.detail.MilestoneDetailScreen
 import jp.numero.dagashiapp.feature.milestones.list.MilestoneListScreen
+import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
@@ -25,27 +26,26 @@ fun MilestonesListDetailScreen(
     onClickSettings: () -> Unit,
 ) {
     val navigator = rememberListDetailPaneScaffoldNavigator<DetailPath>()
-    BackHandler(navigator.canNavigateBack()) {
-        navigator.navigateBack()
-    }
+    val scope = rememberCoroutineScope()
     val listState = rememberLazyListState()
     Surface(
         color = MaterialTheme.colorScheme.surfaceContainer,
         contentColor = MaterialTheme.colorScheme.onSurface
     ) {
-        ListDetailPaneScaffold(
-            directive = navigator.scaffoldDirective,
-            value = navigator.scaffoldValue,
+        NavigableListDetailPaneScaffold(
+            navigator = navigator,
             listPane = {
                 AnimatedPane {
                     MilestoneListScreen(
-                        selectedPath = navigator.currentDestination?.content?.path,
+                        selectedPath = navigator.currentDestination?.contentKey?.path,
                         listState = listState,
                         onClickMilestone = {
-                            navigator.navigateTo(
-                                ListDetailPaneScaffoldRole.Detail,
-                                DetailPath(it.path)
-                            )
+                            scope.launch {
+                                navigator.navigateTo(
+                                    ListDetailPaneScaffoldRole.Detail,
+                                    DetailPath(it.path)
+                                )
+                            }
                         },
                         onClickSettings = onClickSettings,
                     )
@@ -53,11 +53,13 @@ fun MilestonesListDetailScreen(
             },
             detailPane = {
                 AnimatedPane {
-                    navigator.currentDestination?.content?.let {
+                    navigator.currentDestination?.contentKey?.let {
                         MilestoneDetailScreen(
                             path = it.path,
                             onBack = {
-                                navigator.navigateBack()
+                                scope.launch {
+                                    navigator.navigateBack()
+                                }
                             },
                             isExpanded = !navigator.isListExpanded(),
                         )
