@@ -1,7 +1,7 @@
 [versions]
 androidGradlePlugin = "8.7.3"
-kotlin = "2.0.21"
-ksp = "2.0.21-1.0.26"
+kotlin = "2.1.0"
+ksp = "2.1.0-1.0.29"
 
 lifecycle = "2.8.7"
 compose = "1.8.0-alpha05"
