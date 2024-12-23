@@ -11,7 +11,7 @@ glance = "1.1.1"
 androidXHilt = "1.2.0"
 androidXBaselineProfile = "1.3.3"
 
-hilt = "2.53.1"
+hilt = "2.54"
 okhttp = "4.12.0"
 retrofit = "2.11.0"
 
