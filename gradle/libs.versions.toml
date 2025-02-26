@@ -60,7 +60,7 @@ okhttp3-loggingInterceptor = { module = "com.squareup.okhttp3:logging-intercepto
 
 coil = "io.coil-kt:coil-compose:2.7.0"
 
-desugarJdkLibs = "com.android.tools:desugar_jdk_libs:2.1.4"
+desugarJdkLibs = "com.android.tools:desugar_jdk_libs:2.1.5"
 markdown = "org.jetbrains:markdown-jvm:0.7.3"
 
 licenses = "com.google.android.gms:play-services-oss-licenses:17.1.0"
