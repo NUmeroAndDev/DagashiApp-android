@@ -30,11 +30,11 @@ fun Project.commonConfiguration() {
         namespace?.let {
             this.namespace = it
         }
-        compileSdkVersion(35)
+        compileSdkVersion(36)
 
         defaultConfig {
             minSdk = 23
-            targetSdk = 35
+            targetSdk = 36
         }
 
         compileOptions {
