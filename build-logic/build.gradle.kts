@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     `kotlin-dsl`
 }
@@ -14,9 +16,11 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.fromTarget(
+            JavaVersion.VERSION_17.toString(),
+        )
     }
 }
 
@@ -77,7 +81,8 @@ gradlePlugin {
         }
         register("benchmarkModule") {
             id = "jp.numero.dagashiapp.buildlogic.conventions.benchmarkmodule"
-            implementationClass = "jp.numero.dagashiapp.buildlogic.conventions.BenchmarkModulePlugin"
+            implementationClass =
+                "jp.numero.dagashiapp.buildlogic.conventions.BenchmarkModulePlugin"
         }
     }
 }
