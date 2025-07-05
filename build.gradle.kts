@@ -14,15 +14,3 @@ plugins {
     alias(libs.plugins.baselineProfilePlugin) apply false
     alias(libs.plugins.composeCompiler) apply false
 }
-
-subprojects {
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>()
-        .configureEach {
-            kotlinOptions {
-                jvmTarget = JavaVersion.VERSION_11.toString()
-                compilerOptions
-                    .freeCompilerArgs
-                    .add("-Xcontext-receivers")
-            }
-        }
-}
