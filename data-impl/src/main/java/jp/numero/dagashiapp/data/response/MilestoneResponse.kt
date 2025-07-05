@@ -19,7 +19,7 @@ data class MilestonesResponse(
 data class MilestoneResponse(
     val id: String,
     val number: Int,
-    val description: String,
+    val description: String?,
     val path: String,
     @Serializable(with = InstantSerializer::class)
     val closedAt: Instant,

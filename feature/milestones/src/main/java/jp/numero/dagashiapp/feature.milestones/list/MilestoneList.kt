@@ -279,10 +279,12 @@ fun MilestoneItem(
                     color = LocalContentColor.current.copy(alpha = 0.64f)
                 )
             }
-            Text(
-                text = milestone.description,
-                style = MaterialTheme.typography.bodyMedium,
-            )
+            milestone.description?.let {
+                Text(
+                    text = it,
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+            }
         }
     }
 }

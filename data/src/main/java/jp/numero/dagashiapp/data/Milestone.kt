@@ -11,7 +11,7 @@ data class MilestoneList(
 data class Milestone(
     val id: String,
     val number: Int,
-    val description: String,
+    val description: String?,
     val path: String,
     val closedAd: Instant,
     val issues: List<Issue>
@@ -25,6 +25,6 @@ data class MilestoneDetail(
     val id: String,
     val number: Int,
     val url: String,
-    val description: String,
+    val description: String?,
     val issues: List<Issue>
 )
