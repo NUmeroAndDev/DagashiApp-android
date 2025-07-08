@@ -63,7 +63,7 @@ coil = "io.coil-kt:coil-compose:2.7.0"
 desugarJdkLibs = "com.android.tools:desugar_jdk_libs:2.1.5"
 markdown = "org.jetbrains:markdown-jvm:0.7.3"
 
-licenses = "com.google.android.gms:play-services-oss-licenses:17.1.0"
+licenses = "com.google.android.gms:play-services-oss-licenses:17.2.0"
 
 androidGradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "androidGradlePlugin" }
 kotlinPlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
