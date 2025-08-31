@@ -1,6 +1,6 @@
 buildscript {
     dependencies {
-        classpath("com.google.android.gms:oss-licenses-plugin:0.10.6")
+        classpath("com.google.android.gms:oss-licenses-plugin:0.10.8")
         // ref: https://github.com/google/dagger/issues/3068
         classpath("com.squareup:javapoet:1.13.0")
     }
